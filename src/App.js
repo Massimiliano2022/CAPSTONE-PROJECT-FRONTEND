@@ -5,13 +5,19 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MyNav from './components/MyNav';
 import MyMain from './components/MyMain';
 import MyFooter from "./components/MyFooter";
+import MyLogin from "./components/MyLogin";
+import MySignup from "./components/MySignup";
+import MyCryptoList from "./components/MyCryptoList";
 
 function App() {
   return (
     <BrowserRouter>
         <MyNav />
           <Routes>
+            <Route path="/login" element={<MyLogin/>}/>
+            <Route path="/signup" element={<MySignup/>}/>
             <Route path="/" element={<MyMain />} />
+            <Route path="/lista-crypto" element={<MyCryptoList/>}/>
           </Routes>
         <MyFooter/>  
     </BrowserRouter>
