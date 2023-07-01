@@ -19,7 +19,7 @@ const MyNav = () => {
                             <Link to={"/"} className="text-light nav-link">Deposita</Link>
                         </Nav.Item>*/}
                         <Nav.Item>
-                            <Link to={"/lista-crypto"} className="text-light nav-link">Crypto</Link>
+                            <Link to={"/lista-crypto"} className="text-light nav-link">Mercati</Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Link to={"/"} className="text-light nav-link">Wallet</Link>
