@@ -3,20 +3,21 @@ import btcLogo from '../img/bitcoin.svg'
 import ethLogo from '../img/ethereum.svg'
 import { BiLogIn } from "react-icons/bi";
 import { BsFillPersonFill } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
 
 const MyMain = () => {
     return (
         <>
-            <Container className="text-light">
+            <Container fluid className="text-light px-5" style={{background:"#1E1E1E"}}>
                 <Row className="d-flex py-5">
                     <Col sm={6} className="d-flex flex-column">
                         <h1>Compra e scambia Crypto su DigitFin</h1>
-                        <Button
-                            type="button"
-                            variant="warning"
-                            className="text-dark rounded rounded-1 p-2 w-50 mt-4"
+                        <Link
+                             style={{background:"#EBB60B"}}
+                             to={"/"}
+                            className="nav-link text-dark text-center rounded rounded-1 p-2 w-50 mt-4"
                         >
                             <span className='fs-4 pe-2'>
                                 <BsFillPersonFill />
@@ -24,23 +25,24 @@ const MyMain = () => {
                             <span>
                                 Iscriviti
                             </span>
-                        </Button>
-                        <Button
-                            type="button"
-                            variant="dark"
+                        </Link>
+                        <Link
                             style={{ background: "#454545" }}
-                            className="text-light rounded rounded-1 p-2 w-50 mt-4"
+                            to={"/"}
+                            className="nav-link text-light text-center rounded rounded-1 p-2 w-50 mt-4"
                         >
                             <span className='fs-4 pe-2'>
                                 <BiLogIn/>
                             </span>
                             Accedi
-                        </Button>
+                        </Link>
                     </Col>
                     <Col sm={6} className="d-flex justify-content-end">
                         <img className="object-fit-cover img-fluid" src={mainImg} alt='exchange' style={{ maxHeight: "250px" }} />
                     </Col>
                 </Row>
+                </Container>
+                <Container fluid className="text-light px-5" style={{background:"#1E1E1E"}}>
                 <Row className='py-5'>
                     <Col md={6}>
                         <Card style={{ background: "#2d2d2d" }}>

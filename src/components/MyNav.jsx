@@ -1,40 +1,52 @@
+import { Link } from 'react-router-dom';
 import logo from '../img/DigitFin.png'
-import { Container, Nav, Navbar,Button } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 
 const MyNav = () => {
     return (
-        <Navbar expand="lg" className="bg-body-tertiary sticky-top" style={{ background: "#2d2d2d"}}>
+        <Navbar expand="md" className="bg-body-tertiary sticky-top" style={{ background: "#2d2d2d" }}>
             <Container fluid className="px-5">
-                <div className="d-flex align-items-center">
-                    <Navbar.Brand href="#home">
+                <Navbar.Brand>
+                    <Link to={"/"}>
                         <img src={logo} alt="Logo" style={{ width: "175px" }} />
-                    </Navbar.Brand>
-                    <Nav>
-                        <Nav.Link href="#home" className="text-light">Deposita</Nav.Link>
-                        <Nav.Link href="#home" className="text-light">Compra Crypto</Nav.Link>
-                        <Nav.Link href="#link" className="text-light">Wallet</Nav.Link>
-                        <Nav.Link href="#link" className="text-light">Report Operazioni</Nav.Link>
+                    </Link>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="border border-3 shadow-none" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Item>
+                            <Link to={"/"} className="text-light nav-link">Deposita</Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Link to={"/"} className="text-light nav-link">Crypto</Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Link to={"/"} className="text-light nav-link">Wallet</Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Link to={"/"} className="text-light nav-link">Operazioni</Link>
+                        </Nav.Item>
                     </Nav>
-                </div>
-                <Nav>
-                    <Button
-                        type="button"
-                        variant="link"
-                        className="nav-link text-light"
-                    >
-                        Accedi
-                    </Button>
-                    <Button
-                        type="button"
-                        variant="warning"
-                        className="text-dark rounded rounded-1 rounded-start-0 p-2"
-                    >
-                        Registrati
-                    </Button>
-                </Nav>
+                    <Nav className="justify-content-end">    
+                        <Link
+                            to={"/"}
+                            style={{ background: "#454545" }}
+                            className="nav-link text-light text-center rounded rounded-1 rounded-start-0 p-2"
+                        >
+                            Accedi
+                        </Link>
+                        <Link
+                            to={"/"}
+                            style={{background:"#EBB60B"}}
+                            className="nav-link text-dark text-center rounded rounded-1 rounded-start-0 p-2"
+                        >
+                            Registrati
+                        </Link>
+                    </Nav>
+                </Navbar.Collapse>
             </Container>
-        </Navbar>
+        </Navbar >
     );
 }
 export default MyNav;
