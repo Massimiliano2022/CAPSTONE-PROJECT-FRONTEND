@@ -1,4 +1,3 @@
-import loginImg from '../img/login.svg'
 import { Col, Container, Form, Row } from "react-bootstrap";
 
 const MyLogin = () => {

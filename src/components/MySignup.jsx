@@ -1,4 +1,3 @@
-import signupImg from '../img/signup.svg'
 import { Col, Container, Form, Row } from "react-bootstrap";
 
 const MySignup = () => {
