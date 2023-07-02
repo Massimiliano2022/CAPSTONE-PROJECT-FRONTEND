@@ -18,7 +18,7 @@ const MyLogin = () => {
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" />
                                 </Form.Group>
-                                <button type="button" class="btn mt-3 text-center rounded rounded-1 p-2 w-100" style={{ background: "#EBB60B" }}>Accedi</button>
+                                <button type="button" className="btn mt-3 text-center rounded rounded-1 p-2 w-100" style={{ background: "#EBB60B" }}>Accedi</button>
                             </Form>
                         </div>
                     </Col>
