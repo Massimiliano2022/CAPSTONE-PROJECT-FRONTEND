@@ -3,6 +3,9 @@ import ethLogo from '../img/ethereum.png'
 import adaLogo from '../img/cardano.png'
 import dotLogo from '../img/polkadot.png'
 import maticLogo from '../img/polygon.png'
+import xrpLogo from '../img/ripple.png'
+import dogeLogo from '../img/dogecoin.png'
+import sandLogo from '../img/sandbox.png'
 
 import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import MyLineChart from './MyLineChart';
@@ -111,7 +114,7 @@ const MyCrypto = () => {
                         <Card style={{ background: "#2d2d2d" }}>
                             <Card.Body>
                                 <Card.Title className="mb-3">Storico dei prezzi BTC/USD</Card.Title>
-                                <Table className='text-light'>
+                                <Table className='text-light m-0'>
                                     <thead style={{ background: "#0B0E11" }}>
                                         <tr>
                                             <th>Periodo</th>
@@ -144,7 +147,7 @@ const MyCrypto = () => {
                         <Card style={{ background: "#2d2d2d" }}>
                             <Card.Body>
                                 <Card.Title className="mb-3">Crypto di tendenza</Card.Title>
-                                <Table className='text-light'>
+                                <Table className='text-light m-0'>
                                     <tbody className="d-flex flex-column">
                                         <tr className="d-flex flex-row justify-content-between align-items-center">
                                             <td className="d-flex align-items-center p-0">
@@ -171,6 +174,27 @@ const MyCrypto = () => {
                                             <td className="d-flex align-items-center p-0">
                                                 <img src={maticLogo} alt="Polygon Logo" width={30} />
                                                 <span className="fs-6 ms-2">MATIC</span>
+                                            </td>
+                                            <td className="fs-6">$ 0.6699</td>
+                                        </tr>
+                                        <tr className="d-flex flex-row justify-content-between align-items-center">
+                                            <td className="d-flex align-items-center p-0">
+                                                <img src={xrpLogo} alt="Ripple Logo" width={30} />
+                                                <span className="fs-6 ms-2">XRP</span>
+                                            </td>
+                                            <td className="fs-6">$ 0.6699</td>
+                                        </tr>
+                                        <tr className="d-flex flex-row justify-content-between align-items-center">
+                                            <td className="d-flex align-items-center p-0">
+                                                <img src={dogeLogo} alt="Dogecoin Logo" width={30} />
+                                                <span className="fs-6 ms-2">DOGE</span>
+                                            </td>
+                                            <td className="fs-6">$ 0.6699</td>
+                                        </tr>
+                                        <tr className="d-flex flex-row justify-content-between align-items-center">
+                                            <td className="d-flex align-items-center p-0">
+                                                <img src={sandLogo} alt="The Sandbox Logo" width={30} />
+                                                <span className="fs-6 ms-2">SAND</span>
                                             </td>
                                             <td className="fs-6">$ 0.6699</td>
                                         </tr>

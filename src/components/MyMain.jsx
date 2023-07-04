@@ -17,8 +17,8 @@ const MyMain = () => {
                     <Col sm={6} className="d-flex flex-column">
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
-                            style={{ background: "#EBB60B" }}
                             to={"/signup"}
+                            style={{ background: "#EBB60B" }}
                             className="nav-link text-dark text-center rounded rounded-1 p-2 w-50 mt-4"
                         >
                             <span className='fs-4 pe-2'>
@@ -29,9 +29,9 @@ const MyMain = () => {
                             </span>
                         </Link>
                         <Link
-                            style={{ background: "#454545" }}
                             to={"/login"}
-                            className="nav-link text-light text-center rounded rounded-1 p-2 w-50 mt-4"
+                            style={{ background: "#454545" }}
+                            className="nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
                         >
                             <span className='fs-4 pe-2'>
                                 <BiLogIn />

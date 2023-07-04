@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../img/DigitFin.png'
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 
 const MyNav = () => {
     return (
-        <Navbar expand="md" className="bg-body-tertiary sticky-top" style={{ background: "#2d2d2d" }}>
+        <Navbar expand="md" className="sticky-top" variant="dark" style={{ background: "#2d2d2d" }}>
             <Container fluid className="px-5">
                 <Navbar.Brand>
                     <Link to={"/"}>
@@ -15,31 +15,35 @@ const MyNav = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className="border border-3 shadow-none" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Item>
-                            <Link to={"/"} className="text-light nav-link">Deposita</Link>
+                    <Nav.Item>
+                            <NavLink to={"/"} className="nav-link" activeClassName="active">Home</NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <Link to={"/mercati"} className="text-light nav-link">Mercati</Link>
+                            <NavLink to={"/mercati"} className="nav-link" activeClassName="active">Mercati</NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <Link to={"/wallet"} className="text-light nav-link">Wallet</Link>
+                            <NavLink to={"/wallet"} className="nav-link" activeClassName="active">Wallet</NavLink>
                         </Nav.Item>
+                        {/*<Nav.Item>
+                            <Link to={"/"} className="nav-link">Deposita</Link>
+                        </Nav.Item>*/}
                     </Nav>
                     <Nav className="justify-content-end">    
-                        <Link
+                        <NavLink
                             to={"/login"}
+                            activeClassName="active"
                             style={{ background: "#454545" }}
-                            className="nav-link text-light text-center rounded rounded-1 rounded-start-0 p-2"
+                            className="nav-link text-center rounded rounded-1 rounded-start-0 p-2"
                         >
                             Accedi
-                        </Link>
-                        <Link
+                        </NavLink>
+                        <NavLink
                             to={"/signup"}
-                            style={{background:"#EBB60B"}}
-                            className="nav-link text-dark text-center rounded rounded-1 rounded-start-0 p-2"
+                            activeClassName="active"
+                            className="btn btn-warning text-dark nav-link text-center rounded rounded-1 rounded-start-0 p-2"
                         >
                             Registrati
-                        </Link>
+                        </NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
