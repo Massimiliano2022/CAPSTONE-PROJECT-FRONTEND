@@ -16,13 +16,13 @@ const MyNav = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                     <Nav.Item>
-                            <NavLink to={"/"} className="nav-link" activeClassName="active">Home</NavLink>
+                            <NavLink to={"/"} className="nav-link" activeclassname="active">Home</NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <NavLink to={"/mercati"} className="nav-link" activeClassName="active">Mercati</NavLink>
+                            <NavLink to={"/mercati"} className="nav-link" activeclassname="active">Mercati</NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <NavLink to={"/wallet"} className="nav-link" activeClassName="active">Wallet</NavLink>
+                            <NavLink to={"/wallet"} className="nav-link" activeclassname="active">Wallet</NavLink>
                         </Nav.Item>
                         {/*<Nav.Item>
                             <Link to={"/"} className="nav-link">Deposita</Link>
@@ -31,7 +31,7 @@ const MyNav = () => {
                     <Nav className="justify-content-end">    
                         <NavLink
                             to={"/login"}
-                            activeClassName="active"
+                            activeclassname="active"
                             style={{ background: "#454545" }}
                             className="nav-link text-center rounded rounded-1 rounded-start-0 p-2"
                         >
@@ -39,7 +39,7 @@ const MyNav = () => {
                         </NavLink>
                         <NavLink
                             to={"/signup"}
-                            activeClassName="active"
+                            activeclassname="active"
                             className="btn btn-warning text-dark nav-link text-center rounded rounded-1 rounded-start-0 p-2"
                         >
                             Registrati
