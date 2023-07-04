@@ -1,17 +1,21 @@
+table,th,tr,td{
+  border:0;
+}
+
 @media screen and (max-width: 767px) {
     .line-chart{
-        height: 40vh;
+        height: 30vh;
     }
   }
   
   @media screen and (min-width: 768px) and (max-width: 991px) {
     .line-chart{
-        height: 50vh;
+        height: 30vh;
     }
   }
   
   @media screen and (min-width: 992px) {
     .line-chart{
-        height: 60vh;
+        height: 40vh;
     }
   }

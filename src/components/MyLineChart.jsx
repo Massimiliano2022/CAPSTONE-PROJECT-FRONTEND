@@ -7,7 +7,8 @@ import {
     LinearScale, //y asse
     PointElement,
     Legend,
-    Tooltip
+    Tooltip,
+    Filler
 } from 'chart.js';
 
 ChartJs.register(LineElement,
@@ -15,7 +16,8 @@ ChartJs.register(LineElement,
     LinearScale,
     PointElement,
     Legend,
-    Tooltip
+    Tooltip,
+    Filler
 )
 
 const MyLineChart = ({ chartData }) => {
@@ -27,10 +29,13 @@ const MyLineChart = ({ chartData }) => {
         datasets: [{
             label: 'BTC',
             data: chartData.values,
-            backgroundColor: 'white',
+            //backgroundColor: '#EBB60B',
+            backgroundColor:'#2D2D2D',
             borderColor: '#EBB60B',
-            pointBorderColor: 'white',
-            tension: 0.25
+            pointBorderColor: '#1E1E1E',
+            pointBackgroundColor:'black',
+            //fill:true,
+            tension: 0.3
         }]
     }
 
@@ -43,8 +48,11 @@ const MyLineChart = ({ chartData }) => {
         },
         scales: {
             y: {
-                beginAtZero: false,
-            }
+                ticks: { color: 'white', beginAtZero: true }
+              },
+              x: {
+                ticks: { color: 'white', beginAtZero: true }
+              }
         },
         responsive: true,
         maintainAspectRatio: false

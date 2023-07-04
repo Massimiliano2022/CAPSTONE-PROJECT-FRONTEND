@@ -15,17 +15,14 @@ const MyNav = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" className="border border-3 shadow-none" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        {/*<Nav.Item>
+                        <Nav.Item>
                             <Link to={"/"} className="text-light nav-link">Deposita</Link>
-                        </Nav.Item>*/}
+                        </Nav.Item>
                         <Nav.Item>
                             <Link to={"/mercati"} className="text-light nav-link">Mercati</Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Link to={"/"} className="text-light nav-link">Wallet</Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Link to={"/"} className="text-light nav-link">Operazioni</Link>
                         </Nav.Item>
                     </Nav>
                     <Nav className="justify-content-end">    
