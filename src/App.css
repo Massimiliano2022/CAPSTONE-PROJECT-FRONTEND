@@ -1,0 +1,17 @@
+@media screen and (max-width: 767px) {
+    .line-chart{
+        height: 40vh;
+    }
+  }
+  
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    .line-chart{
+        height: 50vh;
+    }
+  }
+  
+  @media screen and (min-width: 992px) {
+    .line-chart{
+        height: 60vh;
+    }
+  }
