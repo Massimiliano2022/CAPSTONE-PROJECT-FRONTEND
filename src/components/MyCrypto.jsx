@@ -50,14 +50,20 @@ const MyCrypto = () => {
                         <div className="d-flex justify-content-between pb-3">
                             <Button
                                 variant="link"
-                                className={`nav-link text-light p-2 ${showCompra ? 'border-bottom' : ''}`}
-                                style={{ borderRadius: "0" }}
+                                className="nav-link text-light p-2"
+                                style={{
+                                    borderRadius: "0",
+                                    borderBottom: showCompra ? '3px solid #EBB60B' : 'none',
+                                }}
                                 onClick={handleCompraClick}
                             >Compra Btc</Button>
                             <Button
                                 variant="link"
-                                className={`nav-link text-light p-2 ${showCompra ? '' : 'border-bottom'}`}
-                                style={{ borderRadius: "0" }}
+                                className="nav-link text-light p-2"
+                                style={{
+                                    borderRadius: "0",
+                                    borderBottom: showCompra ? 'none' : '3px solid #EBB60B',
+                                }}
                                 onClick={handleVendiClick}
                             >Vendi Btc</Button>
                         </div>
@@ -142,8 +148,8 @@ const MyCrypto = () => {
                                     <tbody className="d-flex flex-column">
                                         <tr className="d-flex flex-row justify-content-between align-items-center">
                                             <td className="d-flex align-items-center p-0">
-                                                <img src={ethLogo} alt="Ethereum Logo" width={30} className="img-fluid object-fit-cover"/>
-                                                <span className="fs-6 ms-2">ETH</span> 
+                                                <img src={ethLogo} alt="Ethereum Logo" width={30} className="img-fluid object-fit-cover" />
+                                                <span className="fs-6 ms-2">ETH</span>
                                             </td>
                                             <td className="fs-6">$ 1935.69</td>
                                         </tr>
