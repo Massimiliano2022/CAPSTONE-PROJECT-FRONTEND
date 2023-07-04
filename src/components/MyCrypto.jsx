@@ -31,8 +31,8 @@ const MyCrypto = () => {
                 <Row className="pt-5">
                     <Col sm={12}>
                         <div className="d-flex align-items-center mb-4">
-                            <img src={btcLogo} alt="Bitcoin Logo" width={50} className="me-4" />
-                            <h1 className="me-4">Valore Bitcoin</h1>
+                            <img src={btcLogo} alt="Bitcoin Logo" width={45} className="me-4" />
+                            <h2 className="me-4">Valore Bitcoin</h2>
                             <p className="text-muted mb-0">BTC</p>
                         </div>
                         <p className="fs-3">$ 30518.49 <span style={{ color: "#0FC67E" }}>+0.21</span></p>

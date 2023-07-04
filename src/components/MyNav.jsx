@@ -22,7 +22,7 @@ const MyNav = () => {
                             <Link to={"/mercati"} className="text-light nav-link">Mercati</Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Link to={"/"} className="text-light nav-link">Wallet</Link>
+                            <Link to={"/wallet"} className="text-light nav-link">Wallet</Link>
                         </Nav.Item>
                     </Nav>
                     <Nav className="justify-content-end">    

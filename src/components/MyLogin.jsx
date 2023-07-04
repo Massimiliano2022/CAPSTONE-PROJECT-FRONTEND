@@ -7,7 +7,7 @@ const MyLogin = () => {
                 <Row className="py-5" style={{ minHeight: "70vh" }}>
                     <Col className="d-flex justify-content-center align-items-center flex-column">
                         <div className="p-5" style={{ background: "#2d2d2d" }}>
-                            <h1 className="text-center">Accedi</h1>
+                            <h2 className="text-center">Accedi</h2>
                             <Form>
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email</Form.Label>

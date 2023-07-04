@@ -18,7 +18,7 @@ const MyCryptoList = () => {
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className='py-5'>
                     <Col sm={12} md={6}>
-                        <h1 className="fs-3 p-0 m-0">Panoramica mercati</h1>
+                        <h2 className="fs-3 p-0 m-0">Panoramica mercati</h2>
                         <p className="text-muted mb-3">Tutte le informazione dei prezzi sono in USD</p>
                     </Col>
                     <Col sm={12} md={6}>

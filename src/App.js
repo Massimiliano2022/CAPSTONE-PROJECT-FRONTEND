@@ -9,6 +9,7 @@ import MyLogin from "./components/MyLogin";
 import MySignup from "./components/MySignup";
 import MyCryptoList from "./components/MyCryptoList";
 import MyCrypto from "./components/MyCrypto";
+import MyWallet from "./components/MyWallet";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<MyMain />} />
             <Route path="/mercati" element={<MyCryptoList/>}/>
             <Route path="/crypto" element={<MyCrypto/>}/>
+            <Route path="/wallet" element={<MyWallet/>}/>
           </Routes>
         <MyFooter/>  
     </BrowserRouter>
