@@ -32,8 +32,8 @@ const MyNav = () => {
                         <NavLink
                             to={"/login"}
                             activeclassname="active"
-                            style={{ background: "#454545" }}
-                            className="nav-link text-center rounded rounded-1 rounded-start-0 p-2 me-3"
+                            style={{ background: "#454545"}}
+                            className="nav-link text-center rounded rounded-1 rounded-start-0 p-2"
                         >
                             Accedi
                         </NavLink>

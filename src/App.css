@@ -1,24 +1,23 @@
-table,th,tr,td{
-  border:0;
+table,
+th,
+tr,
+td {
+  border: 0;
 }
-.wallet-table{
-  border:0;
+
+.wallet-table {
+  border: 0;
   text-align: center;
 }
-@media screen and (max-width: 767px) {
-    .line-chart{
-        height: 30vh;
-    }
+
+@media screen and (max-width: 991px) {
+  .line-chart {
+    height: 30vh;
   }
-  
-  @media screen and (min-width: 768px) and (max-width: 991px) {
-    .line-chart{
-        height: 30vh;
-    }
+}
+
+@media screen and (min-width: 992px) {
+  .line-chart {
+    height: 40vh;
   }
-  
-  @media screen and (min-width: 992px) {
-    .line-chart{
-        height: 40vh;
-    }
-  }
+}
