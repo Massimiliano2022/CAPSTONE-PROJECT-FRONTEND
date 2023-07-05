@@ -21,7 +21,7 @@ const MyWallet = () => {
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className="py-5">
-                    <h2>Wallet</h2>
+                    <h2>Asset</h2>
                     <Col md={6} className="d-flex justify-content-center align-items-center">
                         <MyDoughnutChart chartData={chartData} />
                     </Col>
@@ -100,26 +100,46 @@ const MyWallet = () => {
                                 <Table className='text-light m-0'>
                                     <thead style={{ background: "#0B0E11" }}>
                                         <tr>
-                                            <th>Periodo</th>
-                                            <th>Prezzo</th>
+                                            <th>Data operazione</th>
+                                            <th>Tipo operazione</th>
+                                            <th>Crypto</th>
+                                            <th>Quantità</th>
+                                            <th>Prezzo acquisto</th>
+                                            <th>Prezzo vendita</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Oggi</td>
-                                            <td>$ 30518.4</td>
+                                            <td>05/07/2023 12:10</td>
+                                            <td>BUY</td>
+                                            <td>BTC</td>
+                                            <td>1</td>
+                                            <td>$ 30500.0</td>
+                                            <td>$ 32500.0</td>
                                         </tr>
                                         <tr>
-                                            <td>30 giorni</td>
-                                            <td>$ 30472.9</td>
+                                            <td>05/07/2023 12:10</td>
+                                            <td>BUY</td>
+                                            <td>BTC</td>
+                                            <td>1</td>
+                                            <td>$ 30500.0</td>
+                                            <td>$ 32500.0</td>
                                         </tr>
                                         <tr>
-                                            <td>60 giorni</td>
-                                            <td>$ 27216.1</td>
+                                            <td>05/07/2023 12:10</td>
+                                            <td>BUY</td>
+                                            <td>BTC</td>
+                                            <td>1</td>
+                                            <td>$ 30500.0</td>
+                                            <td>$ 32500.0</td>
                                         </tr>
                                         <tr>
-                                            <td>90 giorni</td>
-                                            <td>$ 29252.1</td>
+                                            <td>05/07/2023 12:10</td>
+                                            <td>BUY</td>
+                                            <td>BTC</td>
+                                            <td>1</td>
+                                            <td>$ 30500.0</td>
+                                            <td>$ 32500.0</td>
                                         </tr>
                                     </tbody>
                                 </Table>

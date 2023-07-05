@@ -3,6 +3,9 @@ import btcLogo from '../img/bitcoin.png'
 import ethLogo from '../img/ethereum.png'
 import adaLogo from '../img/cardano.png'
 import dotLogo from '../img/polkadot.png'
+
+import tablet from '../img/tablet.png'
+
 import { BiLogIn } from "react-icons/bi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Link } from 'react-router-dom';
@@ -50,12 +53,12 @@ const MyMain = () => {
                         <Link to={"/crypto"} className="nav-link">
                             <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                                 <Card.Body>
-                                    <img src={btcLogo} alt='Bitcoin Logo' width={50} />
-                                    <div className='d-flex justify-content-center py-4'>
-                                        <Col sm={4}>
+                                    <img src={btcLogo} alt='Bitcoin Logo' width={50} className="img-fluid object-fit-cover"/>
+                                    <div className='d-flex justify-space-between py-4'>
+                                        <Col sm={4} className="me-2">
                                             <Card.Text>BTC/USDT</Card.Text>
                                         </Col>
-                                        <Col sm={4}>
+                                        <Col sm={4} className="me-2">
                                             <Card.Text>30518.49</Card.Text>
                                         </Col>
                                         <Col sm={4}>
@@ -84,12 +87,12 @@ const MyMain = () => {
                         <Link to={"/crypto"} className="nav-link">
                             <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                                 <Card.Body>
-                                    <img src={ethLogo} alt='Bitcoin Logo' width={50} />
-                                    <div className='d-flex justify-content-center py-4'>
-                                        <Col sm={4}>
+                                    <img src={ethLogo} alt='Ethereum Logo' width={50} className="img-fluid object-fit-cover"/>
+                                    <div className='d-flex justify-space-between py-4'>
+                                        <Col sm={4} className="me-2">
                                             <Card.Text>ETH/USDT</Card.Text>
                                         </Col>
-                                        <Col sm={4}>
+                                        <Col sm={4} className="me-2">
                                             <Card.Text>1935.69</Card.Text>
                                         </Col>
                                         <Col sm={4}>
@@ -118,12 +121,12 @@ const MyMain = () => {
                         <Link to={"/crypto"} className="nav-link">
                             <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                                 <Card.Body>
-                                    <img src={adaLogo} alt='Cardano Logo' width={50} />
-                                    <div className='d-flex justify-content-center py-4'>
-                                        <Col sm={4}>
+                                    <img src={adaLogo} alt='Cardano Logo' width={50} className="img-fluid object-fit-cover"/>
+                                    <div className='d-flex justify-space-between py-4'>
+                                        <Col sm={4} className="me-2">
                                             <Card.Text>ADA/USDT</Card.Text>
                                         </Col>
-                                        <Col sm={4}>
+                                        <Col sm={4} className="me-2">
                                             <Card.Text>0.2819</Card.Text>
                                         </Col>
                                         <Col sm={4}>
@@ -152,12 +155,12 @@ const MyMain = () => {
                         <Link to={"/crypto"} className="nav-link">
                             <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                                 <Card.Body>
-                                    <img src={dotLogo} alt='Polkadot Logo' width={50} />
-                                    <div className='d-flex justify-content-center py-4'>
-                                        <Col sm={4}>
+                                    <img src={dotLogo} alt='Polkadot Logo' width={50} className="img-fluid object-fit-cover"/>
+                                    <div className='d-flex justify-space-between py-4'>
+                                        <Col sm={4} className="me-2">
                                             <Card.Text>DOT/USDT</Card.Text>
                                         </Col>
-                                        <Col sm={4}>
+                                        <Col sm={4} className="me-2">
                                             <Card.Text>5.29</Card.Text>
                                         </Col>
                                         <Col sm={4}>

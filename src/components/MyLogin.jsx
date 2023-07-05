@@ -1,4 +1,5 @@
 import { Col, Container, Form, Row } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const MyLogin = () => {
     return (
@@ -19,6 +20,17 @@ const MyLogin = () => {
                                 </Form.Group>
                                 <button type="button" className="btn mt-3 text-center rounded rounded-1 p-2 w-100" style={{ background: "#EBB60B" }}>Accedi</button>
                             </Form>
+                            <div className="d-flex justify-content-between align-items-center mt-3">
+                                <p className="m-0 fs-6">Non hai un account?</p>
+                                <NavLink
+                                    to={"/signup"}
+                                    activeclassname="active"
+                                    className="nav-link ps-3 fs-6"
+                                    style={{color:"#EBB60B"}}
+                                >
+                                    Registrati
+                                </NavLink>
+                            </div>
                         </div>
                     </Col>
                 </Row>
