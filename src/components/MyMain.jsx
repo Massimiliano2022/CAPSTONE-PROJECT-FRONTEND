@@ -18,45 +18,30 @@ const MyMain = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                <Row className="d-flex py-5">
+                <Row className={`d-flex py-5 ${utenteCorrente ? 'd-none' : ''}`}>
                     <Col sm={6} className="d-flex flex-column">
-                        {utenteCorrente ? (
-                            <Link
-                                to="/wallet"
-                                style={{color:"black"}}
-                                className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
-                            >
-                                <span className="fs-4 pe-2">
-                                    <BsFillPersonFill />
-                                </span>
-                                <span>Wallet</span>
-                            </Link>
-                        ) : (
-                            <>
-                                <h1>Compra e scambia Crypto su DigitFin</h1>
-                                <Link
-                                    to={"/signup"}
-                                    style={{color:"black"}}
-                                    className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
-                                >
-                                    <span className='fs-4 pe-2'>
-                                        <BsFillPersonFill />
-                                    </span>
-                                    <span>
-                                        Iscriviti
-                                    </span>
-                                </Link>
-                                <Link
-                                    to={"/login"}
-                                    className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
-                                >
-                                    <span className='fs-4 pe-2'>
-                                        <BiLogIn />
-                                    </span>
-                                    Accedi
-                                </Link>
-                            </>
-                        )}
+                        <h1>Compra e scambia Crypto su DigitFin</h1>
+                        <Link
+                            to={"/signup"}
+                            style={{ color: "black" }}
+                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                        >
+                            <span className='fs-4 pe-2'>
+                                <BsFillPersonFill />
+                            </span>
+                            <span>
+                                Iscriviti
+                            </span>
+                        </Link>
+                        <Link
+                            to={"/login"}
+                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                        >
+                            <span className='fs-4 pe-2'>
+                                <BiLogIn />
+                            </span>
+                            Accedi
+                        </Link>
                     </Col>
                     <Col sm={6} className="d-flex justify-content-end">
                         <img className="object-fit-cover img-fluid" src={mainImg} alt='exchange' style={{ maxHeight: "325px" }} />
