@@ -94,10 +94,10 @@ const MyWallet = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <Card className="mb-5" style={{ background: "#2d2d2d" }}>
+                        <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
                             <Card.Body>
                                 <Card.Title className="mb-3">Storico operazioni</Card.Title>
-                                <Table className='text-light m-0'>
+                                <Table className='text-light m-0 wallet-table'>
                                     <thead style={{ background: "#0B0E11" }}>
                                         <tr>
                                             <th>Data operazione</th>

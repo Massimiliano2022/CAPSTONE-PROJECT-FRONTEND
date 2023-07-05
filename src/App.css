@@ -1,6 +1,10 @@
 table,th,tr,td{
   border:0;
 }
+.wallet-table{
+  border:0;
+  text-align: center;
+}
 @media screen and (max-width: 767px) {
     .line-chart{
         height: 30vh;

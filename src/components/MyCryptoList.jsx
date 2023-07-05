@@ -19,10 +19,10 @@ const MyCryptoList = () => {
                 <Row className='py-5'>
                     <Col sm={12} md={6}>
                         <h2 className="fs-3 p-0 m-0">Panoramica mercati</h2>
-                        <p className="text-muted mb-3">Tutte le informazione dei prezzi sono in USD</p>
+                        <p className="text-muted m-0">Tutte le informazione dei prezzi sono in USD</p>
                     </Col>
                     <Col sm={12} md={6}>
-                        <Form className="d-flex">
+                        <Form className="d-flex my-3">
                             <Form.Control
                                 type="search"
                                 placeholder="Search"
