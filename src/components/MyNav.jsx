@@ -11,15 +11,13 @@ const MyNav = () => {
 
     const dispatch = useDispatch();
 
-    const navigator=useNavigate();
-
-    console.log(utenteCorrente);
+    const navigator = useNavigate();
 
     const handleClick = (e) => {
         e.preventDefault();
         dispatch(removeUtenteCorrente());
         navigator('/');
-      };
+    };
 
     return (
         <Navbar expand="md" className="sticky-top" variant="dark" style={{ background: "#2d2d2d" }}>
@@ -47,13 +45,18 @@ const MyNav = () => {
                     </Nav>
                     <Nav className="justify-content-end">
                         {utenteCorrente ? (
-                            <Button
-                                onClick={handleClick}
-                                className="btn btn-dark nav-link text-center rounded rounded-1 rounded-start-0 p-2"
-                                style={{ background: "#454545" }}
-                            >
-                                Logout
-                            </Button>
+                            <>
+                                <NavLink to={"/wallet"} className="nav-link text-muted">
+                                    Utente: 
+                                    <span className="text-light"> {utenteCorrente.utente.nome} {utenteCorrente.utente.cognome}</span>
+                                </NavLink>
+                                <Button
+                                    onClick={handleClick}
+                                    className="btn btn-warning nav-link text-dark text-center rounded rounded-1 rounded-start-0 p-2"
+                                >
+                                    Logout
+                                </Button>
+                            </>
                         ) : (
                             <>
                                 <NavLink

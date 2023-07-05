@@ -4,43 +4,58 @@ import ethLogo from '../img/ethereum.png'
 import adaLogo from '../img/cardano.png'
 import dotLogo from '../img/polkadot.png'
 
-import tablet from '../img/tablet.png'
-
 import { BiLogIn } from "react-icons/bi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { useSelector } from 'react-redux'
 
 
 const MyMain = () => {
+
+    const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
+
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className="d-flex py-5">
                     <Col sm={6} className="d-flex flex-column">
-                        <h1>Compra e scambia Crypto su DigitFin</h1>
-                        <Link
-                            to={"/signup"}
-                            style={{ background: "#EBB60B" }}
-                            className="nav-link text-dark text-center rounded rounded-1 p-2 w-50 mt-4"
-                        >
-                            <span className='fs-4 pe-2'>
-                                <BsFillPersonFill />
-                            </span>
-                            <span>
-                                Iscriviti
-                            </span>
-                        </Link>
-                        <Link
-                            to={"/login"}
-                            style={{ background: "#454545" }}
-                            className="nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
-                        >
-                            <span className='fs-4 pe-2'>
-                                <BiLogIn />
-                            </span>
-                            Accedi
-                        </Link>
+                        {utenteCorrente ? (
+                            <Link
+                                to="/wallet"
+                                className="btn btn-warning nav-link text-dark text-center rounded rounded-1 p-2 w-50 mt-4"
+                            >
+                                <span className="fs-4 pe-2">
+                                    <BsFillPersonFill />
+                                </span>
+                                <span>Wallet</span>
+                            </Link>
+                        ) : (
+                            <>
+                                <h1>Compra e scambia Crypto su DigitFin</h1>
+                                <Link
+                                    to={"/signup"}
+                                    className="btn btn-warning nav-link text-dark text-center rounded rounded-1 p-2 w-50 mt-4"
+                                >
+                                    <span className='fs-4 pe-2'>
+                                        <BsFillPersonFill />
+                                    </span>
+                                    <span>
+                                        Iscriviti
+                                    </span>
+                                </Link>
+                                <Link
+                                    to={"/login"}
+                                    style={{ background: "#454545" }}
+                                    className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                                >
+                                    <span className='fs-4 pe-2'>
+                                        <BiLogIn />
+                                    </span>
+                                    Accedi
+                                </Link>
+                            </>
+                        )}
                     </Col>
                     <Col sm={6} className="d-flex justify-content-end">
                         <img className="object-fit-cover img-fluid" src={mainImg} alt='exchange' style={{ maxHeight: "325px" }} />
@@ -53,7 +68,7 @@ const MyMain = () => {
                         <Link to={"/crypto"} className="nav-link">
                             <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                                 <Card.Body>
-                                    <img src={btcLogo} alt='Bitcoin Logo' width={50} className="img-fluid object-fit-cover"/>
+                                    <img src={btcLogo} alt='Bitcoin Logo' width={50} className="img-fluid object-fit-cover" />
                                     <div className='d-flex justify-space-between py-4'>
                                         <Col sm={4} className="me-2">
                                             <Card.Text>BTC/USDT</Card.Text>
@@ -87,7 +102,7 @@ const MyMain = () => {
                         <Link to={"/crypto"} className="nav-link">
                             <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                                 <Card.Body>
-                                    <img src={ethLogo} alt='Ethereum Logo' width={50} className="img-fluid object-fit-cover"/>
+                                    <img src={ethLogo} alt='Ethereum Logo' width={50} className="img-fluid object-fit-cover" />
                                     <div className='d-flex justify-space-between py-4'>
                                         <Col sm={4} className="me-2">
                                             <Card.Text>ETH/USDT</Card.Text>
@@ -121,7 +136,7 @@ const MyMain = () => {
                         <Link to={"/crypto"} className="nav-link">
                             <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                                 <Card.Body>
-                                    <img src={adaLogo} alt='Cardano Logo' width={50} className="img-fluid object-fit-cover"/>
+                                    <img src={adaLogo} alt='Cardano Logo' width={50} className="img-fluid object-fit-cover" />
                                     <div className='d-flex justify-space-between py-4'>
                                         <Col sm={4} className="me-2">
                                             <Card.Text>ADA/USDT</Card.Text>
@@ -155,7 +170,7 @@ const MyMain = () => {
                         <Link to={"/crypto"} className="nav-link">
                             <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                                 <Card.Body>
-                                    <img src={dotLogo} alt='Polkadot Logo' width={50} className="img-fluid object-fit-cover"/>
+                                    <img src={dotLogo} alt='Polkadot Logo' width={50} className="img-fluid object-fit-cover" />
                                     <div className='d-flex justify-space-between py-4'>
                                         <Col sm={4} className="me-2">
                                             <Card.Text>DOT/USDT</Card.Text>
