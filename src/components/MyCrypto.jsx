@@ -53,19 +53,21 @@ const MyCrypto = () => {
                         <div className="d-flex justify-content-between pb-3">
                             <Button
                                 variant="link"
-                                className="nav-link text-light p-2"
+                                className="nav-link p-2"
                                 style={{
                                     borderRadius: "0",
                                     borderBottom: showCompra ? '3px solid #EBB60B' : 'none',
+                                    color: showCompra ? "#EBB60B" : "inherit"
                                 }}
                                 onClick={handleCompraClick}
                             >Compra Btc</Button>
                             <Button
                                 variant="link"
-                                className="nav-link text-light p-2"
+                                className="nav-link p-2"
                                 style={{
                                     borderRadius: "0",
                                     borderBottom: showCompra ? 'none' : '3px solid #EBB60B',
+                                    color: showCompra ? "inherit" : "#EBB60B"
                                 }}
                                 onClick={handleVendiClick}
                             >Vendi Btc</Button>
@@ -85,7 +87,7 @@ const MyCrypto = () => {
                                             <Card.Text>BTC</Card.Text>
                                         </div>
                                     </div>
-                                    <Button variant="button" className="w-100 p-1" style={{ background: "#EBB60B" }}>Compra</Button>
+                                    <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color:"black" }}>Compra</Button>
                                 </Card.Body>
                             </Card>
                         ) : (
@@ -103,7 +105,7 @@ const MyCrypto = () => {
                                             <Card.Text>BTC</Card.Text>
                                         </div>
                                     </div>
-                                    <Button variant="button" className="w-100 p-1" style={{ background: "#EBB60B" }}>Vendi</Button>
+                                    <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color:"black" }}>Vendi</Button>
                                 </Card.Body>
                             </Card>
                         )}

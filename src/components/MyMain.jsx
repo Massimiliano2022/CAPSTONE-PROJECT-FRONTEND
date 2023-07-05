@@ -23,7 +23,8 @@ const MyMain = () => {
                         {utenteCorrente ? (
                             <Link
                                 to="/wallet"
-                                className="btn btn-warning nav-link text-dark text-center rounded rounded-1 p-2 w-50 mt-4"
+                                style={{color:"black"}}
+                                className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
                             >
                                 <span className="fs-4 pe-2">
                                     <BsFillPersonFill />
@@ -35,7 +36,8 @@ const MyMain = () => {
                                 <h1>Compra e scambia Crypto su DigitFin</h1>
                                 <Link
                                     to={"/signup"}
-                                    className="btn btn-warning nav-link text-dark text-center rounded rounded-1 p-2 w-50 mt-4"
+                                    style={{color:"black"}}
+                                    className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
                                 >
                                     <span className='fs-4 pe-2'>
                                         <BsFillPersonFill />
@@ -46,7 +48,6 @@ const MyMain = () => {
                                 </Link>
                                 <Link
                                     to={"/login"}
-                                    style={{ background: "#454545" }}
                                     className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
                                 >
                                     <span className='fs-4 pe-2'>

@@ -52,7 +52,7 @@ const MyNav = () => {
                                 </NavLink>
                                 <Button
                                     onClick={handleClick}
-                                    className="btn btn-warning nav-link text-dark text-center rounded rounded-1 rounded-start-0 p-2"
+                                    className="btn btn-dark nav-link text-light text-center rounded rounded-1 rounded-start-0 p-2"
                                 >
                                     Logout
                                 </Button>
@@ -61,16 +61,14 @@ const MyNav = () => {
                             <>
                                 <NavLink
                                     to={"/login"}
-                                    activeclassname="active"
-                                    style={{ background: "#454545" }}
-                                    className="nav-link text-center rounded rounded-1 rounded-start-0 p-2"
+                                    className="btn btn-dark nav-link text-light text-center rounded rounded-1 rounded-start-0 p-2"
                                 >
                                     Accedi
                                 </NavLink>
                                 <NavLink
                                     to={"/signup"}
-                                    activeclassname="active"
-                                    className="btn btn-warning text-dark nav-link text-center rounded rounded-1 rounded-start-0 p-2"
+                                    style={{color:"black"}}
+                                    className="btn btn-warning nav-link text-center rounded rounded-1 rounded-start-0 p-2"
                                 >
                                     Registrati
                                 </NavLink>

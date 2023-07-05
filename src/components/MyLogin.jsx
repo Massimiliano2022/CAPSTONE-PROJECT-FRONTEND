@@ -49,9 +49,9 @@ const MyLogin = () => {
                                 </Form.Group>
                                 <button 
                                     type="button"  
-                                    style={{ background: "#EBB60B" }}
+                                    style={{ color:"black" }}
                                     onClick={handleClick}
-                                    className="btn mt-3 text-center rounded rounded-1 p-2 w-100"
+                                    className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100"
                                     >Accedi
                                     </button>
                             </Form>

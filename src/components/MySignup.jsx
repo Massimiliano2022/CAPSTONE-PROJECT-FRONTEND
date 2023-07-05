@@ -26,7 +26,7 @@ const MySignup = () => {
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" />
                                 </Form.Group>
-                                <button type="button" className="btn mt-3 text-center rounded rounded-1 p-2 w-100" style={{ background: "#EBB60B" }}>Iscriviti</button>
+                                <button type="button" className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100" style={{color:"black" }}>Iscriviti</button>
                             </Form>
                             <div className="d-flex justify-content-between align-items-center mt-3">
                                 <p className="m-0 fs-6">Hai già un account?</p>
