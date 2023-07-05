@@ -11,7 +11,7 @@ import MyCryptoList from "./components/MyCryptoList";
 import MyCrypto from "./components/MyCrypto";
 import MyWallet from "./components/MyWallet";
 
-function App() {
+const App =() => {
   return (
     <BrowserRouter>
         <MyNav />

@@ -1,7 +1,28 @@
+import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { getUtenteCorrente } from "../redux/actions";
 
 const MyLogin = () => {
+
+    const dispatch = useDispatch();
+
+    const navigator=useNavigate();
+
+    const [utente, setUtente] = useState({
+        email: "",
+        password: ""
+    });
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        if(utente.email !== "" && utente.password !== ""){
+          dispatch(getUtenteCorrente(utente));
+          navigator('/');
+        }
+      };
+
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
@@ -12,13 +33,27 @@ const MyLogin = () => {
                             <Form>
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" />
+                                    <Form.Control 
+                                        type="email"
+                                        value={utente.email}
+                                        onChange={(e) => setUtente({ ...utente, email: e.target.value })} 
+                                    />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="password">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" />
+                                    <Form.Control 
+                                        type="password"
+                                        value={utente.password}
+                                        onChange={(e) => setUtente({ ...utente, password: e.target.value })} 
+                                    />
                                 </Form.Group>
-                                <button type="button" className="btn mt-3 text-center rounded rounded-1 p-2 w-100" style={{ background: "#EBB60B" }}>Accedi</button>
+                                <button 
+                                    type="button"  
+                                    style={{ background: "#EBB60B" }}
+                                    onClick={handleClick}
+                                    className="btn mt-3 text-center rounded rounded-1 p-2 w-100"
+                                    >Accedi
+                                    </button>
                             </Form>
                             <div className="d-flex justify-content-between align-items-center mt-3">
                                 <p className="m-0 fs-6">Non hai un account?</p>
