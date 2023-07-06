@@ -19,7 +19,7 @@ const MyNav = () => {
         navigator('/');
     };
 
-    console.log(utenteCorrente);
+    //console.log(utenteCorrente);
 
     return (
         <Navbar expand="md" className="sticky-top" variant="dark" style={{ background: "#2d2d2d" }}>
