@@ -1,29 +1,54 @@
 export const GET_UTENTE_CORRENTE = "GET_UTENTE_CORRENTE";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
+export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 
 export const getUtenteCorrente = utente => {
 
-    return async dispatch => {
+  return async dispatch => {
+    try {
+      const url = `http://localhost:3001/auth/login`;
+      let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(utente),
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        dispatch({ type: GET_UTENTE_CORRENTE, payload: userData });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const removeUtenteCorrente = () => ({
+  type: REMOVE_UTENTE_CORRENTE,
+});
+
+export const getCurrentCryptoData = () => {
+  return async dispatch => {
+    const fetchData = async () => {
       try {
-        const url = `http://localhost:3001/auth/login`;
+        const url = `http://localhost:3001/crypto`;
         let response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(utente),
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
-  
         if (response.ok) {
-          const userData = await response.json();
-          dispatch({ type: GET_UTENTE_CORRENTE, payload: userData });
+          const data = await response.json();
+          dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: data });
         }
       } catch (error) {
         console.log(error);
       }
     };
-  };
-
-  export const removeUtenteCorrente = () => ({
-    type: REMOVE_UTENTE_CORRENTE,
-  });
+    fetchData();
+    setInterval(fetchData, 60000);
+  }
+};
