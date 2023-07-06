@@ -6,7 +6,7 @@ const initialState = {
       }
 };
 
-const utenteReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_UTENTE_CORRENTE:
             return {
@@ -22,4 +22,4 @@ const utenteReducer = (state = initialState, action) => {
     }
 };
 
-export default utenteReducer;
+export default loginReducer;

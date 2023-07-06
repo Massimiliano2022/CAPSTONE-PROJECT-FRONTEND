@@ -1,4 +1,4 @@
-import utenteReducer from "../reducers/utenteReducer";
+import loginReducer from "../reducers/loginReducer";
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
@@ -12,7 +12,7 @@ const persistConfig = {
   };
 
 const rootReducer = combineReducers({
-    utenteCorrente:utenteReducer,
+    utenteCorrente:loginReducer,
     currentCryptoData:cryptoPriceReducer,
   });
   
