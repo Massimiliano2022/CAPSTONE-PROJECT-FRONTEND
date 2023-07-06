@@ -37,13 +37,13 @@ const MyCryptoCard = ({ crypto }) => {
                     <Card.Body>
                         <img src={cryptoLogos[cryptoSymbol]} alt='Bitcoin Logo' width={50} className="img-fluid object-fit-cover" />
                         <div className='d-flex justify-space-between py-4'>
-                            <Col sm={4} className="me-2">
+                            <Col className="me-2">
                                 <Card.Text>{crypto.simbolo}/USDT</Card.Text>
                             </Col>
-                            <Col sm={4} className="me-2">
+                            <Col className="me-2">
                                 <Card.Text>{prezzo} $</Card.Text>
                             </Col>
-                            <Col sm={4}>
+                            <Col>
                                 <Card.Text style={{color:variazioneColor}}>{variazionePercentuale}</Card.Text>
                             </Col>
                         </div>
