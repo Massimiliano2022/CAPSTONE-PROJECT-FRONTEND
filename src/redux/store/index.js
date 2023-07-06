@@ -1,19 +1,23 @@
+import storage from "redux-persist/lib/storage";
+
 import loginReducer from "../reducers/loginReducer";
+import cryptoPriceReducer from "../reducers/cryptoPriceReducer";
+import monthlyCryptoReducer from "../reducers/monthlyCryptoReducer";
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import cryptoPriceReducer from "../reducers/cryptoPriceReducer";
+
 
 const persistConfig = {
     key: "root",
     storage,
-    blacklist: ['currentCryptoData']
+    blacklist: ['currentCryptoData','monthlyCryptoData']
   };
 
 const rootReducer = combineReducers({
     utenteCorrente:loginReducer,
     currentCryptoData:cryptoPriceReducer,
+    monthlyCryptoData:monthlyCryptoReducer,
   });
   
   const persistedReducer = persistReducer(persistConfig, rootReducer);

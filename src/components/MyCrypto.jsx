@@ -9,9 +9,29 @@ import sandLogo from '../img/sandbox.png'
 
 import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 import MyLineChart from './MyLineChart';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { getCurrentCryptoData, getMonthlyCryptoData } from '../redux/actions'
 
 const MyCrypto = () => {
+
+    const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
+
+    const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
+
+    const monthlyCryptoData = useSelector(state => state.monthlyCryptoData.monthlyData);
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getCurrentCryptoData());
+        dispatch(getMonthlyCryptoData('BTC'));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    console.log(utenteCorrente);
+    console.log(cryptosPrice);
+    console.log(monthlyCryptoData);
+
 
     const chartData = {
         labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno'],

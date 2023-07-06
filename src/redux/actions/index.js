@@ -1,9 +1,9 @@
 export const GET_UTENTE_CORRENTE = "GET_UTENTE_CORRENTE";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
+export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
 
 export const getUtenteCorrente = utente => {
-
   return async dispatch => {
     try {
       const url = `http://localhost:3001/auth/login`;
@@ -51,4 +51,24 @@ export const getCurrentCryptoData = () => {
     fetchData();
     setInterval(fetchData, 60000);
   }
+};
+
+export const getMonthlyCryptoData = simbolo => {
+  return async dispatch => {
+    try {
+      const url = `http://localhost:3001/crypto/monthly/${simbolo}`;
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+          dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
