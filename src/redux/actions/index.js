@@ -2,6 +2,7 @@ export const GET_UTENTE_CORRENTE = "GET_UTENTE_CORRENTE";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
+export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
 
 export const getUtenteCorrente = utente => {
   return async dispatch => {
@@ -66,6 +67,26 @@ export const getMonthlyCryptoData = simbolo => {
       if (response.ok) {
         const data = await response.json();
           dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getSelectedCrypto = simbolo => {
+  return async dispatch => {
+    try {
+      const url = `http://localhost:3001/crypto/${simbolo}`;
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+          dispatch({ type: GET_SELECTED_CRYPTO, payload: data });
       }
     } catch (error) {
       console.log(error);

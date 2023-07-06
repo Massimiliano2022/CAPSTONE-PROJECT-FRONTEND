@@ -1,7 +1,10 @@
-import { GET_CURRENT_CRYPTO_DATA } from "../actions";
+import { GET_CURRENT_CRYPTO_DATA, GET_SELECTED_CRYPTO} from "../actions";
 
 const initialState = {
-    cryptoData: []
+    cryptoData: [],
+    selectedCrypto:{
+
+    },
 };
 
 const cryptoPriceReducer = (state = initialState, action) => {
@@ -12,6 +15,12 @@ const cryptoPriceReducer = (state = initialState, action) => {
                 cryptoData:
                     action.payload
               }
+        case GET_SELECTED_CRYPTO:
+            return{
+                ...state,
+                selectedCrypto:
+                    action.payload
+            }      
         default:
             return state;
     }

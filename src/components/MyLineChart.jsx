@@ -26,13 +26,11 @@ const MyLineChart = ({ chartData,simbolo }) => {
         datasets: [{
             label: simbolo,
             data: chartData.values,
-            //backgroundColor: '#EBB60B',
             backgroundColor:'#2D2D2D',
             borderColor: '#EBB60B',
             pointBorderColor: '#1E1E1E',
             pointBackgroundColor:'black',
-            //fill:true,
-            tension: 0.3
+            //tension: 0.1
         }]
     }
 

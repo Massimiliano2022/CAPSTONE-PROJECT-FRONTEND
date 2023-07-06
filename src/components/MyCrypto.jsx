@@ -11,20 +11,33 @@ import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap"
 import MyLineChart from './MyLineChart';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { getCurrentCryptoData, getMonthlyCryptoData } from '../redux/actions'
+import { getMonthlyCryptoData, getSelectedCrypto } from '../redux/actions'
 import { useParams } from 'react-router-dom'
+
+const cryptoLogos = {
+    btc: btcLogo,
+    eth: ethLogo,
+    ada: adaLogo,
+    dot: dotLogo,
+    matic:maticLogo,
+    xrp:xrpLogo,
+    doge:dogeLogo,
+    sand:sandLogo
+};
 
 const MyCrypto = () => {
 
-    const { simbolo } = useParams();
-
-    const dispatch = useDispatch();
-
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
-    const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
+    const selectedCrypto = useSelector(state => state.currentCryptoData.selectedCrypto);
 
     const monthlyCryptoData = useSelector(state => state.monthlyCryptoData.monthlyData);
+
+    const { simbolo } = useParams();
+
+    const cryptoSymbol = simbolo.toLowerCase();
+
+    const dispatch = useDispatch();
 
     const [showCompra, setShowCompra] = useState(true);
 
@@ -42,8 +55,8 @@ const MyCrypto = () => {
     };
 
     useEffect(() => {
-        dispatch(getCurrentCryptoData());
         dispatch(getMonthlyCryptoData(simbolo));
+        dispatch(getSelectedCrypto(simbolo));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [simbolo]);
 
@@ -52,17 +65,19 @@ const MyCrypto = () => {
         chartData.values = monthlyCryptoData.map((record) => record.chiusuraPrezzo);
     }
 
+  const variazioneColor = selectedCrypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
+
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className="pt-5">
                     <Col sm={12}>
                         <div className="d-flex align-items-center mb-4">
-                            <img src={btcLogo} alt="Bitcoin Logo" width={45} className="me-4" />
-                            <h2 className="me-4">Valore Bitcoin</h2>
-                            <p className="text-muted mb-0">BTC</p>
+                            <img src={cryptoLogos[cryptoSymbol]} alt={cryptoLogos[cryptoSymbol]} width={40} className="me-4" />
+                            <h2 className="me-4">Valore {selectedCrypto.nome}</h2>
+                            <p className="text-muted mb-0">{simbolo}</p>
                         </div>
-                        <p className="fs-3">$ 30518.49 <span style={{ color: "#0FC67E" }}>+0.21</span></p>
+                        <p className="fs-3">$ {selectedCrypto.prezzo} <span style={{ color: variazioneColor }}>{selectedCrypto.percententuale_variazione_1h}</span></p>
                     </Col>
                 </Row>
                 <Row className="pb-5">

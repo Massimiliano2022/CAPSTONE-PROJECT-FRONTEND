@@ -24,8 +24,6 @@ const cryptoLogos = {
 const MyCryptoCard = ({ crypto }) => {
 
     const cryptoSymbol = crypto.simbolo.toLowerCase();
-    const variazionePercentuale = crypto.percententuale_variazione_1h.toFixed(2);
-    const prezzo = crypto.prezzo.toFixed(2);
     const variazioneColor = crypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
 
     return (
@@ -39,10 +37,10 @@ const MyCryptoCard = ({ crypto }) => {
                                 <Card.Text>{crypto.simbolo}/USDT</Card.Text>
                             </Col>
                             <Col className="me-2">
-                                <Card.Text>{prezzo} $</Card.Text>
+                                <Card.Text>{crypto.prezzo} $</Card.Text>
                             </Col>
                             <Col>
-                                <Card.Text style={{color:variazioneColor}}>{variazionePercentuale}</Card.Text>
+                                <Card.Text style={{color:variazioneColor}}>{crypto.percententuale_variazione_1h}</Card.Text>
                             </Col>
                         </div>
                         <Button
