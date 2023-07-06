@@ -7,16 +7,12 @@ import MyCryptoCard from './MyCryptoCard'
 
 const MyCryptoList = () => {
 
-    //const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
-
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCurrentCryptoData());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    console.log(cryptosPrice);
 
     return (
         <>

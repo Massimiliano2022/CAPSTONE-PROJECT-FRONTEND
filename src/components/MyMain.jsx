@@ -21,8 +21,6 @@ const MyMain = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log(cryptosPrice);
-
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>

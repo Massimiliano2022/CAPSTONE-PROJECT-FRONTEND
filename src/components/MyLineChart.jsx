@@ -19,14 +19,12 @@ ChartJs.register(LineElement,
     Filler
 )
 
-const MyLineChart = ({ chartData }) => {
-
-    console.log(chartData);
+const MyLineChart = ({ chartData,simbolo }) => {
 
     const data = {
         labels: chartData.labels,
         datasets: [{
-            label: 'BTC',
+            label: simbolo,
             data: chartData.values,
             //backgroundColor: '#EBB60B',
             backgroundColor:'#2D2D2D',

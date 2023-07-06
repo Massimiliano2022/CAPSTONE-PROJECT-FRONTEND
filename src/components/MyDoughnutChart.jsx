@@ -5,8 +5,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const MyDoughnutChart = ({ chartData }) => {
 
-    console.log(chartData);
-
     const data = {
         labels: chartData.labels,
         datasets: [

@@ -20,7 +20,7 @@ const App =() => {
             <Route path="/signup" element={<MySignup/>}/>
             <Route path="/" element={<MyMain />} />
             <Route path="/mercati" element={<MyCryptoList/>}/>
-            <Route path="/crypto" element={<MyCrypto/>}/>
+            <Route path="/crypto/:simbolo" element={<MyCrypto/>}/>
             <Route path="/wallet" element={<MyWallet/>}/>
           </Routes>
         <MyFooter/>  

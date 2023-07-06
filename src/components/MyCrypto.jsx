@@ -12,31 +12,19 @@ import MyLineChart from './MyLineChart';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getCurrentCryptoData, getMonthlyCryptoData } from '../redux/actions'
+import { useParams } from 'react-router-dom'
 
 const MyCrypto = () => {
+
+    const { simbolo } = useParams();
+
+    const dispatch = useDispatch();
 
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
 
     const monthlyCryptoData = useSelector(state => state.monthlyCryptoData.monthlyData);
-
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getCurrentCryptoData());
-        dispatch(getMonthlyCryptoData('BTC'));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    console.log(utenteCorrente);
-    console.log(cryptosPrice);
-    console.log(monthlyCryptoData);
-
-
-    const chartData = {
-        labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno'],
-        values: [23125.1, 23130.5, 28473.7, 29252.1, 27216.1, 30472.9],
-    };
 
     const [showCompra, setShowCompra] = useState(true);
 
@@ -47,6 +35,22 @@ const MyCrypto = () => {
     const handleVendiClick = () => {
         setShowCompra(false);
     };
+
+    const chartData = {
+        labels: [],
+        values: [],
+    };
+
+    useEffect(() => {
+        dispatch(getCurrentCryptoData());
+        dispatch(getMonthlyCryptoData(simbolo));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [simbolo]);
+
+    if (monthlyCryptoData && monthlyCryptoData.length > 0) {
+        chartData.labels = monthlyCryptoData.map((record) => record.data);
+        chartData.values = monthlyCryptoData.map((record) => record.chiusuraPrezzo);
+    }
 
     return (
         <>
@@ -65,7 +69,7 @@ const MyCrypto = () => {
                     <Col sm={12} md={8}>
                         <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                             <Card.Body>
-                                <MyLineChart chartData={chartData} />
+                                <MyLineChart chartData={chartData} simbolo={simbolo}/>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -107,7 +111,7 @@ const MyCrypto = () => {
                                             <Card.Text>BTC</Card.Text>
                                         </div>
                                     </div>
-                                    <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color:"black" }}>Compra</Button>
+                                    <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color: "black" }}>Compra</Button>
                                 </Card.Body>
                             </Card>
                         ) : (
@@ -125,7 +129,7 @@ const MyCrypto = () => {
                                             <Card.Text>BTC</Card.Text>
                                         </div>
                                     </div>
-                                    <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color:"black" }}>Vendi</Button>
+                                    <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color: "black" }}>Vendi</Button>
                                 </Card.Body>
                             </Card>
                         )}

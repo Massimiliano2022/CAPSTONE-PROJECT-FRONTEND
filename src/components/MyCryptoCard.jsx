@@ -23,8 +23,6 @@ const cryptoLogos = {
 
 const MyCryptoCard = ({ crypto }) => {
 
-    //console.log(crypto);
-
     const cryptoSymbol = crypto.simbolo.toLowerCase();
     const variazionePercentuale = crypto.percententuale_variazione_1h.toFixed(2);
     const prezzo = crypto.prezzo.toFixed(2);
@@ -32,7 +30,7 @@ const MyCryptoCard = ({ crypto }) => {
 
     return (
         <Col md={6}>
-            <Link to={`/crypto`} className="nav-link">
+            <Link to={`/crypto/${crypto.simbolo}`} className="nav-link">
                 <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                     <Card.Body>
                         <img src={cryptoLogos[cryptoSymbol]} alt='Bitcoin Logo' width={50} className="img-fluid object-fit-cover" />

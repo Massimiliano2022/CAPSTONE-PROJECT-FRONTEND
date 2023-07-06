@@ -19,8 +19,6 @@ const MyNav = () => {
         navigator('/');
     };
 
-    //console.log(utenteCorrente);
-
     return (
         <Navbar expand="md" className="sticky-top" variant="dark" style={{ background: "#2d2d2d" }}>
             <Container fluid className="px-5">
