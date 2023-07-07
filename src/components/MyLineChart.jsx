@@ -23,14 +23,8 @@ ChartJs.register(LineElement,
     Filler
 )
 
-const MyLineChart = ({ simbolo }) => {
-
+const MyLineChart = ({ simbolo, selectedCrypto }) => {
     const monthlyCryptoData = useSelector(state => state.monthlyCryptoData.monthlyData);
-
-    /*const chartData = {
-        labels: [],
-        values: [],
-    };*/
 
     const dispatch = useDispatch();
 
@@ -39,23 +33,34 @@ const MyLineChart = ({ simbolo }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [simbolo]);
 
-    /*if (monthlyCryptoData && monthlyCryptoData.length > 0) {
-        chartData.labels = monthlyCryptoData.map((record) => record.data);
-        chartData.values = monthlyCryptoData.map((record) => record.chiusuraPrezzo);
-    }*/
+    const formatData = (dateString) => {
+        const date = new Date(dateString);
+        const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        return formattedDate;
+    };
+
+    const updatedMonthlyCryptoData = [...monthlyCryptoData];
+
+    if (selectedCrypto) {
+        const formattedDate = formatData(selectedCrypto.timestamp);
+        const updatedData = {
+            data: formattedDate,
+            chiusuraPrezzo: selectedCrypto.prezzo,
+        };
+        updatedMonthlyCryptoData.push(updatedData);
+    }
 
     const data = {
-        labels: monthlyCryptoData.map((record) => record.data),
+        labels: updatedMonthlyCryptoData.map(record => record.data),
         datasets: [{
             label: simbolo,
-            data: monthlyCryptoData.map((record) => record.chiusuraPrezzo),
-            backgroundColor:'#2D2D2D',
+            data: updatedMonthlyCryptoData.map(record => record.chiusuraPrezzo),
+            backgroundColor: '#2D2D2D',
             borderColor: '#EBB60B',
             pointBorderColor: '#1E1E1E',
-            pointBackgroundColor:'black',
-            //tension: 0.1
+            pointBackgroundColor: 'black',
         }]
-    }
+    };
 
     const options = {
         plugins: {
@@ -67,17 +72,18 @@ const MyLineChart = ({ simbolo }) => {
         scales: {
             y: {
                 ticks: { color: 'white', beginAtZero: true }
-              },
-              x: {
+            },
+            x: {
                 ticks: { color: 'white', beginAtZero: true }
-              }
+            }
         },
         responsive: true,
         maintainAspectRatio: false
-    }
+    };
+
     return (
         <div className="line-chart">
-            <Line data={data} options={options} style={{ height: "100%", width:"100%" }} />
+            <Line data={data} options={options} style={{ height: "100%", width: "100%" }} />
         </div>
     );
 };

@@ -88,7 +88,7 @@ const MyCrypto = () => {
                     <Col sm={12} md={8}>
                         <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                             <Card.Body>
-                                <MyLineChart simbolo={cryptoSymbol} />
+                                <MyLineChart simbolo={cryptoSymbol} selectedCrypto={selectedCrypto} />
                             </Card.Body>
                         </Card>
                     </Col>
