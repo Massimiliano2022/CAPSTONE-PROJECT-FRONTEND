@@ -9,7 +9,7 @@ import sandLogo from '../img/sandbox.png'
 
 import { Card, Col, Container, Row, Table } from "react-bootstrap";
 import MyLineChart from './MyLineChart';
-import { useEffect} from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getSelectedCrypto } from '../redux/actions'
 import { useParams } from 'react-router-dom'
@@ -38,12 +38,38 @@ const MyCrypto = () => {
 
     const selectedCrypto = useSelector(state => state.currentCryptoData.selectedCrypto);
 
+    const timeoutRef = useRef(null);
+
     useEffect(() => {
-        dispatch(getSelectedCrypto(simbolo));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [simbolo]);
+        const fetchData = () => {
+            dispatch(getSelectedCrypto(simbolo));
+        };
+
+        fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
+
+        const startTimer = () => {
+            timeoutRef.current = setTimeout(() => {
+                fetchData();
+                startTimer();
+            }, 60000);
+        };
+
+        const resetTimer = () => {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        };
+
+        startTimer(); // Avviamo il timer all'avvio del componente
+
+        return () => {
+            resetTimer(); // Alla dismissione del componente, resettiamo il timer
+        };
+    }, [dispatch, simbolo]);
+
 
     const variazioneColor = selectedCrypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
+
+    console.log(selectedCrypto);
 
     return (
         <>

@@ -13,9 +13,6 @@ const MyOperazione = ({logo,selectedCrypto}) => {
         setShowCompra(false);
     };
 
-    console.log(logo);
-    console.log(selectedCrypto);
-
     return (
         <>
             <div className="d-flex justify-content-between pb-3">

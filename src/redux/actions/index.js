@@ -43,7 +43,8 @@ export const getCurrentCryptoData = () => {
         });
         if (response.ok) {
           const data = await response.json();
-          dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: data });
+          const sortedData = [...data].sort((a, b) => a.id - b.id);
+          dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: sortedData });
         }
       } catch (error) {
         console.log(error);
@@ -73,7 +74,6 @@ export const getMonthlyCryptoData = simbolo => {
     }
   };
 };
-
 export const getSelectedCrypto = simbolo => {
   return async dispatch => {
     try {
