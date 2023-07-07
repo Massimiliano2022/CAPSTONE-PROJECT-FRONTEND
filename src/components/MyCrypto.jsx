@@ -7,65 +7,43 @@ import xrpLogo from '../img/ripple.png'
 import dogeLogo from '../img/dogecoin.png'
 import sandLogo from '../img/sandbox.png'
 
-import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
+import { Card, Col, Container, Row, Table } from "react-bootstrap";
 import MyLineChart from './MyLineChart';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { getMonthlyCryptoData, getSelectedCrypto } from '../redux/actions'
+import { getSelectedCrypto } from '../redux/actions'
 import { useParams } from 'react-router-dom'
+import MyOperazione from './MyOperazione'
 
 const cryptoLogos = {
     btc: btcLogo,
     eth: ethLogo,
     ada: adaLogo,
     dot: dotLogo,
-    matic:maticLogo,
-    xrp:xrpLogo,
-    doge:dogeLogo,
-    sand:sandLogo
+    matic: maticLogo,
+    xrp: xrpLogo,
+    doge: dogeLogo,
+    sand: sandLogo
 };
 
 const MyCrypto = () => {
 
-    const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
-
-    const selectedCrypto = useSelector(state => state.currentCryptoData.selectedCrypto);
-
-    const monthlyCryptoData = useSelector(state => state.monthlyCryptoData.monthlyData);
+    const dispatch = useDispatch();
 
     const { simbolo } = useParams();
 
     const cryptoSymbol = simbolo.toLowerCase();
 
-    const dispatch = useDispatch();
+    //const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
-    const [showCompra, setShowCompra] = useState(true);
-
-    const handleCompraClick = () => {
-        setShowCompra(true);
-    };
-
-    const handleVendiClick = () => {
-        setShowCompra(false);
-    };
-
-    const chartData = {
-        labels: [],
-        values: [],
-    };
+    const selectedCrypto = useSelector(state => state.currentCryptoData.selectedCrypto);
 
     useEffect(() => {
-        dispatch(getMonthlyCryptoData(simbolo));
         dispatch(getSelectedCrypto(simbolo));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [simbolo]);
 
-    if (monthlyCryptoData && monthlyCryptoData.length > 0) {
-        chartData.labels = monthlyCryptoData.map((record) => record.data);
-        chartData.values = monthlyCryptoData.map((record) => record.chiusuraPrezzo);
-    }
-
-  const variazioneColor = selectedCrypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
+    const variazioneColor = selectedCrypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
 
     return (
         <>
@@ -84,70 +62,12 @@ const MyCrypto = () => {
                     <Col sm={12} md={8}>
                         <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                             <Card.Body>
-                                <MyLineChart chartData={chartData} simbolo={simbolo}/>
+                                <MyLineChart simbolo={simbolo} />
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col sm={12} md={4}>
-                        <div className="d-flex justify-content-between pb-3">
-                            <Button
-                                variant="link"
-                                className="nav-link p-2"
-                                style={{
-                                    borderRadius: "0",
-                                    borderBottom: showCompra ? '3px solid #EBB60B' : 'none',
-                                    color: showCompra ? "#EBB60B" : "inherit"
-                                }}
-                                onClick={handleCompraClick}
-                            >Compra Btc</Button>
-                            <Button
-                                variant="link"
-                                className="nav-link p-2"
-                                style={{
-                                    borderRadius: "0",
-                                    borderBottom: showCompra ? 'none' : '3px solid #EBB60B',
-                                    color: showCompra ? "inherit" : "#EBB60B"
-                                }}
-                                onClick={handleVendiClick}
-                            >Vendi Btc</Button>
-                        </div>
-                        {showCompra ? (
-                            <Card className="mb-4" style={{ background: "#2d2d2d" }}>
-                                <Card.Body>
-                                    <Card.Title>Compra</Card.Title>
-                                    <div className="d-flex justify-content-between align-items-center mb-3">
-                                        <Form>
-                                            <Form.Group controlId="quantita">
-                                                <Form.Control type="number" defaultValue={1} />
-                                            </Form.Group>
-                                        </Form>
-                                        <div className="d-flex align-items-center p-2 rounded-4" style={{ background: "#1E1E1E" }}>
-                                            <img src={btcLogo} alt='Bitcoin Logo' width={35} className="pe-2" />
-                                            <Card.Text>BTC</Card.Text>
-                                        </div>
-                                    </div>
-                                    <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color: "black" }}>Compra</Button>
-                                </Card.Body>
-                            </Card>
-                        ) : (
-                            <Card className="mb-4" style={{ background: "#2d2d2d" }}>
-                                <Card.Body>
-                                    <Card.Title>Vendi</Card.Title>
-                                    <div className="d-flex justify-content-between align-items-center mb-3">
-                                        <Form>
-                                            <Form.Group controlId="quantita">
-                                                <Form.Control type="number" defaultValue={1} />
-                                            </Form.Group>
-                                        </Form>
-                                        <div className="d-flex align-items-center p-2 rounded-4" style={{ background: "#1E1E1E" }}>
-                                            <img src={btcLogo} alt='Bitcoin Logo' width={35} className="pe-2" />
-                                            <Card.Text>BTC</Card.Text>
-                                        </div>
-                                    </div>
-                                    <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color: "black" }}>Vendi</Button>
-                                </Card.Body>
-                            </Card>
-                        )}
+                        <MyOperazione logo={cryptoLogos[cryptoSymbol]} selectedCrypto={selectedCrypto}/>
                     </Col>
                 </Row>
                 <Row className="pb-5">

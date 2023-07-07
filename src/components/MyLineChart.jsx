@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { getMonthlyCryptoData } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJs,
@@ -19,13 +23,32 @@ ChartJs.register(LineElement,
     Filler
 )
 
-const MyLineChart = ({ chartData,simbolo }) => {
+const MyLineChart = ({ simbolo }) => {
+
+    const monthlyCryptoData = useSelector(state => state.monthlyCryptoData.monthlyData);
+
+    /*const chartData = {
+        labels: [],
+        values: [],
+    };*/
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getMonthlyCryptoData(simbolo));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [simbolo]);
+
+    /*if (monthlyCryptoData && monthlyCryptoData.length > 0) {
+        chartData.labels = monthlyCryptoData.map((record) => record.data);
+        chartData.values = monthlyCryptoData.map((record) => record.chiusuraPrezzo);
+    }*/
 
     const data = {
-        labels: chartData.labels,
+        labels: monthlyCryptoData.map((record) => record.data),
         datasets: [{
             label: simbolo,
-            data: chartData.values,
+            data: monthlyCryptoData.map((record) => record.chiusuraPrezzo),
             backgroundColor:'#2D2D2D',
             borderColor: '#EBB60B',
             pointBorderColor: '#1E1E1E',
