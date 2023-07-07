@@ -7,13 +7,16 @@ import xrpLogo from '../img/ripple.png'
 import dogeLogo from '../img/dogecoin.png'
 import sandLogo from '../img/sandbox.png'
 
-import { Card, Col, Container, Row, Table } from "react-bootstrap";
-import MyLineChart from './MyLineChart';
+import { Card, Col, Container, Row} from "react-bootstrap";
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { getSelectedCrypto } from '../redux/actions'
 import { useParams } from 'react-router-dom'
+import { getSelectedCrypto } from '../redux/actions'
+
+import MyLineChart from './MyLineChart';
 import MyOperazione from './MyOperazione'
+import MyCryptoPriceHistory from './MyCryptoPriceHistory'
+import MyTrendCrypto from './MyTrendCrypto'
 
 const cryptoLogos = {
     btc: btcLogo,
@@ -98,97 +101,10 @@ const MyCrypto = () => {
                 </Row>
                 <Row className="pb-5">
                     <Col sm={12} md={8}>
-                        <Card style={{ background: "#2d2d2d" }}>
-                            <Card.Body>
-                                <Card.Title className="mb-3">Storico dei prezzi BTC/USD</Card.Title>
-                                <Table className='text-light m-0'>
-                                    <thead style={{ background: "#0B0E11" }}>
-                                        <tr>
-                                            <th>Periodo</th>
-                                            <th>Prezzo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Oggi</td>
-                                            <td>$ 30518.4</td>
-                                        </tr>
-                                        <tr>
-                                            <td>30 giorni</td>
-                                            <td>$ 30472.9</td>
-                                        </tr>
-                                        <tr>
-                                            <td>60 giorni</td>
-                                            <td>$ 27216.1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>90 giorni</td>
-                                            <td>$ 29252.1</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
+                        <MyCryptoPriceHistory simbolo={cryptoSymbol} selectedCrypto={selectedCrypto}/>
                     </Col>
                     <Col md={4} className="d-none d-sm-none d-md-block">
-                        <Card style={{ background: "#2d2d2d" }}>
-                            <Card.Body>
-                                <Card.Title className="mb-3">Crypto di tendenza</Card.Title>
-                                <Table className='text-light m-0'>
-                                    <tbody className="d-flex flex-column">
-                                        <tr className="d-flex flex-row justify-content-between align-items-center">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={ethLogo} alt="Ethereum Logo" width={30} className="img-fluid object-fit-cover" />
-                                                <span className="fs-6 ms-2">ETH</span>
-                                            </td>
-                                            <td className="fs-6">$ 1935.69</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={adaLogo} alt="Cardano Logo" width={30} />
-                                                <span className="fs-6 ms-2">ADA</span>
-                                            </td>
-                                            <td className="fs-6">$ 0.2819</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={dotLogo} alt="Polkadot Logo" width={30} />
-                                                <span className="fs-6 ms-2">DOT</span>
-                                            </td>
-                                            <td className="fs-6">$ 5.29</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={maticLogo} alt="Polygon Logo" width={30} />
-                                                <span className="fs-6 ms-2">MATIC</span>
-                                            </td>
-                                            <td className="fs-6">$ 0.6699</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={xrpLogo} alt="Ripple Logo" width={30} />
-                                                <span className="fs-6 ms-2">XRP</span>
-                                            </td>
-                                            <td className="fs-6">$ 0.6699</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={dogeLogo} alt="Dogecoin Logo" width={30} />
-                                                <span className="fs-6 ms-2">DOGE</span>
-                                            </td>
-                                            <td className="fs-6">$ 0.6699</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={sandLogo} alt="The Sandbox Logo" width={30} />
-                                                <span className="fs-6 ms-2">SAND</span>
-                                            </td>
-                                            <td className="fs-6">$ 0.6699</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
+                        <MyTrendCrypto selectedCrypto={selectedCrypto}/>
                     </Col>
                 </Row>
             </Container>

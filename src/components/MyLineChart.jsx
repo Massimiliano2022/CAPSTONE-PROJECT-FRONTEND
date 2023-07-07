@@ -35,7 +35,9 @@ const MyLineChart = ({ simbolo, selectedCrypto }) => {
 
     const formatData = (dateString) => {
         const date = new Date(dateString);
-        const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate().toString().padStart(2, "0");
+        const formattedDate = `${date.getFullYear()}-${month}-${day}`;
         return formattedDate;
     };
 
