@@ -32,7 +32,7 @@ const MyCrypto = () => {
 
     const { simbolo } = useParams();
 
-    const cryptoSymbol = simbolo.toLowerCase();
+    const cryptoSymbol = simbolo.toUpperCase();
 
     //const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
@@ -42,7 +42,7 @@ const MyCrypto = () => {
 
     useEffect(() => {
         const fetchData = () => {
-            dispatch(getSelectedCrypto(simbolo));
+            dispatch(getSelectedCrypto(cryptoSymbol));
         };
 
         fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
@@ -64,7 +64,7 @@ const MyCrypto = () => {
         return () => {
             resetTimer(); // Alla dismissione del componente, resettiamo il timer
         };
-    }, [dispatch, simbolo]);
+    }, [dispatch, cryptoSymbol]);
 
 
     const variazioneColor = selectedCrypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
@@ -77,9 +77,9 @@ const MyCrypto = () => {
                 <Row className="pt-5">
                     <Col sm={12}>
                         <div className="d-flex align-items-center mb-4">
-                            <img src={cryptoLogos[cryptoSymbol]} alt={cryptoLogos[cryptoSymbol]} width={40} className="me-4" />
+                            <img src={cryptoLogos[simbolo]} alt={cryptoLogos[simbolo]} width={40} className="me-4" />
                             <h2 className="me-4">Valore {selectedCrypto.nome}</h2>
-                            <p className="text-muted mb-0">{simbolo}</p>
+                            <p className="text-muted mb-0">{cryptoSymbol}</p>
                         </div>
                         <p className="fs-3">$ {selectedCrypto.prezzo} <span style={{ color: variazioneColor }}>{selectedCrypto.percententuale_variazione_1h}</span></p>
                     </Col>
@@ -88,12 +88,12 @@ const MyCrypto = () => {
                     <Col sm={12} md={8}>
                         <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                             <Card.Body>
-                                <MyLineChart simbolo={simbolo} />
+                                <MyLineChart simbolo={cryptoSymbol} />
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col sm={12} md={4}>
-                        <MyOperazione logo={cryptoLogos[cryptoSymbol]} selectedCrypto={selectedCrypto}/>
+                        <MyOperazione logo={cryptoLogos[simbolo]} selectedCrypto={selectedCrypto}/>
                     </Col>
                 </Row>
                 <Row className="pb-5">
