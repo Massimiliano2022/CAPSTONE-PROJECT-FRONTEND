@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const MyOperazione = ({logo,selectedCrypto}) => {
+
+    const navigator = useNavigate();
+
+    const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
     const [showCompra, setShowCompra] = useState(true);
 
@@ -11,6 +17,22 @@ const MyOperazione = ({logo,selectedCrypto}) => {
 
     const handleVendiClick = () => {
         setShowCompra(false);
+    };
+
+    const apriOperazione = () => {
+        if(utenteCorrente){
+            console.log(utenteCorrente);
+        }else{
+            navigator('/login');
+        }
+    };
+
+    const chiudiOperazione = () => {
+        if(utenteCorrente){
+            console.log(utenteCorrente);
+        }else{
+            navigator('/login');
+        }
     };
 
     return (
@@ -53,7 +75,13 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                             </div>
                         </div>
                         <Card.Text className="text-muted">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
-                        <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color: "black" }}>Compra</Button>
+                        <Button 
+                            variant="button" 
+                            style={{ color: "black" }}
+                            onClick={apriOperazione}
+                            className="w-100 p-1 btn btn-warning" 
+                            >Compra
+                        </Button>
                     </Card.Body>
                 </Card>
             ) : (
@@ -72,7 +100,13 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                             </div>
                         </div>
                         <Card.Text className="text-muted">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
-                        <Button variant="button" className="w-100 p-1 btn btn-warning" style={{ color: "black" }}>Vendi</Button>
+                        <Button 
+                            variant="button" 
+                            style={{ color: "black" }}
+                            onClick={chiudiOperazione}
+                            className="w-100 p-1 btn btn-warning" 
+                            >Vendi
+                        </Button>
                     </Card.Body>
                 </Card>
             )}
