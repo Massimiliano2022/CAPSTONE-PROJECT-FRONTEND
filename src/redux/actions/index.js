@@ -3,6 +3,7 @@ export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
 export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
+export const GET_WALLET_UTENTE_CORRENTE = "GET_WALLET_UTENTE_CORRENTE";
 
 export const getUtenteCorrente = utente => {
   return async dispatch => {
@@ -67,13 +68,14 @@ export const getMonthlyCryptoData = simbolo => {
       });
       if (response.ok) {
         const data = await response.json();
-          dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
+        dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
       }
     } catch (error) {
       console.log(error);
     }
   };
 };
+
 export const getSelectedCrypto = simbolo => {
   return async dispatch => {
     try {
@@ -86,10 +88,31 @@ export const getSelectedCrypto = simbolo => {
       });
       if (response.ok) {
         const data = await response.json();
-          dispatch({ type: GET_SELECTED_CRYPTO, payload: data });
+        dispatch({ type: GET_SELECTED_CRYPTO, payload: data });
       }
     } catch (error) {
       console.log(error);
     }
   };
 };
+
+export const getWalletUtenteCorrente = jwtToken => {
+  console.log(jwtToken);
+  return async dispatch => {
+    try {
+      const url = `http://localhost:3001/wallet/me`;
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + jwtToken,
+        },
+      })
+      if (response.ok) {
+        const data = await response.json();
+        dispatch({ type: GET_WALLET_UTENTE_CORRENTE, payload: data });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

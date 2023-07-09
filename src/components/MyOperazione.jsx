@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getWalletUtenteCorrente } from "../redux/actions";
 
 const MyOperazione = ({logo,selectedCrypto}) => {
+
+    const dispatch = useDispatch();
 
     const navigator = useNavigate();
 
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
+    const walletCorrente = useSelector(state => state.walletCorrente.wallet);
+
     const [showCompra, setShowCompra] = useState(true);
+
+    useEffect(() => {
+        if(utenteCorrente){
+            dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [utenteCorrente]);
 
     const handleCompraClick = () => {
         setShowCompra(true);
@@ -20,16 +32,18 @@ const MyOperazione = ({logo,selectedCrypto}) => {
     };
 
     const apriOperazione = () => {
-        if(utenteCorrente){
+        if(utenteCorrente  && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente){
             console.log(utenteCorrente);
+            console.log(walletCorrente);
         }else{
             navigator('/login');
         }
     };
 
     const chiudiOperazione = () => {
-        if(utenteCorrente){
+        if(utenteCorrente && walletCorrente){
             console.log(utenteCorrente);
+            console.log(walletCorrente);
         }else{
             navigator('/login');
         }
