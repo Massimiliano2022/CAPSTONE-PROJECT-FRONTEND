@@ -17,11 +17,11 @@ const MyOperazione = ({logo,selectedCrypto}) => {
     const [showCompra, setShowCompra] = useState(true);
 
     useEffect(() => {
-        if(utenteCorrente){
+        if(utenteCorrente.jwtToken){
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente]);
+    }, [utenteCorrente.jwtToken]);
 
     const handleCompraClick = () => {
         setShowCompra(true);

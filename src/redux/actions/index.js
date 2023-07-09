@@ -97,7 +97,6 @@ export const getSelectedCrypto = simbolo => {
 };
 
 export const getWalletUtenteCorrente = jwtToken => {
-  console.log(jwtToken);
   return async dispatch => {
     try {
       const url = `http://localhost:3001/wallet/me`;
