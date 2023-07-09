@@ -16,34 +16,46 @@ const MyOperazione = ({logo,selectedCrypto}) => {
 
     const [showCompra, setShowCompra] = useState(true);
 
+    const [operazione, setOperazione] = useState({
+        idWallet:walletCorrente.id,
+	    simboloCrypto:"",
+	    tipoOperazione: "BUY",
+	    quantita:""
+    });
+
     useEffect(() => {
-        if(utenteCorrente.jwtToken){
+        if(utenteCorrente && utenteCorrente.jwtToken){
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
+        setOperazione({ ...operazione, simboloCrypto: selectedCrypto.simbolo });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente.jwtToken]);
+    }, [selectedCrypto,utenteCorrente]);
 
     const handleCompraClick = () => {
         setShowCompra(true);
+        setOperazione({ ...operazione, tipoOperazione: "BUY" });
     };
 
     const handleVendiClick = () => {
         setShowCompra(false);
+        setOperazione({ ...operazione, tipoOperazione: "SELL" });
     };
 
-    const apriOperazione = () => {
+    const compra = () => {
         if(utenteCorrente  && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente){
             console.log(utenteCorrente);
             console.log(walletCorrente);
+            console.log(operazione);
         }else{
             navigator('/login');
         }
     };
 
-    const chiudiOperazione = () => {
-        if(utenteCorrente && walletCorrente){
+    const vendi = () => {
+        if(utenteCorrente  && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente){
             console.log(utenteCorrente);
             console.log(walletCorrente);
+            console.log(operazione);
         }else{
             navigator('/login');
         }
@@ -80,7 +92,11 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <Form>
                                 <Form.Group controlId="quantita">
-                                    <Form.Control type="number" defaultValue={1} />
+                                    <Form.Control 
+                                        type="number"
+                                        value={operazione.quantita}
+                                        onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })}  
+                                    />
                                 </Form.Group>
                             </Form>
                             <div className="d-flex align-items-center p-2 rounded-4" style={{ background: "#1E1E1E" }}>
@@ -92,7 +108,7 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                         <Button 
                             variant="button" 
                             style={{ color: "black" }}
-                            onClick={apriOperazione}
+                            onClick={compra}
                             className="w-100 p-1 btn btn-warning" 
                             >Compra
                         </Button>
@@ -105,7 +121,11 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <Form>
                                 <Form.Group controlId="quantita">
-                                    <Form.Control type="number" defaultValue={1} />
+                                    <Form.Control 
+                                        type="number" 
+                                        value={operazione.quantita}
+                                        onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })} 
+                                    />
                                 </Form.Group>
                             </Form>
                             <div className="d-flex align-items-center p-2 rounded-4" style={{ background: "#1E1E1E" }}>
@@ -117,7 +137,7 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                         <Button 
                             variant="button" 
                             style={{ color: "black" }}
-                            onClick={chiudiOperazione}
+                            onClick={vendi}
                             className="w-100 p-1 btn btn-warning" 
                             >Vendi
                         </Button>
