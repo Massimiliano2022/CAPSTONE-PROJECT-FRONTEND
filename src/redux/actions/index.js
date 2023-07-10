@@ -131,7 +131,6 @@ export const postOperazione = (jwtToken, operazione) => {
       if (response.ok) {
         const userData = await response.json();
         console.log(userData);
-        navigator("/wallet");
       } else {
         const errorData = await response.json();
         console.log(errorData);
