@@ -11,14 +11,14 @@ import { persistReducer, persistStore } from "redux-persist";
 const persistConfig = {
     key: "root",
     storage,
-    blacklist: ['currentCryptoData','monthlyCryptoData']
+    blacklist: ['currentCryptoData','monthlyCryptoData','walletCorrente']
   };
 
 const rootReducer = combineReducers({
     utenteCorrente:loginReducer,
     currentCryptoData:cryptoPriceReducer,
     monthlyCryptoData:monthlyCryptoReducer,
-    walletCorrente:walletReducer,
+    walletCorrente:walletReducer
   });
   
   const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -4,6 +4,7 @@ export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
 export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
 export const GET_WALLET_UTENTE_CORRENTE = "GET_WALLET_UTENTE_CORRENTE";
+export const POST_OPERAZIONE = "POST_OPERAZIONE";
 
 export const getUtenteCorrente = utente => {
   return async dispatch => {
@@ -114,4 +115,29 @@ export const getWalletUtenteCorrente = jwtToken => {
       console.log(error);
     }
   };
+}
+
+export const postOperazione = (jwtToken, operazione) => {
+  return async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/operazioni`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + jwtToken
+        },
+        body: JSON.stringify(operazione),
+      });
+      if (response.ok) {
+        const userData = await response.json();
+        console.log(userData);
+        navigator("/wallet");
+      } else {
+        const errorData = await response.json();
+        console.log(errorData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

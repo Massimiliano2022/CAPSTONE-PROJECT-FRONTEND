@@ -9,8 +9,13 @@ import sandLogo from '../img/sandbox.png'
 
 import { Container, Row, Col, Card, Table } from "react-bootstrap";
 import MyDoughnutChart from "./MyDoughnutChart";
+import { useSelector } from 'react-redux'
 
 const MyWallet = () => {
+
+    const walletCorrente = useSelector(state => state.walletCorrente.wallet);
+
+    console.log(walletCorrente);
 
     const chartData = {
         labels: ['BTC', 'ETH', 'ADA', 'DOT', 'MATIC', 'XRP', 'DOGE', 'SAND'],

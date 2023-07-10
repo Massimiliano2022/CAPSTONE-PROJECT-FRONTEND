@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getWalletUtenteCorrente } from "../redux/actions";
+import { getWalletUtenteCorrente, postOperazione } from "../redux/actions";
 
 const MyOperazione = ({logo,selectedCrypto}) => {
 
@@ -17,19 +17,24 @@ const MyOperazione = ({logo,selectedCrypto}) => {
     const [showCompra, setShowCompra] = useState(true);
 
     const [operazione, setOperazione] = useState({
-        idWallet:walletCorrente.id,
-	    simboloCrypto:"",
+        idWallet:"",
+	    simboloCrypto:selectedCrypto.simbolo,
 	    tipoOperazione: "BUY",
 	    quantita:""
     });
 
     useEffect(() => {
-        if(utenteCorrente && utenteCorrente.jwtToken){
+        if (utenteCorrente && utenteCorrente.jwtToken) {
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [utenteCorrente]);
+
+    useEffect(() => {
         setOperazione({ ...operazione, simboloCrypto: selectedCrypto.simbolo });
+        setOperazione({ ...operazione, idWallet: walletCorrente.id });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedCrypto,utenteCorrente]);
+    }, [selectedCrypto,walletCorrente]);
 
     const handleCompraClick = () => {
         setShowCompra(true);
@@ -41,21 +46,23 @@ const MyOperazione = ({logo,selectedCrypto}) => {
         setOperazione({ ...operazione, tipoOperazione: "SELL" });
     };
 
-    const compra = () => {
+    const compra = async () => {
         if(utenteCorrente  && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente){
             console.log(utenteCorrente);
             console.log(walletCorrente);
             console.log(operazione);
+            dispatch(postOperazione(utenteCorrente.jwtToken,operazione));
         }else{
             navigator('/login');
         }
     };
 
-    const vendi = () => {
+    const vendi = async () => {
         if(utenteCorrente  && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente){
             console.log(utenteCorrente);
             console.log(walletCorrente);
             console.log(operazione);
+            dispatch(postOperazione(utenteCorrente.jwtToken,operazione));
         }else{
             navigator('/login');
         }
