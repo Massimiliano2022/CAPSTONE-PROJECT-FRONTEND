@@ -9,11 +9,22 @@ import sandLogo from '../img/sandbox.png'
 
 import { Container, Row, Col, Card, Table } from "react-bootstrap";
 import MyDoughnutChart from "./MyDoughnutChart";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getWalletUtenteCorrente } from '../redux/actions'
 
 const MyWallet = () => {
 
+    const dispatch = useDispatch();
+
+    const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
+
     const walletCorrente = useSelector(state => state.walletCorrente.wallet);
+
+    useEffect(() => {
+        dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [utenteCorrente]);
 
     console.log(walletCorrente);
 

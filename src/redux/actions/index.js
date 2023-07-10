@@ -4,6 +4,7 @@ export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
 export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
 export const GET_WALLET_UTENTE_CORRENTE = "GET_WALLET_UTENTE_CORRENTE";
+export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 export const POST_OPERAZIONE = "POST_OPERAZIONE";
 
 export const getUtenteCorrente = utente => {
@@ -116,6 +117,10 @@ export const getWalletUtenteCorrente = jwtToken => {
     }
   };
 }
+
+export const removeWalletUtenteCorrente = () => ({
+  type: REMOVE_WALLET_UTENTE_CORRENTE,
+});
 
 export const postOperazione = (jwtToken, operazione) => {
   return async () => {

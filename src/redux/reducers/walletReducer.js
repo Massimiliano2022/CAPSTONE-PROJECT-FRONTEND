@@ -1,4 +1,4 @@
-import { GET_WALLET_UTENTE_CORRENTE } from "../actions";
+import { GET_WALLET_UTENTE_CORRENTE,REMOVE_WALLET_UTENTE_CORRENTE } from "../actions";
 
 const initialState = {
     wallet: {
@@ -14,6 +14,9 @@ const walletReducer = (state = initialState, action) => {
                 wallet:
                     action.payload
               }
+              case REMOVE_WALLET_UTENTE_CORRENTE:
+                const { wallet, ...newState } = state;
+                return newState;
         default:
             return state;
     }
