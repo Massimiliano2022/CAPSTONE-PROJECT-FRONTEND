@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getWalletUtenteCorrente, postOperazione } from "../redux/actions";
 
 const MyOperazione = ({logo,selectedCrypto}) => {
@@ -9,6 +9,10 @@ const MyOperazione = ({logo,selectedCrypto}) => {
     const dispatch = useDispatch();
 
     const navigator = useNavigate();
+
+    const { simbolo } = useParams();
+
+    const cryptoSymbol = simbolo.toUpperCase();
 
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
@@ -18,7 +22,7 @@ const MyOperazione = ({logo,selectedCrypto}) => {
 
     const [operazione, setOperazione] = useState({
         idWallet:"",
-	    simboloCrypto:selectedCrypto.simbolo,
+	    simboloCrypto:cryptoSymbol,
 	    tipoOperazione: "BUY",
 	    quantita:""
     });
@@ -31,7 +35,6 @@ const MyOperazione = ({logo,selectedCrypto}) => {
     }, [utenteCorrente]);
 
     useEffect(() => {
-        setOperazione({ ...operazione, simboloCrypto: selectedCrypto.simbolo });
         setOperazione({ ...operazione, idWallet: walletCorrente.id });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCrypto,walletCorrente]);
