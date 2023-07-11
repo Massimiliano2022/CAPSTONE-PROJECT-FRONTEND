@@ -35,9 +35,11 @@ const MyOperazione = ({logo,selectedCrypto}) => {
     }, [utenteCorrente]);
 
     useEffect(() => {
-        setOperazione({ ...operazione, idWallet: walletCorrente.id });
+        if(walletCorrente){
+            setOperazione({ ...operazione, idWallet: walletCorrente.id });
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedCrypto,walletCorrente]);
+    }, [walletCorrente]);
 
     const handleCompraClick = () => {
         setShowCompra(true);
