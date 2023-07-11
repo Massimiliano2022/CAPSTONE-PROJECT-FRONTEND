@@ -51,18 +51,7 @@ const MyOperazione = ({logo,selectedCrypto}) => {
         setOperazione({ ...operazione, tipoOperazione: "SELL" });
     };
 
-    const compra = async () => {
-        if(utenteCorrente  && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente){
-            console.log(utenteCorrente);
-            console.log(walletCorrente);
-            console.log(operazione);
-            dispatch(postOperazione(utenteCorrente.jwtToken,operazione));
-        }else{
-            navigator('/login');
-        }
-    };
-
-    const vendi = async () => {
+    const eseguiOperazione = async () => {
         if(utenteCorrente  && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente){
             console.log(utenteCorrente);
             console.log(walletCorrente);
@@ -120,7 +109,7 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                         <Button 
                             variant="button" 
                             style={{ color: "black" }}
-                            onClick={compra}
+                            onClick={eseguiOperazione}
                             className="w-100 p-1 btn btn-warning" 
                             >Compra
                         </Button>
@@ -149,7 +138,7 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                         <Button 
                             variant="button" 
                             style={{ color: "black" }}
-                            onClick={vendi}
+                            onClick={eseguiOperazione}
                             className="w-100 p-1 btn btn-warning" 
                             >Vendi
                         </Button>
