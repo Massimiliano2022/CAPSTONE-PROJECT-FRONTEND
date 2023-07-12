@@ -46,7 +46,7 @@ const MyAssetTable = ({ walletCorrente }) => {
                                     <span className="ms-2">{asset.crypto.simbolo}</span>
                                 </td>
                                 <td className="d-flex flex-column text-end">
-                                    {asset.quantita}
+                                    {asset.quantita.toFixed(2)}
                                     <p className="text-muted">{(asset.crypto.prezzo * asset.quantita).toFixed(2)}</p>
                                 </td>
                             </tr>
