@@ -24,23 +24,11 @@ const MyWallet = () => {
 
     const timeoutRef = useRef(null);
 
-    const [saldoDisponibile,setSaldoDisponibile] = useState();
-    const [listaAsset,setListaAsset] = useState();
-    const [listaOperazioni,setListaOperazioni] = useState();
-
     useEffect(() => {
         const fetchData = () => {
-        dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
+            dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
-
-        const updateWalletData = () => {
-            setSaldoDisponibile(walletCorrente.saldoDisponibile);
-            setListaAsset(walletCorrente.listaAsset);
-            setListaOperazioni(walletCorrente.listaOperazioni);
-          };
-
-        fetchData();
-        updateWalletData();
+        fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
 
         const startTimer = () => {
             timeoutRef.current = setTimeout(() => {
@@ -48,20 +36,24 @@ const MyWallet = () => {
                 startTimer();
             }, 60000);
         };
+
         const resetTimer = () => {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
         };
-        startTimer(); 
+
+        startTimer(); // Avviamo il timer all'avvio del componente
+
         return () => {
-            resetTimer();
+            resetTimer(); // Alla dismissione del componente, resettiamo il timer
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [utenteCorrente]);
 
     console.log(walletCorrente);
-    console.log(saldoDisponibile);
-    console.log(listaAsset);
+    console.log(walletCorrente.saldoDisponibile);
+    console.log(walletCorrente.listaAsset);
+    console.log(walletCorrente.listaOperazioni);
 
     const chartData = {
         labels: ['BTC', 'ETH', 'ADA', 'DOT', 'MATIC', 'XRP', 'DOGE', 'SAND'],
@@ -145,7 +137,7 @@ const MyWallet = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <MyListaOperazioni listaOperazioni={listaOperazioni}/>
+                        <MyListaOperazioni lista={walletCorrente.listaOperazioni} />
                     </Col>
                 </Row>
             </Container>

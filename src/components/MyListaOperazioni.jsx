@@ -1,8 +1,8 @@
 import { Card, Table } from "react-bootstrap";
 
-const MyListaOperazioni = ({ listaOperazioni }) => {
+const MyListaOperazioni = ({ lista }) => {
 
-    console.log(listaOperazioni);
+    console.log(lista);
 
     return (
         <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
@@ -20,9 +20,9 @@ const MyListaOperazioni = ({ listaOperazioni }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {listaOperazioni.map((operazione) => (
+                        {lista && lista.map((operazione) => (
                             <tr key={operazione.id}>
-                                <td>{operazione.data}</td>
+                                <td>{operazione.dataOperazione}</td>
                                 <td>{operazione.tipoOperazione}</td>
                                 <td>{operazione.crypto.simbolo}</td>
                                 <td>{operazione.quantita}</td>
