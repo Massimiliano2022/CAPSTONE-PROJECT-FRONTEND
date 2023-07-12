@@ -67,10 +67,7 @@ const MyCrypto = () => {
         };
     }, [dispatch, cryptoSymbol]);
 
-
     const variazioneColor = selectedCrypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
-
-    console.log(selectedCrypto);
 
     return (
         <>

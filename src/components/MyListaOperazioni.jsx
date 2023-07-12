@@ -3,8 +3,6 @@ import { Card, Table } from "react-bootstrap";
 
 const MyListaOperazioni = ({ lista }) => {
 
-    console.log(lista);
-
     const reverseLista = [...lista];
 
     reverseLista.reverse();

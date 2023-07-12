@@ -3,7 +3,17 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const MyDoughnutChart = ({ chartData }) => {
+const MyDoughnutChart = ({ walletCorrente }) => {
+
+    const cryptoValues = walletCorrente.listaAsset.map(asset => asset.crypto.prezzo * asset.quantita);
+    const totaleParzialeSaldo = cryptoValues.reduce((a, b) => a + b, 0) + walletCorrente.saldoDisponibile;
+    const percentualeAsset = cryptoValues.map(value => (value / totaleParzialeSaldo) * 100);
+    percentualeAsset.push((walletCorrente.saldoDisponibile / totaleParzialeSaldo) * 100);
+
+    const chartData = {
+        labels: [...walletCorrente.listaAsset.map(asset => asset.crypto.simbolo), 'USDT'],
+        values: [...percentualeAsset]
+    };
 
     const data = {
         labels: chartData.labels,
