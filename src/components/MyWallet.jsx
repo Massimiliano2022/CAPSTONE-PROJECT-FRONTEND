@@ -12,6 +12,7 @@ import MyDoughnutChart from "./MyDoughnutChart";
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import { getWalletUtenteCorrente } from '../redux/actions'
+import MyListaOperazioni from './MyListaOperazioni'
 
 const MyWallet = () => {
 
@@ -61,7 +62,6 @@ const MyWallet = () => {
     console.log(walletCorrente);
     console.log(saldoDisponibile);
     console.log(listaAsset);
-    console.log(listaOperazioni);
 
     const chartData = {
         labels: ['BTC', 'ETH', 'ADA', 'DOT', 'MATIC', 'XRP', 'DOGE', 'SAND'],
@@ -145,57 +145,7 @@ const MyWallet = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
-                            <Card.Body>
-                                <Card.Title className="mb-3">Storico operazioni</Card.Title>
-                                <Table className='text-light m-0 wallet-table'>
-                                    <thead style={{ background: "#0B0E11" }}>
-                                        <tr>
-                                            <th>Data operazione</th>
-                                            <th>Tipo operazione</th>
-                                            <th>Crypto</th>
-                                            <th>Quantità</th>
-                                            <th>Prezzo acquisto</th>
-                                            <th>Prezzo vendita</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>05/07/2023 12:10</td>
-                                            <td>BUY</td>
-                                            <td>BTC</td>
-                                            <td>1</td>
-                                            <td>$ 30500.0</td>
-                                            <td>$ 32500.0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>05/07/2023 12:10</td>
-                                            <td>BUY</td>
-                                            <td>BTC</td>
-                                            <td>1</td>
-                                            <td>$ 30500.0</td>
-                                            <td>$ 32500.0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>05/07/2023 12:10</td>
-                                            <td>BUY</td>
-                                            <td>BTC</td>
-                                            <td>1</td>
-                                            <td>$ 30500.0</td>
-                                            <td>$ 32500.0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>05/07/2023 12:10</td>
-                                            <td>BUY</td>
-                                            <td>BTC</td>
-                                            <td>1</td>
-                                            <td>$ 30500.0</td>
-                                            <td>$ 32500.0</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                            </Card.Body>
-                        </Card>
+                        <MyListaOperazioni listaOperazioni={listaOperazioni}/>
                     </Col>
                 </Row>
             </Container>
