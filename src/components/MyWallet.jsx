@@ -56,7 +56,7 @@ const MyWallet = () => {
             resetTimer();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente,walletCorrente,walletCorrente.saldoDisponibile, walletCorrente.listaAsset, walletCorrente.listaOperazioni]);
+    }, [utenteCorrente]);
 
     console.log(walletCorrente);
     console.log(saldoDisponibile);
