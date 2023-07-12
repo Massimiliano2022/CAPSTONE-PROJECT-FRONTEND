@@ -8,7 +8,8 @@ import dogeLogo from '../img/dogecoin.png'
 import sandLogo from '../img/sandbox.png'
 import usdtLogo from '../img/usdt.png'
 
-import { Card, Table } from "react-bootstrap";
+import { Card, Spinner, Table } from "react-bootstrap";
+import { useEffect, useState } from 'react'
 
 const MyAssetTable = ({ walletCorrente }) => {
 
@@ -24,37 +25,52 @@ const MyAssetTable = ({ walletCorrente }) => {
         usdt: usdtLogo
     };
 
-    const oggettoSaldo = {
-        crypto: {
-            simbolo: "USDT",
-            prezzo: 1.00
-        },
-        quantita: walletCorrente.saldoDisponibile
-    }
+    const [updatedListaAsset, setUpdatedListaAsset] = useState([]);
 
-    const updatedListaAsset = [...walletCorrente.listaAsset, oggettoSaldo];
+    useEffect(() => {
+      if (walletCorrente) {
+        const oggettoSaldo = {
+          crypto: {
+            simbolo: "USDT",
+            prezzo: 1.0,
+          },
+          quantita: walletCorrente.saldoDisponibile,
+        };
+  
+        const updatedListaAsset = [...walletCorrente.listaAsset, oggettoSaldo];
+        setUpdatedListaAsset(updatedListaAsset);
+      }
+    }, [walletCorrente]);
 
     return (
-        <Card className="my-4" style={{ background: "#2d2d2d" }}>
-            <Card.Body>
-                <Table className='text-light m-0'>
-                    <tbody className="d-flex flex-column">
-                        {updatedListaAsset && updatedListaAsset.map(asset => (
-                            <tr key={asset.crypto.simbolo} className="d-flex flex-row justify-content-between align-items-center my-2">
-                                <td className="d-flex align-items-center p-0">
-                                    <img src={cryptoLogos[asset.crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={40} className="img-fluid object-fit-cover" />
-                                    <span className="ms-2">{asset.crypto.simbolo}</span>
-                                </td>
-                                <td className="d-flex flex-column text-end">
-                                    {asset.quantita.toFixed(2)}
-                                    <p className="text-muted">$ {(asset.crypto.prezzo * asset.quantita).toFixed(2)}</p>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </Card.Body>
-        </Card>
+        <>
+            {!walletCorrente ? (
+                <div className="d-flex justify-content-center align-items-center" >
+                    <Spinner animation="grow" variant="warning" />
+                </div>
+            ) : (
+                <Card className="my-4" style={{ background: "#2d2d2d" }}>
+                    <Card.Body>
+                        <Table className='text-light m-0'>
+                            <tbody className="d-flex flex-column">
+                                {updatedListaAsset && updatedListaAsset.map(asset => (
+                                    <tr key={asset.crypto.simbolo} className="d-flex flex-row justify-content-between align-items-center my-2">
+                                        <td className="d-flex align-items-center p-0">
+                                            <img src={cryptoLogos[asset.crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={40} className="img-fluid object-fit-cover" />
+                                            <span className="ms-2">{asset.crypto.simbolo}</span>
+                                        </td>
+                                        <td className="d-flex flex-column text-end">
+                                            {asset.quantita.toFixed(2)}
+                                            <p className="text-muted">$ {(asset.crypto.prezzo * asset.quantita).toFixed(2)}</p>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </Card.Body>
+                </Card>
+            )}
+        </>
     );
 }
 export default MyAssetTable;
