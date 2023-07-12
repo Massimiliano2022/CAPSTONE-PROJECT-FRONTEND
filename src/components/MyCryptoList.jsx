@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
@@ -31,11 +31,17 @@ const MyCryptoList = () => {
                             />
                         </Form>
                     </Col>
-                    <>
-                        {cryptosPrice.map(crypto => (
-                            <MyCryptoCard crypto={crypto} key={crypto.id}/>
-                        ))}
-                    </>
+                    {!cryptosPrice ? (
+                        <div className="d-flex justify-content-center align-items-center vh-100">
+                            <Spinner animation="grow" variant="warning" />
+                        </div>
+                    ) : (
+                        <>
+                            {cryptosPrice.map(crypto => (
+                                <MyCryptoCard crypto={crypto} key={crypto.id} />
+                            ))}
+                        </>
+                    )}
                 </Row>
             </Container>
         </>
