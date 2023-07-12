@@ -18,11 +18,12 @@ const MyCryptoList = () => {
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className='py-5'>
-                    <Col sm={12} md={6}>
+                    <Col>
                         <h2 className="fs-3 p-0 m-0">Panoramica mercati</h2>
                         <p className="text-muted m-0">Tutte le informazione dei prezzi sono in USD</p>
                     </Col>
-                    <Col sm={12} md={6}>
+                </Row>
+                {/*<Col sm={12} md={6}>
                         <Form className="d-flex my-3">
                             <Form.Control
                                 type="search"
@@ -30,7 +31,8 @@ const MyCryptoList = () => {
                                 aria-label="Search"
                             />
                         </Form>
-                    </Col>
+                    </Col>*/}
+                <Row className="pb-5">
                     {!cryptosPrice ? (
                         <div className="d-flex justify-content-center align-items-center vh-100">
                             <Spinner animation="grow" variant="warning" />

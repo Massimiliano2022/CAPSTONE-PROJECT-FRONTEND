@@ -44,7 +44,7 @@ const MyWallet = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                {!walletCorrente ? (
+                {walletCorrente && walletCorrente.listaOperazioni === undefined && walletCorrente.listaAsset === undefined && walletCorrente.saldoDisponibile === undefined ? (
                     <div className="d-flex justify-content-center align-items-center vh-100">
                         <Spinner animation="grow" variant="warning" />
                     </div>
