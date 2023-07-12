@@ -1,5 +1,4 @@
 import { Col, Container, Row, Spinner } from "react-bootstrap";
-import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getCurrentCryptoData } from '../redux/actions'
