@@ -10,7 +10,7 @@ import sandLogo from '../img/sandbox.png'
 import { Container, Row, Col, Card, Table } from "react-bootstrap";
 import MyDoughnutChart from "./MyDoughnutChart";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { getWalletUtenteCorrente } from '../redux/actions'
 import MyListaOperazioni from './MyListaOperazioni'
 

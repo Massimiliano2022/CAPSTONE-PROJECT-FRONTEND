@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { useEffect } from 'react';
 import { getMonthlyCryptoData } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,20 +35,11 @@ const MyLineChart = ({ simbolo, selectedCrypto }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [simbolo]);
 
-    const formatData = (dateString) => {
-        const date = new Date(dateString);
-        const month = (date.getMonth() + 1).toString().padStart(2, "0");
-        const day = date.getDate().toString().padStart(2, "0");
-        const formattedDate = `${date.getFullYear()}-${month}-${day}`;
-        return formattedDate;
-    };
-
     const updatedMonthlyCryptoData = [...monthlyCryptoData];
 
     if (selectedCrypto) {
-        const formattedDate = formatData(selectedCrypto.timestamp);
         const updatedData = {
-            data: formattedDate,
+            data: moment(selectedCrypto.timestamp).format('YYYY-MM-DD'),
             chiusuraPrezzo: selectedCrypto.prezzo,
         };
         updatedMonthlyCryptoData.push(updatedData);

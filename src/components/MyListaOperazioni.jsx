@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Card, Table } from "react-bootstrap";
 
 const MyListaOperazioni = ({ lista }) => {
@@ -22,7 +23,7 @@ const MyListaOperazioni = ({ lista }) => {
                     <tbody>
                         {lista && lista.map((operazione) => (
                             <tr key={operazione.id}>
-                                <td>{operazione.dataOperazione}</td>
+                                <td>{moment(operazione.dataOperazione).format('DD/MM/YYYY HH:mm:ss')}</td>
                                 <td>{operazione.tipoOperazione}</td>
                                 <td>{operazione.crypto.simbolo}</td>
                                 <td>{operazione.quantita}</td>
