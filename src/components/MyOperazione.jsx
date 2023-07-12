@@ -58,7 +58,7 @@ const MyOperazione = ({logo,selectedCrypto}) => {
             console.log(operazione);
             dispatch(postOperazione(utenteCorrente.jwtToken,operazione));
         }else{
-            navigator('/login');
+            navigator('/wallet');
         }
     };
 

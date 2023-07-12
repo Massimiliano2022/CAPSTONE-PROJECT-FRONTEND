@@ -44,7 +44,7 @@ const MyAssetTable = ({ walletCorrente }) => {
 
     return (
         <>
-            {!walletCorrente ? (
+            {!walletCorrente && !walletCorrente.listaAsset ? (
                 <div className="d-flex justify-content-center align-items-center" >
                     <Spinner animation="grow" variant="warning" />
                 </div>

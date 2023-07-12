@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react'
 import { getWalletUtenteCorrente } from '../redux/actions'
 import MyListaOperazioni from './MyListaOperazioni'
 import MyAssetTable from './MyAssetTable'
+import { Link } from "react-router-dom";
 
 const MyWallet = () => {
 
@@ -44,26 +45,37 @@ const MyWallet = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                {!utenteCorrente && !walletCorrente ? (
-                    <div className="d-flex justify-content-center align-items-center vh-100">
-                        <Spinner animation="grow" variant="warning" />
+                {!utenteCorrente ? (
+                    <div className="d-flex justify-content-center align-items-center" style={{height:"60vh"}}>
+                        <div className="alert alert-danger" role="alert">
+                            Non hai effettuato l'accesso!
+                            <Link to={"/login"}>Accedi per poter utilizzare le funzionalità richieste.</Link>
+                        </div>
                     </div>
                 ) : (
                     <>
-                        <Row className="py-5">
-                            <h2>Asset</h2>
-                            <Col md={6} className="d-flex justify-content-center align-items-center">
-                                <MyDoughnutChart walletCorrente={walletCorrente} />
-                            </Col>
-                            <Col md={6}>
-                                <MyAssetTable walletCorrente={walletCorrente} />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <MyListaOperazioni walletCorrente={walletCorrente} />
-                            </Col>
-                        </Row>
+                        {!walletCorrente ? (
+                            <div className="d-flex justify-content-center align-items-center vh-100">
+                                <Spinner animation="grow" variant="warning" />
+                            </div>
+                        ) : (
+                            <>
+                                <Row className="py-5">
+                                    <h2>Asset</h2>
+                                    <Col md={6} className="d-flex justify-content-center align-items-center">
+                                        <MyDoughnutChart walletCorrente={walletCorrente} />
+                                    </Col>
+                                    <Col md={6}>
+                                        <MyAssetTable walletCorrente={walletCorrente} />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <MyListaOperazioni walletCorrente={walletCorrente} />
+                                    </Col>
+                                </Row>
+                            </>
+                        )}
                     </>
                 )}
             </Container >

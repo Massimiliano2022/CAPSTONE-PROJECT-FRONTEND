@@ -15,7 +15,7 @@ const MyListaOperazioni = ({ walletCorrente }) => {
 
     return (
         <>
-            {!walletCorrente ? (
+            {!walletCorrente && !walletCorrente.listaOperazioni ? (
                 <div className="d-flex justify-content-center align-items-center" >
                     <Spinner animation="grow" variant="warning" />
                 </div>
