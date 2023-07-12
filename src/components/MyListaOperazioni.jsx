@@ -7,7 +7,7 @@ const MyListaOperazioni = ({ walletCorrente }) => {
     const [reverseLista, setReverseLista] = useState([]);
 
     useEffect(() => {
-        if (walletCorrente) {
+        if (walletCorrente && walletCorrente.listaOperazioni) {
             const reversedList = [...walletCorrente.listaOperazioni].reverse();
             setReverseLista(reversedList);
         }
@@ -41,8 +41,8 @@ const MyListaOperazioni = ({ walletCorrente }) => {
                                         <td>{operazione.tipoOperazione}</td>
                                         <td>{operazione.crypto.simbolo}</td>
                                         <td>{operazione.quantita}</td>
-                                        <td>{operazione.prezzoAcquisto}</td>
-                                        <td>{operazione.prezzoVendita}</td>
+                                        <td>{operazione.prezzoAcquisto !== 0 ? operazione.prezzoAcquisto : '-'}</td>
+                                        <td>{operazione.prezzoVendita !== 0 ? operazione.prezzoVendita : '-'}</td>
                                     </tr>
                                 ))}
                             </tbody>

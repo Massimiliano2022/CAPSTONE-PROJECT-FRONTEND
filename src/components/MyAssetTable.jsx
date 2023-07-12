@@ -28,7 +28,7 @@ const MyAssetTable = ({ walletCorrente }) => {
     const [updatedListaAsset, setUpdatedListaAsset] = useState([]);
 
     useEffect(() => {
-      if (walletCorrente) {
+      if (walletCorrente && walletCorrente.listaAsset) {
         const oggettoSaldo = {
           crypto: {
             simbolo: "USDT",
