@@ -10,7 +10,7 @@ import sandLogo from '../img/sandbox.png'
 import { Container, Row, Col, Card, Table } from "react-bootstrap";
 import MyDoughnutChart from "./MyDoughnutChart";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getWalletUtenteCorrente } from '../redux/actions'
 
 const MyWallet = () => {
@@ -21,12 +21,47 @@ const MyWallet = () => {
 
     const walletCorrente = useSelector(state => state.walletCorrente.wallet);
 
+    const timeoutRef = useRef(null);
+
+    const [saldoDisponibile,setSaldoDisponibile] = useState();
+    const [listaAsset,setListaAsset] = useState();
+    const [listaOperazioni,setListaOperazioni] = useState();
+
     useEffect(() => {
+        const fetchData = () => {
         dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
+        }
+
+        const updateWalletData = () => {
+            setSaldoDisponibile(walletCorrente.saldoDisponibile);
+            setListaAsset(walletCorrente.listaAsset);
+            setListaOperazioni(walletCorrente.listaOperazioni);
+          };
+
+        fetchData();
+        updateWalletData();
+
+        const startTimer = () => {
+            timeoutRef.current = setTimeout(() => {
+                fetchData();
+                startTimer();
+            }, 60000);
+        };
+        const resetTimer = () => {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        };
+        startTimer(); 
+        return () => {
+            resetTimer();
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente]);
+    }, [utenteCorrente,walletCorrente,walletCorrente.saldoDisponibile, walletCorrente.listaAsset, walletCorrente.listaOperazioni]);
 
     console.log(walletCorrente);
+    console.log(saldoDisponibile);
+    console.log(listaAsset);
+    console.log(listaOperazioni);
 
     const chartData = {
         labels: ['BTC', 'ETH', 'ADA', 'DOT', 'MATIC', 'XRP', 'DOGE', 'SAND'],
