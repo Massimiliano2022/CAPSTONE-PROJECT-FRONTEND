@@ -44,7 +44,7 @@ const MyWallet = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                {walletCorrente && walletCorrente.listaOperazioni === undefined && walletCorrente.listaAsset === undefined && walletCorrente.saldoDisponibile === undefined ? (
+                {walletCorrente === undefined ? (
                     <div className="d-flex justify-content-center align-items-center vh-100">
                         <Spinner animation="grow" variant="warning" />
                     </div>
@@ -61,7 +61,7 @@ const MyWallet = () => {
                         </Row>
                         <Row>
                             <Col>
-                                <MyListaOperazioni lista={walletCorrente.listaOperazioni} />
+                                <MyListaOperazioni walletCorrente={walletCorrente} />
                             </Col>
                         </Row>
                     </>

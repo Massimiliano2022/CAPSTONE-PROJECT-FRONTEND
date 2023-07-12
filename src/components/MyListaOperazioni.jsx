@@ -1,9 +1,9 @@
 import moment from 'moment';
 import { Card, Table } from "react-bootstrap";
 
-const MyListaOperazioni = ({ lista }) => {
+const MyListaOperazioni = ({ walletCorrente }) => {
 
-    const reverseLista = [...lista];
+    const reverseLista = [...walletCorrente.listaOperazioni];
 
     reverseLista.reverse();
 
