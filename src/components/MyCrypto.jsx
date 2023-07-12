@@ -37,8 +37,6 @@ const MyCrypto = () => {
 
     const cryptoSymbol = simbolo.toUpperCase();
 
-    //const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
-
     const selectedCrypto = useSelector(state => state.currentCryptoData.selectedCrypto);
 
     const timeoutRef = useRef(null);

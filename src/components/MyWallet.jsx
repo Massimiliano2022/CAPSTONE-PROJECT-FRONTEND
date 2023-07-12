@@ -39,7 +39,9 @@ const MyWallet = () => {
 
     useEffect(() => {
         const fetchData = () => {
-            dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
+            if (utenteCorrente && utenteCorrente.jwtToken) {
+                dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
+            }
         }
         fetchData();
         const startTimer = () => {
@@ -59,19 +61,10 @@ const MyWallet = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [utenteCorrente]);
 
-    console.log(walletCorrente);
-    console.log(walletCorrente.saldoDisponibile);
-    console.log(walletCorrente.listaAsset);
-    console.log(walletCorrente.listaOperazioni);
-
     const cryptoValues = walletCorrente.listaAsset.map(asset => asset.crypto.prezzo * asset.quantita);
     const totaleParzialeSaldo = cryptoValues.reduce((a, b) => a + b, 0) + walletCorrente.saldoDisponibile;
     const percentualeAsset = cryptoValues.map(value => (value / totaleParzialeSaldo) * 100);
     percentualeAsset.push((walletCorrente.saldoDisponibile / totaleParzialeSaldo) * 100);
-
-    console.log("VALORE CRYPTO: " + cryptoValues);
-    console.log("TOTALE PARZIALE SALDO :" + totaleParzialeSaldo);
-    console.log("% ASSET: " + percentualeAsset);
 
     const chartData = {
         labels: [...walletCorrente.listaAsset.map(asset => asset.crypto.simbolo), 'USDT'],
@@ -86,6 +79,9 @@ const MyWallet = () => {
         quantita: walletCorrente.saldoDisponibile
     }
 
+    if(walletCorrente && walletCorrente.listaAsset){
+        
+    }
     const updatedListaAsset = [...walletCorrente.listaAsset,oggettoSaldo];
 
     console.log(updatedListaAsset);
@@ -103,7 +99,7 @@ const MyWallet = () => {
                             <Card.Body>
                                 <Table className='text-light m-0'>
                                     <tbody className="d-flex flex-column">
-                                        {updatedListaAsset.map(asset => (
+                                        {updatedListaAsset && updatedListaAsset.map(asset => (
                                             <tr key={asset.crypto.simbolo} className="d-flex flex-row justify-content-between align-items-center my-2">
                                                 <td className="d-flex align-items-center p-0">
                                                     <img src={cryptoLogos[asset.crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={40} className="img-fluid object-fit-cover" />
