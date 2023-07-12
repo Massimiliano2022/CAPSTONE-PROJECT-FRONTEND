@@ -5,6 +5,10 @@ const MyListaOperazioni = ({ lista }) => {
 
     console.log(lista);
 
+    const reverseLista = [...lista];
+
+    reverseLista.reverse();
+
     return (
         <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
             <Card.Body>
@@ -21,7 +25,7 @@ const MyListaOperazioni = ({ lista }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {lista && lista.map((operazione) => (
+                        {reverseLista && reverseLista.map((operazione) => (
                             <tr key={operazione.id}>
                                 <td>{moment(operazione.dataOperazione).format('DD/MM/YYYY HH:mm:ss')}</td>
                                 <td>{operazione.tipoOperazione}</td>

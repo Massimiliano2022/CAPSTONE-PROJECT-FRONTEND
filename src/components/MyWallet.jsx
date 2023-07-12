@@ -6,6 +6,7 @@ import maticLogo from '../img/polygon.png'
 import xrpLogo from '../img/ripple.png'
 import dogeLogo from '../img/dogecoin.png'
 import sandLogo from '../img/sandbox.png'
+import usdtLogo from '../img/usdt.png'
 
 import { Container, Row, Col, Card, Table } from "react-bootstrap";
 import MyDoughnutChart from "./MyDoughnutChart";
@@ -15,6 +16,18 @@ import { getWalletUtenteCorrente } from '../redux/actions'
 import MyListaOperazioni from './MyListaOperazioni'
 
 const MyWallet = () => {
+
+    const cryptoLogos = {
+        btc: btcLogo,
+        eth: ethLogo,
+        ada: adaLogo,
+        dot: dotLogo,
+        matic: maticLogo,
+        xrp: xrpLogo,
+        doge: dogeLogo,
+        sand: sandLogo,
+        usdt:usdtLogo
+    };
 
     const dispatch = useDispatch();
 
@@ -28,24 +41,20 @@ const MyWallet = () => {
         const fetchData = () => {
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
-        fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
-
+        fetchData();
         const startTimer = () => {
             timeoutRef.current = setTimeout(() => {
                 fetchData();
                 startTimer();
             }, 60000);
         };
-
         const resetTimer = () => {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
         };
-
-        startTimer(); // Avviamo il timer all'avvio del componente
-
+        startTimer();
         return () => {
-            resetTimer(); // Alla dismissione del componente, resettiamo il timer
+            resetTimer();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [utenteCorrente]);
@@ -55,10 +64,31 @@ const MyWallet = () => {
     console.log(walletCorrente.listaAsset);
     console.log(walletCorrente.listaOperazioni);
 
+    const cryptoValues = walletCorrente.listaAsset.map(asset => asset.crypto.prezzo * asset.quantita);
+    const totaleParzialeSaldo = cryptoValues.reduce((a, b) => a + b, 0) + walletCorrente.saldoDisponibile;
+    const percentualeAsset = cryptoValues.map(value => (value / totaleParzialeSaldo) * 100);
+    percentualeAsset.push((walletCorrente.saldoDisponibile / totaleParzialeSaldo) * 100);
+
+    console.log("VALORE CRYPTO: " + cryptoValues);
+    console.log("TOTALE PARZIALE SALDO :" + totaleParzialeSaldo);
+    console.log("% ASSET: " + percentualeAsset);
+
     const chartData = {
-        labels: ['BTC', 'ETH', 'ADA', 'DOT', 'MATIC', 'XRP', 'DOGE', 'SAND'],
-        values: [25, 25, 10, 10, 10, 10, 5, 5],
+        labels: [...walletCorrente.listaAsset.map(asset => asset.crypto.simbolo), 'USDT'],
+        values: [...percentualeAsset]
     };
+
+    const oggettoSaldo = {
+        crypto:{
+            simbolo:"USDT",
+            prezzo: 1.00
+        },
+        quantita: walletCorrente.saldoDisponibile
+    }
+
+    const updatedListaAsset = [...walletCorrente.listaAsset,oggettoSaldo];
+
+    console.log(updatedListaAsset);
 
     return (
         <>
@@ -73,62 +103,18 @@ const MyWallet = () => {
                             <Card.Body>
                                 <Table className='text-light m-0'>
                                     <tbody className="d-flex flex-column">
-                                        <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={btcLogo} alt="Bitcoin Logo" width={40} className="img-fluid object-fit-cover" />
-                                                <span className="ms-2">BTC</span>
-                                            </td>
-                                            <td>$ 1935.69</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={ethLogo} alt="Ethereum Logo" width={40} className="img-fluid object-fit-cover" />
-                                                <span className="ms-2">ETH</span>
-                                            </td>
-                                            <td>$ 1935.69</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={adaLogo} alt="Cardano Logo" width={40} />
-                                                <span className="ms-2">ADA</span>
-                                            </td>
-                                            <td>$ 0.2819</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={dotLogo} alt="Polkadot Logo" width={40} />
-                                                <span className="ms-2">DOT</span>
-                                            </td>
-                                            <td>$ 5.29</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={maticLogo} alt="Polygon Logo" width={40} />
-                                                <span className="ms-2">MATIC</span>
-                                            </td>
-                                            <td>$ 0.6699</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={xrpLogo} alt="Ripple Logo" width={40} />
-                                                <span className="ms-2">XRP</span>
-                                            </td>
-                                            <td>$ 0.6699</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={dogeLogo} alt="Dogecoin Logo" width={40} />
-                                                <span className="ms-2">DOGE</span>
-                                            </td>
-                                            <td>$ 0.6699</td>
-                                        </tr>
-                                        <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                            <td className="d-flex align-items-center p-0">
-                                                <img src={sandLogo} alt="The Sandbox Logo" width={40} />
-                                                <span className="ms-2">SAND</span>
-                                            </td>
-                                            <td>$ 0.6699</td>
-                                        </tr>
+                                        {updatedListaAsset.map(asset => (
+                                            <tr key={asset.crypto.simbolo} className="d-flex flex-row justify-content-between align-items-center my-2">
+                                                <td className="d-flex align-items-center p-0">
+                                                    <img src={cryptoLogos[asset.crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={40} className="img-fluid object-fit-cover" />
+                                                    <span className="ms-2">{asset.crypto.simbolo}</span>
+                                                </td>
+                                                <td className="d-flex flex-column">
+                                                    {asset.quantita}
+                                                    <p className="text-muted">{(asset.crypto.prezzo * asset.quantita).toFixed(2)}</p>
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </Table>
                             </Card.Body>
