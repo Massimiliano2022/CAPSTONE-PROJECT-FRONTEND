@@ -26,25 +26,29 @@ const MyAssetTable = ({ walletCorrente }) => {
     };
 
     const [updatedListaAsset, setUpdatedListaAsset] = useState([]);
+    const [totaleParzialeSaldo, setTotaleParzialeSaldo] = useState();
 
     useEffect(() => {
-      if (walletCorrente && walletCorrente.listaAsset) {
-        const oggettoSaldo = {
-          crypto: {
-            simbolo: "USDT",
-            prezzo: 1.0,
-          },
-          quantita: walletCorrente.saldoDisponibile,
-        };
-  
-        const updatedListaAsset = [...walletCorrente.listaAsset, oggettoSaldo];
-        setUpdatedListaAsset(updatedListaAsset);
-      }
+        if (walletCorrente && walletCorrente.listaAsset) {
+            const oggettoSaldo = {
+                crypto: {
+                    simbolo: "USDT",
+                    prezzo: 1.0,
+                },
+                quantita: walletCorrente.saldoDisponibile,
+            };
+
+            const updatedListaAsset = [...walletCorrente.listaAsset, oggettoSaldo];
+            setUpdatedListaAsset(updatedListaAsset);
+
+            setTotaleParzialeSaldo(updatedListaAsset.reduce((total, asset) => total + (asset.crypto.prezzo * asset.quantita), 0).toFixed(2));
+
+        }
     }, [walletCorrente]);
 
     return (
         <>
-            {!walletCorrente && !walletCorrente.listaAsset ? (
+            {!walletCorrente && !walletCorrente.listaAsset && !totaleParzialeSaldo ? (
                 <div className="d-flex justify-content-center align-items-center" >
                     <Spinner animation="grow" variant="warning" />
                 </div>
@@ -53,6 +57,14 @@ const MyAssetTable = ({ walletCorrente }) => {
                     <Card.Body>
                         <Table className='text-light m-0'>
                             <tbody className="d-flex flex-column">
+                                <tr className="d-flex flex-row justify-content-between align-items-center my-2">
+                                    <td className="d-flex align-items-center p-0">
+                                        <h5>Saldo totale :</h5>
+                                    </td>
+                                    <td className="d-flex flex-column text-end">
+                                        <h5>$ {totaleParzialeSaldo}</h5>
+                                    </td>
+                                </tr>
                                 {updatedListaAsset && updatedListaAsset.map(asset => (
                                     <tr key={asset.crypto.simbolo} className="d-flex flex-row justify-content-between align-items-center my-2">
                                         <td className="d-flex align-items-center p-0">
