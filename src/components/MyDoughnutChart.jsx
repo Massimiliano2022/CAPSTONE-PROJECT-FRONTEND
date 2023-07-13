@@ -78,6 +78,7 @@ const MyDoughnutChart = ({ walletCorrente }) => {
                               'rgba(0, 111, 184, 0.9)',
                               'rgba(255, 186, 0, 0.9)',
                               'rgba(216, 189, 125, 0.9)',
+                              'rgba(173, 209, 17, 0.9)',
                             ],
                             borderColor: [
                               'rgba(255, 204, 0, 1)',
@@ -88,6 +89,7 @@ const MyDoughnutChart = ({ walletCorrente }) => {
                               'rgba(0, 111, 184, 1)',
                               'rgba(255, 186, 0, 1)',
                               'rgba(216, 189, 125,1)',
+                              'rgba(173, 209, 17, 1)',
                             ],
                             borderWidth: 1,
                           },
