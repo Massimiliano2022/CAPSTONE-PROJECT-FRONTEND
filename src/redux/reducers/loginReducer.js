@@ -1,9 +1,10 @@
-import { GET_UTENTE_CORRENTE,LOGIN_ERROR,REMOVE_UTENTE_CORRENTE } from "../actions";
+import { GET_UTENTE_CORRENTE, LOGIN_LOADING_ON, LOGIN_LOADING_OFF, LOGIN_ERROR, REMOVE_LOGIN_ERROR, REMOVE_UTENTE_CORRENTE } from "../actions";
 
 const initialState = {
     userData: {
 
     },
+    isLoading: false,
     error: null
 };
 
@@ -16,16 +17,31 @@ const loginReducer = (state = initialState, action) => {
                     action.payload,
                 error: null
             }
+        case LOGIN_LOADING_ON:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case LOGIN_LOADING_OFF:
+            return {
+                ...state,
+                isLoading: false
+            };
         case LOGIN_ERROR:
             return {
                 ...state,
                 error: action.payload
             };
+        case REMOVE_LOGIN_ERROR:
+            return {
+                ...state,
+                error: null
+            }
         case REMOVE_UTENTE_CORRENTE:
             return {
                 ...state,
-                userData:{
-                    
+                userData: {
+
                 },
                 error: null
             }

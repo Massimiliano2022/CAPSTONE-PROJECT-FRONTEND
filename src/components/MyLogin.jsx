@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Alert, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getUtenteCorrente } from "../redux/actions";
+import { getUtenteCorrente, removeLoginError } from "../redux/actions";
 
 const MyLogin = () => {
 
@@ -25,6 +25,11 @@ const MyLogin = () => {
             dispatch(getUtenteCorrente(utente));
         }
     }
+
+    useEffect(() => {
+        dispatch(removeLoginError());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     useEffect(() => {
         if (utenteCorrente && utenteCorrente.jwtToken) {

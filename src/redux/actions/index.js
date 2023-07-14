@@ -1,5 +1,8 @@
 export const GET_UTENTE_CORRENTE = "GET_UTENTE_CORRENTE";
+export const LOGIN_LOADING_ON = "LOGIN_LOADING_ON";
+export const LOGIN_LOADING_OFF ="LOGIN_LOADING_OFF";
 export const LOGIN_ERROR = "LOGIN_ERROR";
+export const REMOVE_LOGIN_ERROR ="REMOVE_LOGIN_ERROR";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
@@ -8,29 +11,32 @@ export const GET_WALLET_UTENTE_CORRENTE = "GET_WALLET_UTENTE_CORRENTE";
 export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 export const POST_OPERAZIONE = "POST_OPERAZIONE";
 
-export const getUtenteCorrente = utente => {
-  return async dispatch => {
+export const getUtenteCorrente = (utente) => {
+  return async (dispatch, getState) => {
     try {
-      const url = `http://localhost:3001/auth/login`;
-      let response = await fetch(url, {
+      dispatch({
+        type: LOGIN_LOADING_ON
+      });
+      let response = await fetch( `http://localhost:3001/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(utente),
       });
-
       if (response.ok) {
-        const userData = await response.json();
+        let userData = await response.json();
         dispatch({ type: GET_UTENTE_CORRENTE, payload: userData });
-      }else {
-        const errorData = await response.json();
-        dispatch(loginError(errorData));
-        console.log(errorData);
+      } else {
+        let error = await response.json();
+        dispatch({ type: LOGIN_ERROR, payload: error });
       }
     } catch (error) {
-      dispatch(loginError(error.message));
       console.log(error);
+      dispatch({type: LOGIN_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
+    } finally {
+      dispatch({type: LOGIN_LOADING_OFF});
+      //dispatch({type: REMOVE_LOGIN_ERROR});
     }
   };
 };
@@ -38,6 +44,10 @@ export const getUtenteCorrente = utente => {
 export const loginError = error => ({
   type: LOGIN_ERROR,
   payload: error
+});
+
+export const removeLoginError = () => ({
+  type: REMOVE_LOGIN_ERROR,
 });
 
 export const removeUtenteCorrente = () => ({
