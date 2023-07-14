@@ -21,15 +21,30 @@ const MyLogin = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        if(utente.email && utente.password.length >= 3){
+        if (
+            (!utente.email || !/\S+@\S+\.\S+/.test(utente.email)) ||
+            (!utente.password || utente.password.length < 3)
+        ) {
+            if (!utente.email) {
+                console.log('L\'email è obbligatoria.');
+            } else if (!/\S+@\S+\.\S+/.test(utente.email)) {
+                console.log('L\'email non è valida.');
+            }
+
+            if (!utente.password) {
+                console.log('La password è obbligatoria.');
+            } else if (utente.password.length < 3) {
+                console.log('La password deve contenere almeno 3 caratteri.');
+            }
+        } else {
             dispatch(getUtenteCorrente(utente));
         }
     }
 
     useEffect(() => {
         dispatch(removeLoginError());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         if (utenteCorrente && utenteCorrente.jwtToken) {
