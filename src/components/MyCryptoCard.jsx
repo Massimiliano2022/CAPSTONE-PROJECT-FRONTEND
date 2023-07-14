@@ -30,7 +30,7 @@ const MyCryptoCard = ({ crypto }) => {
         <Col md={6}>
             <Link to={`/crypto/${cryptoSymbol}`} className="nav-link">
                 <Card className="mb-4" style={{ background: "#2d2d2d" }}>
-                    <Card.Body className='px-4 py-3'>
+                    <Card.Body className='px-4 py-3 fs-6'>
                         <img src={cryptoLogos[cryptoSymbol]} alt='Bitcoin Logo' width={50} className="img-fluid object-fit-cover" />
                         <div className='d-flex justify-content-between py-4'>
                             <Card.Text className='m-0 w-33.3'>{crypto.simbolo}/USDT</Card.Text>

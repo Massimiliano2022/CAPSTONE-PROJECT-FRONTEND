@@ -35,7 +35,7 @@ const MyMain = () => {
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className={`d-flex align-items-center py-5 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
-                    <Col sm={6} className="d-flex flex-column">
+                    <Col md={6} className="d-flex flex-column">
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
                             to={"/signup"}
@@ -59,7 +59,7 @@ const MyMain = () => {
                             Accedi
                         </Link>
                     </Col>
-                    <Col sm={6} className="d-flex justify-content-end">
+                    <Col md={6} className="d-flex justify-content-end">
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange'/>
                     </Col>
                 </Row>
@@ -87,7 +87,7 @@ const MyMain = () => {
                         </Link>
                     </Col>
                     <Col sm={6} className="d-flex justify-content-end">
-                        <img className="object-fit-cover img-fluid" src={mainImg} alt='exchange' style={{ maxHeight: "325px" }}/>
+                        <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange'/>
                     </Col>
                 </Row>
             </Container>

@@ -10,18 +10,38 @@ td {
   text-align: center;
 }
 
-@media screen and (max-width: 991px) {
-  .main-img{
-    height:325px;
+.main-img {
+  height: 300px;
+}
+
+/* Breakpoint per dispositivi con larghezza massima di 575px */
+@media screen and (max-width: 575px) {
+  .main-img {
+    height: 225px;
+  }
+}
+
+/* Breakpoint per dispositivi con larghezza compresa tra 576px e 655px */
+@media screen and (min-width: 575px) and (max-width: 655px) {
+  .main-img {
+    height: 250px;
+  }
+}
+
+/* Breakpoint per dispositivi con larghezza compresa tra 656px e 991px */
+@media screen and (min-width: 655px) and (max-width: 991px) {
+  .main-img {
+    height: 250px;
   }
   .line-chart {
     height: 30vh;
   }
 }
 
-@media screen and (min-width: 992px) {
-  .main-img{
-    height:259px;
+/* Breakpoint per dispositivi con larghezza uguale o superiore a 992px */
+@media screen and (min-width: 991px) {
+  .main-img {
+    height: 259px;
   }
   .line-chart {
     height: 40vh;
