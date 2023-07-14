@@ -11,12 +11,18 @@ td {
 }
 
 @media screen and (max-width: 991px) {
+  .main-img{
+    height:325px;
+  }
   .line-chart {
     height: 30vh;
   }
 }
 
 @media screen and (min-width: 992px) {
+  .main-img{
+    height:259px;
+  }
   .line-chart {
     height: 40vh;
   }

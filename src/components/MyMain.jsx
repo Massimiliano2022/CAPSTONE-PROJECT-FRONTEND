@@ -60,7 +60,7 @@ const MyMain = () => {
                         </Link>
                     </Col>
                     <Col sm={6} className="d-flex justify-content-end">
-                        <img className="object-fit-cover img-fluid" src={mainImg} alt='exchange' style={{ maxHeight: "325px" }} />
+                        <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange'/>
                     </Col>
                 </Row>
                 <Row className={`d-flex py-5 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
