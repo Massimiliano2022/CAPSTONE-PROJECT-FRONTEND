@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Card,Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getMonthlyCryptoData } from "../redux/actions";
+import moment from "moment";
 
 const MyCryptoPriceHistory = ({ simbolo, selectedCrypto }) => {
 
@@ -14,18 +15,10 @@ const MyCryptoPriceHistory = ({ simbolo, selectedCrypto }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [simbolo]);
 
-    const formatData = (dateString) => {
-        const date = new Date(dateString);
-        const month = (date.getMonth() + 1).toString().padStart(2, "0");
-        const day = date.getDate().toString().padStart(2, "0");
-        const formattedDate = `${date.getFullYear()}-${month}-${day}`;
-        return formattedDate;
-    };
-
     const updatedMonthlyCryptoData = [...monthlyCryptoData];
 
     if (selectedCrypto) {
-        const formattedDate = formatData(selectedCrypto.timestamp);
+        const formattedDate = moment(selectedCrypto.timestamp).format('YYYY-MM-DD');
         const updatedData = {
             data: formattedDate,
             chiusuraPrezzo: selectedCrypto.prezzo,
@@ -51,7 +44,7 @@ const MyCryptoPriceHistory = ({ simbolo, selectedCrypto }) => {
                         {updatedMonthlyCryptoData.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.data}</td>
-                                <td>{data.chiusuraPrezzo}</td>
+                                <td>{data.chiusuraPrezzo.toFixed(4)}</td>
                             </tr>
                         ))}
                     </tbody>

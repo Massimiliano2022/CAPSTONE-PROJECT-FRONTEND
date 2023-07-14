@@ -106,7 +106,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                             </div>
                         </div>
                         <div className="d-flex justify-content-between mb-3 fs-6">
-                            <Card.Text className="text-muted p-0 m-0 text-start w-50">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
+                            <Card.Text className="text-muted p-0 m-0 text-start w-50">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo.toFixed(4)} $</Card.Text>
                             {walletCorrente && walletCorrente.listaAsset && walletCorrente.listaAsset.some(asset => asset.crypto.id === selectedCrypto.id) && (
                                 <Card.Text className="text-muted p-0 m-0 text-end w-50">
                                     Wallet {walletCorrente.listaAsset.find(asset => asset.crypto.id === selectedCrypto.id).quantita}
@@ -142,7 +142,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                             </div>
                         </div>
                         <div className="d-flex justify-content-between mb-3 fs-6">
-                            <Card.Text className="text-muted p-0 m-0 text-start w-50">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
+                            <Card.Text className="text-muted p-0 m-0 text-start w-50">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo.toFixed(4)} $</Card.Text>
                             {walletCorrente && walletCorrente.listaAsset && walletCorrente.listaAsset.some(asset => asset.crypto.id === selectedCrypto.id) && (
                                 <Card.Text className="text-muted p-0 m-0 text-end w-50">
                                     Wallet {walletCorrente.listaAsset.find(asset => asset.crypto.id === selectedCrypto.id).quantita}
