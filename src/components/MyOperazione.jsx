@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getWalletUtenteCorrente, postOperazione } from "../redux/actions";
 
-const MyOperazione = ({logo,selectedCrypto}) => {
+const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const dispatch = useDispatch();
 
@@ -21,21 +21,21 @@ const MyOperazione = ({logo,selectedCrypto}) => {
     const [showCompra, setShowCompra] = useState(true);
 
     const [operazione, setOperazione] = useState({
-        idWallet:"",
-	    simboloCrypto:cryptoSymbol,
-	    tipoOperazione: "BUY",
-	    quantita:""
+        idWallet: "",
+        simboloCrypto: cryptoSymbol,
+        tipoOperazione: "BUY",
+        quantita: ""
     });
 
     useEffect(() => {
         if (utenteCorrente && utenteCorrente.jwtToken) {
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [utenteCorrente]);
 
     useEffect(() => {
-        if(walletCorrente){
+        if (walletCorrente) {
             setOperazione({ ...operazione, idWallet: walletCorrente.id });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,12 +52,12 @@ const MyOperazione = ({logo,selectedCrypto}) => {
     };
 
     const eseguiOperazione = async () => {
-        if(utenteCorrente  && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente){
+        if (utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
             console.log(utenteCorrente);
             console.log(walletCorrente);
             console.log(operazione);
-            dispatch(postOperazione(utenteCorrente.jwtToken,operazione));
-        }else{
+            dispatch(postOperazione(utenteCorrente.jwtToken, operazione));
+        } else {
             navigator('/wallet');
         }
     };
@@ -93,10 +93,10 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <Form>
                                 <Form.Group controlId="quantita">
-                                    <Form.Control 
+                                    <Form.Control
                                         type="number"
                                         value={operazione.quantita}
-                                        onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })}  
+                                        onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })}
                                     />
                                 </Form.Group>
                             </Form>
@@ -105,13 +105,20 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                                 <Card.Text>{selectedCrypto.simbolo}</Card.Text>
                             </div>
                         </div>
-                        <Card.Text className="text-muted">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
-                        <Button 
-                            variant="button" 
+                        <div className="d-flex justify-content-between mb-3 fs-6">
+                            <Card.Text className="text-muted p-0 m-0 text-start w-50">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
+                            {walletCorrente && walletCorrente.listaAsset && walletCorrente.listaAsset.some(asset => asset.crypto.id === selectedCrypto.id) && (
+                                <Card.Text className="text-muted p-0 m-0 text-end w-50">
+                                    Wallet {walletCorrente.listaAsset.find(asset => asset.crypto.id === selectedCrypto.id).quantita}
+                                </Card.Text>
+                            )}
+                        </div>
+                        <Button
+                            variant="button"
                             style={{ color: "black" }}
                             onClick={eseguiOperazione}
-                            className="w-100 p-1 btn btn-warning" 
-                            >Compra
+                            className="w-100 p-1 btn btn-warning"
+                        >Compra
                         </Button>
                     </Card.Body>
                 </Card>
@@ -122,10 +129,10 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <Form>
                                 <Form.Group controlId="quantita">
-                                    <Form.Control 
-                                        type="number" 
+                                    <Form.Control
+                                        type="number"
                                         value={operazione.quantita}
-                                        onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })} 
+                                        onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })}
                                     />
                                 </Form.Group>
                             </Form>
@@ -134,13 +141,20 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                                 <Card.Text>{selectedCrypto.simbolo}</Card.Text>
                             </div>
                         </div>
-                        <Card.Text className="text-muted">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
-                        <Button 
-                            variant="button" 
+                        <div className="d-flex justify-content-between mb-3 fs-6">
+                            <Card.Text className="text-muted p-0 m-0 text-start w-50">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
+                            {walletCorrente && walletCorrente.listaAsset && walletCorrente.listaAsset.some(asset => asset.crypto.id === selectedCrypto.id) && (
+                                <Card.Text className="text-muted p-0 m-0 text-end w-50">
+                                    Wallet {walletCorrente.listaAsset.find(asset => asset.crypto.id === selectedCrypto.id).quantita}
+                                </Card.Text>
+                            )}
+                        </div>
+                        <Button
+                            variant="button"
                             style={{ color: "black" }}
                             onClick={eseguiOperazione}
-                            className="w-100 p-1 btn btn-warning" 
-                            >Vendi
+                            className="w-100 p-1 btn btn-warning"
+                        >Vendi
                         </Button>
                     </Card.Body>
                 </Card>
