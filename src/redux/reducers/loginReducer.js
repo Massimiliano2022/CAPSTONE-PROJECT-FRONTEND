@@ -1,4 +1,4 @@
-import { GET_UTENTE_CORRENTE, LOGIN_LOADING_ON, LOGIN_LOADING_OFF, LOGIN_ERROR, REMOVE_LOGIN_ERROR, REMOVE_UTENTE_CORRENTE } from "../actions";
+import { GET_UTENTE_CORRENTE, LOGIN_LOADING_ON, LOGIN_LOADING_OFF, GET_LOGIN_LOADING, LOGIN_ERROR, REMOVE_LOGIN_ERROR, REMOVE_UTENTE_CORRENTE } from "../actions";
 
 const initialState = {
     userData: {
@@ -26,6 +26,11 @@ const loginReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false
+            };
+        case GET_LOGIN_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload
             };
         case LOGIN_ERROR:
             return {

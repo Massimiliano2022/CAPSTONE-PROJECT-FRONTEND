@@ -1,6 +1,7 @@
 export const GET_UTENTE_CORRENTE = "GET_UTENTE_CORRENTE";
 export const LOGIN_LOADING_ON = "LOGIN_LOADING_ON";
 export const LOGIN_LOADING_OFF ="LOGIN_LOADING_OFF";
+export const GET_LOGIN_LOADING = "GET_LOGIN_LOADING";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const REMOVE_LOGIN_ERROR ="REMOVE_LOGIN_ERROR";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
@@ -32,7 +33,6 @@ export const getUtenteCorrente = (utente) => {
         dispatch({ type: LOGIN_ERROR, payload: error });
       }
     } catch (error) {
-      console.log(error);
       dispatch({type: LOGIN_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
     } finally {
       dispatch({type: LOGIN_LOADING_OFF});
@@ -44,6 +44,10 @@ export const getUtenteCorrente = (utente) => {
 export const loginError = error => ({
   type: LOGIN_ERROR,
   payload: error
+});
+
+export const getLoginLoading = () => ({
+  type:GET_LOGIN_LOADING,
 });
 
 export const removeLoginError = () => ({

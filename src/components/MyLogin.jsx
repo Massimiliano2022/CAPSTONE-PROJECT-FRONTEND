@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Col, Container, Form, Row } from "react-bootstrap";
+import { Alert, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getUtenteCorrente, removeLoginError } from "../redux/actions";
@@ -10,9 +10,12 @@ const MyLogin = () => {
 
     const navigator = useNavigate();
 
-    const error = useSelector(state => state.utenteCorrente.error);
-
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
+    const error = useSelector(state => state.utenteCorrente.error);
+    const loadingLogin = useSelector(state => state.utenteCorrente.isLoading);
+
+    const [warningEmail, setWarningEmail] = useState("");
+    const [warningPassword, setWarningPassword] = useState("");
 
     const [utente, setUtente] = useState({
         email: "",
@@ -21,20 +24,22 @@ const MyLogin = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        if (
-            (!utente.email || !/\S+@\S+\.\S+/.test(utente.email)) ||
-            (!utente.password || utente.password.length < 3)
-        ) {
-            if (!utente.email) {
-                console.log('L\'email è obbligatoria.');
-            } else if (!/\S+@\S+\.\S+/.test(utente.email)) {
-                console.log('L\'email non è valida.');
-            }
 
+        setWarningEmail("");
+        setWarningPassword("");
+
+        dispatch(removeLoginError());
+
+        if ((!utente.email || !/\S+@\S+\.\S+/.test(utente.email)) || (!utente.password || utente.password.length < 3)) {
+            if (!utente.email) {
+                setWarningEmail('L\'email è obbligatoria.');
+            } else if (!/\S+@\S+\.\S+/.test(utente.email)) {
+                setWarningEmail('L\'email non è valida.');
+            }
             if (!utente.password) {
-                console.log('La password è obbligatoria.');
+                setWarningPassword('La password è obbligatoria.');
             } else if (utente.password.length < 3) {
-                console.log('La password deve contenere almeno 3 caratteri.');
+                setWarningPassword('La password deve contenere almeno 3 caratteri.');
             }
         } else {
             dispatch(getUtenteCorrente(utente));
@@ -49,11 +54,11 @@ const MyLogin = () => {
     useEffect(() => {
         if (utenteCorrente && utenteCorrente.jwtToken) {
             navigator('/');
-        } else {
-            console.log(error);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [utenteCorrente, error]);
+
+    console.log(loadingLogin);
 
     return (
         <>
@@ -70,6 +75,9 @@ const MyLogin = () => {
                                         value={utente.email}
                                         onChange={(e) => setUtente({ ...utente, email: e.target.value })}
                                     />
+                                    {warningEmail && (
+                                        <p className="text-danger">{warningEmail}</p>
+                                    )}
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="password">
                                     <Form.Label>Password</Form.Label>
@@ -78,13 +86,24 @@ const MyLogin = () => {
                                         value={utente.password}
                                         onChange={(e) => setUtente({ ...utente, password: e.target.value })}
                                     />
+                                    {warningPassword && (
+                                        <p className="text-danger">{warningPassword}</p>
+                                    )}
                                 </Form.Group>
                                 <button
                                     type="button"
-                                    style={{ color: "black" }}
                                     onClick={handleClick}
+                                    style={{ color: "black" }}
+                                    disabled={loadingLogin}
                                     className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100"
-                                >Accedi
+                                >
+                                    {loadingLogin ? (
+                                        <>
+                                            <Spinner animation="grow" size="sm" className="me-2" />
+                                        </>
+                                    ) : (
+                                        'Accedi'
+                                    )}
                                 </button>
                             </Form>
                             <div className="d-flex justify-content-between align-items-center mt-3">
