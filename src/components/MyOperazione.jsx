@@ -105,7 +105,7 @@ const MyOperazione = ({logo,selectedCrypto}) => {
                                 <Card.Text>{selectedCrypto.simbolo}</Card.Text>
                             </div>
                         </div>
-                        <Card.Text className="text-muted">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo} $</Card.Text>
+                        <Card.Text className="text-muted">1 {selectedCrypto.simbolo} = {selectedCrypto.prezzo.toFixed(4)} $</Card.Text>
                         <Button 
                             variant="button" 
                             style={{ color: "black" }}

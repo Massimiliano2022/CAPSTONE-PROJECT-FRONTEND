@@ -14,6 +14,8 @@ export const REGISTRA_LOADING_OFF ="REGISTRA_LOADING_OFF";
 export const GET_REGISTRA_LOADING ="GET_REGISTRA_LOADING";
 export const REGISTRA_ERROR = "REGISTRA_ERROR";
 export const REMOVE_REGISTRA_ERROR ="REMOVE_REGISTRA_ERROR";
+export const REGISTRA_SUCCESS = "REGISTRA_SUCCESS";
+export const REGISTRA_SUCCESS_RESET ="REGISTRA_SUCCESS_RESET"; 
 
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
@@ -85,11 +87,10 @@ export const registraUtente = (utente) => {
       if (response.ok) {
         let userData = await response.json();
         dispatch({ type: POST_REGISTRA_UTENTE, payload: userData });
-        console.log(userData);
+        dispatch({type:REGISTRA_SUCCESS});
       } else {
         let error = await response.json();
         dispatch({ type: REGISTRA_ERROR, payload: error });
-        //console.log(error);
       }
     } catch (error) {
       dispatch({type: REGISTRA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
@@ -107,6 +108,10 @@ export const registraError = error => ({
 export const getRegistraLoading = () => ({
   type:GET_REGISTRA_LOADING,
 });
+
+export const registraSuccessReset=() => ({
+  type:REGISTRA_SUCCESS_RESET,
+})
 
 export const removeRegistraError = () => ({
   type: REMOVE_REGISTRA_ERROR,

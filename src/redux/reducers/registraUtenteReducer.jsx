@@ -1,11 +1,10 @@
-import { POST_REGISTRA_UTENTE, REGISTRA_LOADING_ON, REGISTRA_LOADING_OFF, GET_REGISTRA_LOADING, REGISTRA_ERROR, REMOVE_REGISTRA_ERROR } from "../actions";
+import { POST_REGISTRA_UTENTE, REGISTRA_LOADING_ON, REGISTRA_LOADING_OFF, GET_REGISTRA_LOADING, REGISTRA_ERROR, REMOVE_REGISTRA_ERROR, REGISTRA_SUCCESS, REGISTRA_SUCCESS_RESET } from "../actions";
 
 const initialState = {
-    userData: {
-
-    },
+    userData: null,
     isLoading: false,
-    error: null
+    error: null,
+    success: false,
 };
 
 const registraUtenteReducer = (state = initialState, action) => {
@@ -42,6 +41,16 @@ const registraUtenteReducer = (state = initialState, action) => {
                 ...state,
                 error: null
             }
+        case REGISTRA_SUCCESS:
+            return {
+                ...state,
+                success: true
+            };
+        case REGISTRA_SUCCESS_RESET:
+            return {
+                ...state,
+                success: false
+            };
         default:
             return state;
     }

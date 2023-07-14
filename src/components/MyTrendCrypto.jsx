@@ -45,7 +45,7 @@ const MyTrendCrypto = ({ selectedCrypto }) => {
                                     <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={30} className="img-fluid object-fit-cover" />
                                     <span className="fs-6 ms-2">{crypto.simbolo}</span>
                                 </td>
-                                <td className="fs-6">$ {crypto.prezzo}</td>
+                                <td className="fs-6">$ {crypto.prezzo.toFixed(4)}</td>
                             </tr>
                         ))}
                     </tbody>

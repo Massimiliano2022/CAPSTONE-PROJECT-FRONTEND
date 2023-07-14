@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Alert, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Navigate, useNavigate } from "react-router-dom";
-import { registraError, registraUtente, removeRegistraError } from "../redux/actions";
+import { registraSuccessReset, registraUtente, removeRegistraError } from "../redux/actions";
 
 const MySignup = () => {
 
@@ -11,15 +11,15 @@ const MySignup = () => {
 
     const dispatch = useDispatch();
 
+    const success = useSelector(state => state.registraUtente.success);
     const error = useSelector(state => state.registraUtente.error);
-    const registraLogin = useSelector(state => state.registraUtente.isLoading);
+    const loading = useSelector(state => state.registraUtente.isLoading);
 
     const [warningNome, setWarningNome] = useState("");
     const [warningCognome, setWarningCognome] = useState("");
     const [warningEmail, setWarningEmail] = useState("");
     const [warningPassword, setWarningPassword] = useState("");
-    const [serverError, setServerError] = useState(null);
-
+    
     const [utente, setUtente] = useState({
         nome: "",
         cognome: "",
@@ -30,7 +30,12 @@ const MySignup = () => {
     const handleClick = (e) => {
         e.preventDefault();
 
-        setServerError(null);
+        setWarningNome("");
+        setWarningCognome("");
+        setWarningEmail("");
+        setWarningPassword("");
+
+        dispatch(removeRegistraError());
 
         if ((!utente.nome) || (!utente.cognome) || (!utente.email || !/\S+@\S+\.\S+/.test(utente.email)) || (!utente.password || utente.password.length < 3)) {
             if (!utente.nome) {
@@ -51,14 +56,14 @@ const MySignup = () => {
             }
         } else {
             dispatch(registraUtente(utente));
-            if(error && error.message){
-                setServerError(error.message);
-            }else{
-                setServerError(null);
-                navigator("/login");
-            }
         }
     }
+
+    useEffect(() => {
+        dispatch(removeRegistraError());
+        dispatch(registraSuccessReset());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
@@ -116,9 +121,9 @@ const MySignup = () => {
                                     type="button"
                                     style={{ color: "black" }}
                                     onClick={handleClick}
-                                    disabled={registraLogin}
+                                    disabled={loading}
                                     className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100"
-                                >{registraLogin ? (
+                                >{loading ? (
                                     <>
                                         <Spinner animation="grow" size="sm" className="me-2" />
                                     </>
@@ -138,9 +143,14 @@ const MySignup = () => {
                                     Accedi
                                 </NavLink>
                             </div>
-                            {serverError !== null && (
+                            {error && error.message &&(
                                 <div className="d-flex justify-content-between align-items-center mt-3">
                                     <Alert className="w-100 text-center" variant="danger">{error.message}</Alert>
+                                </div>
+                            )}
+                            {success && (
+                                <div className="d-flex justify-content-between align-items-center mt-3">
+                                    <Alert className="w-100 text-center" variant="success">Registrazione effettuata con successo!</Alert>
                                 </div>
                             )}
                         </div>

@@ -41,8 +41,8 @@ const MyListaOperazioni = ({ walletCorrente }) => {
                                         <td>{operazione.tipoOperazione}</td>
                                         <td>{operazione.crypto.simbolo}</td>
                                         <td>{operazione.quantita}</td>
-                                        <td>{operazione.prezzoAcquisto !== 0 ? operazione.prezzoAcquisto : '-'}</td>
-                                        <td>{operazione.prezzoVendita !== 0 ? operazione.prezzoVendita : '-'}</td>
+                                        <td>{operazione.prezzoAcquisto !== 0 ? operazione.prezzoAcquisto.toFixed(4) : '-'}</td>
+                                        <td>{operazione.prezzoVendita !== 0 ? operazione.prezzoVendita.toFixed(4) : '-'}</td>
                                     </tr>
                                 ))}
                             </tbody>
