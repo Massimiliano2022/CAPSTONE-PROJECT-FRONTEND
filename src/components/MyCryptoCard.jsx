@@ -7,7 +7,7 @@ import xrpLogo from '../img/ripple.png'
 import dogeLogo from '../img/dogecoin.png'
 import sandLogo from '../img/sandbox.png'
 
-import { Button, Card, Col } from "react-bootstrap";
+import { Button, Card, Col, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const cryptoLogos = {
@@ -15,10 +15,10 @@ const cryptoLogos = {
     eth: ethLogo,
     ada: adaLogo,
     dot: dotLogo,
-    matic:maticLogo,
-    xrp:xrpLogo,
-    doge:dogeLogo,
-    sand:sandLogo
+    matic: maticLogo,
+    xrp: xrpLogo,
+    doge: dogeLogo,
+    sand: sandLogo
 };
 
 const MyCryptoCard = ({ crypto }) => {
@@ -32,17 +32,13 @@ const MyCryptoCard = ({ crypto }) => {
                 <Card className="mb-4" style={{ background: "#2d2d2d" }}>
                     <Card.Body>
                         <img src={cryptoLogos[cryptoSymbol]} alt='Bitcoin Logo' width={50} className="img-fluid object-fit-cover" />
-                        <div className='d-flex justify-space-between py-4'>
-                            <Col className="me-2">
-                                <Card.Text>{crypto.simbolo}/USDT</Card.Text>
-                            </Col>
-                            <Col className="me-2">
-                                <Card.Text>{crypto.prezzo.toFixed(4)} $</Card.Text>
-                            </Col>
-                            <Col>
-                                <Card.Text style={{color:variazioneColor}}>{crypto.percententuale_variazione_1h}</Card.Text>
-                            </Col>
-                        </div>
+                        <Table className='mb-0 text-light'>
+                            <tr>
+                                <td className='py-4'>{crypto.simbolo}/USDT</td>
+                                <td className='py-4'>{crypto.prezzo.toFixed(4)} $</td>
+                                <td className='py-4' style={{color:variazioneColor}}>{crypto.percententuale_variazione_1h}</td>
+                            </tr>
+                        </Table>
                         <Button
                             type="button"
                             variant="success"

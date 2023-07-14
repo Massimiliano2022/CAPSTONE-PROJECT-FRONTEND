@@ -44,7 +44,7 @@ const MyCryptoPriceHistory = ({ simbolo, selectedCrypto }) => {
                         {updatedMonthlyCryptoData.map((data, index) => (
                             <tr key={index}>
                                 <td>{data.data}</td>
-                                <td>{data.chiusuraPrezzo.toFixed(4)}</td>
+                                <td>{data.chiusuraPrezzo ? data.chiusuraPrezzo.toFixed(4) : ''}</td>
                             </tr>
                         ))}
                     </tbody>
