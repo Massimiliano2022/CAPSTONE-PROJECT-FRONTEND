@@ -121,7 +121,7 @@ const MySignup = () => {
                                     type="button"
                                     style={{ color: "black" }}
                                     onClick={handleClick}
-                                    disabled={loading}
+                                    disabled={success}
                                     className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100"
                                 >{loading ? (
                                     <>
