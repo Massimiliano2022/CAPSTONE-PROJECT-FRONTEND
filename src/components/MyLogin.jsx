@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Col, Container, Form, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { Alert, Col, Container, Form, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getUtenteCorrente } from "../redux/actions";
 
@@ -8,7 +8,11 @@ const MyLogin = () => {
 
     const dispatch = useDispatch();
 
-    const navigator=useNavigate();
+    const navigator = useNavigate();
+
+    const error = useSelector(state => state.utenteCorrente.error);
+
+    const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
     const [utente, setUtente] = useState({
         email: "",
@@ -17,11 +21,19 @@ const MyLogin = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        if(utente.email !== "" && utente.password !== ""){
-          dispatch(getUtenteCorrente(utente));
-          navigator('/');
+        if(utente.email && utente.password.length >= 3){
+            dispatch(getUtenteCorrente(utente));
         }
-      };
+    }
+
+    useEffect(() => {
+        if (utenteCorrente && utenteCorrente.jwtToken) {
+            navigator('/');
+        } else {
+            console.log(error);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [utenteCorrente, error]);
 
     return (
         <>
@@ -33,27 +45,27 @@ const MyLogin = () => {
                             <Form>
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control 
+                                    <Form.Control
                                         type="email"
                                         value={utente.email}
-                                        onChange={(e) => setUtente({ ...utente, email: e.target.value })} 
+                                        onChange={(e) => setUtente({ ...utente, email: e.target.value })}
                                     />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="password">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control 
+                                    <Form.Control
                                         type="password"
                                         value={utente.password}
-                                        onChange={(e) => setUtente({ ...utente, password: e.target.value })} 
+                                        onChange={(e) => setUtente({ ...utente, password: e.target.value })}
                                     />
                                 </Form.Group>
-                                <button 
-                                    type="button"  
-                                    style={{ color:"black" }}
+                                <button
+                                    type="button"
+                                    style={{ color: "black" }}
                                     onClick={handleClick}
                                     className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100"
-                                    >Accedi
-                                    </button>
+                                >Accedi
+                                </button>
                             </Form>
                             <div className="d-flex justify-content-between align-items-center mt-3">
                                 <p className="m-0 fs-6">Non hai un account?</p>
@@ -61,11 +73,16 @@ const MyLogin = () => {
                                     to={"/signup"}
                                     activeclassname="active"
                                     className="nav-link ps-3 fs-6"
-                                    style={{color:"#EBB60B"}}
+                                    style={{ color: "#EBB60B" }}
                                 >
                                     Registrati
                                 </NavLink>
                             </div>
+                            {error && (
+                                <div className="d-flex justify-content-between align-items-center mt-3">
+                                    <Alert className="w-100 text-center" variant="danger">{error.message}</Alert>
+                                </div>
+                            )}
                         </div>
                     </Col>
                 </Row>

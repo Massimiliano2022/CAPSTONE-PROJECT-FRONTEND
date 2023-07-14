@@ -1,4 +1,5 @@
 export const GET_UTENTE_CORRENTE = "GET_UTENTE_CORRENTE";
+export const LOGIN_ERROR = "LOGIN_ERROR";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
@@ -22,12 +23,22 @@ export const getUtenteCorrente = utente => {
       if (response.ok) {
         const userData = await response.json();
         dispatch({ type: GET_UTENTE_CORRENTE, payload: userData });
+      }else {
+        const errorData = await response.json();
+        dispatch(loginError(errorData));
+        console.log(errorData);
       }
     } catch (error) {
+      dispatch(loginError(error.message));
       console.log(error);
     }
   };
 };
+
+export const loginError = error => ({
+  type: LOGIN_ERROR,
+  payload: error
+});
 
 export const removeUtenteCorrente = () => ({
   type: REMOVE_UTENTE_CORRENTE,

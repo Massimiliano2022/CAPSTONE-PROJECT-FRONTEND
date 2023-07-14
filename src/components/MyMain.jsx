@@ -17,7 +17,9 @@ const MyMain = () => {
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
+    
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getCurrentCryptoData());
         // eslint-disable-next-line react-hooks/exhaustive-deps
