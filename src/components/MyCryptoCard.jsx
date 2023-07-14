@@ -37,10 +37,10 @@ const MyCryptoCard = ({ crypto }) => {
                                 <Card.Text>{crypto.simbolo}/USDT</Card.Text>
                             </Col>
                             <Col className="me-2">
-                                <Card.Text>{crypto.prezzo.toFixed(4)} $</Card.Text>
+                                <Card.Text>{crypto.prezzo} $</Card.Text>
                             </Col>
                             <Col>
-                                <Card.Text style={{color:variazioneColor}}>{Number(crypto.percententuale_variazione_1h).toFixed(4)}</Card.Text>
+                                <Card.Text style={{color:variazioneColor}}>{crypto.percententuale_variazione_1h}</Card.Text>
                             </Col>
                         </div>
                         <Button
