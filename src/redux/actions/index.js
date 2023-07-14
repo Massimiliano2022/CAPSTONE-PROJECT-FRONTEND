@@ -1,3 +1,4 @@
+//LOGIN
 export const GET_UTENTE_CORRENTE = "GET_UTENTE_CORRENTE";
 export const LOGIN_LOADING_ON = "LOGIN_LOADING_ON";
 export const LOGIN_LOADING_OFF ="LOGIN_LOADING_OFF";
@@ -5,6 +6,15 @@ export const GET_LOGIN_LOADING = "GET_LOGIN_LOADING";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const REMOVE_LOGIN_ERROR ="REMOVE_LOGIN_ERROR";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
+
+//REGISTRA UTENTE
+export const POST_REGISTRA_UTENTE ="POST_REGISTRA_UTENTE";
+export const REGISTRA_LOADING_ON ="REGISTRA_LOADING_ON";
+export const REGISTRA_LOADING_OFF ="REGISTRA_LOADING_OFF";
+export const GET_REGISTRA_LOADING ="GET_REGISTRA_LOADING";
+export const REGISTRA_ERROR = "REGISTRA_ERROR";
+export const REMOVE_REGISTRA_ERROR ="REMOVE_REGISTRA_ERROR";
+
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
 export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
@@ -12,6 +22,7 @@ export const GET_WALLET_UTENTE_CORRENTE = "GET_WALLET_UTENTE_CORRENTE";
 export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 export const POST_OPERAZIONE = "POST_OPERAZIONE";
 
+//LOGIN
 export const getUtenteCorrente = (utente) => {
   return async (dispatch, getState) => {
     try {
@@ -36,7 +47,6 @@ export const getUtenteCorrente = (utente) => {
       dispatch({type: LOGIN_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
     } finally {
       dispatch({type: LOGIN_LOADING_OFF});
-      //dispatch({type: REMOVE_LOGIN_ERROR});
     }
   };
 };
@@ -57,6 +67,51 @@ export const removeLoginError = () => ({
 export const removeUtenteCorrente = () => ({
   type: REMOVE_UTENTE_CORRENTE,
 });
+
+//REGISTRA
+export const registraUtente = (utente) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: REGISTRA_LOADING_ON
+      });
+      let response = await fetch( `http://localhost:3001/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(utente),
+      });
+      if (response.ok) {
+        let userData = await response.json();
+        dispatch({ type: POST_REGISTRA_UTENTE, payload: userData });
+        console.log(userData);
+      } else {
+        let error = await response.json();
+        dispatch({ type: REGISTRA_ERROR, payload: error });
+        //console.log(error);
+      }
+    } catch (error) {
+      dispatch({type: REGISTRA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
+    } finally {
+      dispatch({type: REGISTRA_LOADING_OFF});
+    }
+  };
+};
+
+export const registraError = error => ({
+  type: REGISTRA_ERROR,
+  payload: error
+});
+
+export const getRegistraLoading = () => ({
+  type:GET_REGISTRA_LOADING,
+});
+
+export const removeRegistraError = () => ({
+  type: REMOVE_REGISTRA_ERROR,
+});
+
 
 export const getCurrentCryptoData = () => {
   return async dispatch => {

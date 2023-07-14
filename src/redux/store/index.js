@@ -7,15 +7,17 @@ import walletReducer from "../reducers/walletReducer";
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
+import registraUtenteReducer from "../reducers/registraUtenteReducer";
 
 const persistConfig = {
     key: "root",
     storage,
-    blacklist: ['currentCryptoData','monthlyCryptoData','walletCorrente']
+    blacklist: ['registraUtente','currentCryptoData','monthlyCryptoData','walletCorrente']
   };
 
 const rootReducer = combineReducers({
     utenteCorrente:loginReducer,
+    registraUtente:registraUtenteReducer,
     currentCryptoData:cryptoPriceReducer,
     monthlyCryptoData:monthlyCryptoReducer,
     walletCorrente:walletReducer

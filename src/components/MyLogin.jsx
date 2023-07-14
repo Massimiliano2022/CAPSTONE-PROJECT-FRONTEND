@@ -6,9 +6,9 @@ import { getUtenteCorrente, removeLoginError } from "../redux/actions";
 
 const MyLogin = () => {
 
-    const dispatch = useDispatch();
-
     const navigator = useNavigate();
+
+    const dispatch = useDispatch();
 
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
     const error = useSelector(state => state.utenteCorrente.error);
@@ -57,8 +57,6 @@ const MyLogin = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [utenteCorrente, error]);
-
-    console.log(loadingLogin);
 
     return (
         <>

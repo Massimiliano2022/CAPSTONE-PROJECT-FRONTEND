@@ -1,9 +1,24 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Col, Container, Form, Row, Spinner } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import { registraError, registraUtente, removeRegistraError } from "../redux/actions";
 
 const MySignup = () => {
+
+    const navigator = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const error = useSelector(state => state.registraUtente.error);
+    const registraLogin = useSelector(state => state.registraUtente.isLoading);
+
+    const [warningNome, setWarningNome] = useState("");
+    const [warningCognome, setWarningCognome] = useState("");
+    const [warningEmail, setWarningEmail] = useState("");
+    const [warningPassword, setWarningPassword] = useState("");
+    const [serverError, setServerError] = useState(null);
 
     const [utente, setUtente] = useState({
         nome: "",
@@ -12,40 +27,38 @@ const MySignup = () => {
         password: ""
     });
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState("");
-
-    const navigator = useNavigate();
-
-    const handleClick = async (e) => {
+    const handleClick = (e) => {
         e.preventDefault();
-        setIsLoading(true);
-        setError("");
-        try {
-            const response = await fetch(`http://localhost:3001/auth/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(utente),
-            });
-            if (response.ok) {
-                const userData = await response.json();
-                navigator("/login");
-            } else {
-                const errorData = await response.json();
-                console.log(errorData);
-                setError("Ci sono stati errori in fase di registrazione");
-                setTimeout(() => {
-                    setIsLoading(false); 
-                }, 500);
-            }
-        } catch (error) {
-            console.log(error);
-            setError("Si è verificato un errore. Riprova più tardi.");
-        }
-    };
 
+        setServerError(null);
+
+        if ((!utente.nome) || (!utente.cognome) || (!utente.email || !/\S+@\S+\.\S+/.test(utente.email)) || (!utente.password || utente.password.length < 3)) {
+            if (!utente.nome) {
+                setWarningNome('Il nome è obbligatorio.');
+            }
+            if (!utente.cognome) {
+                setWarningCognome('Il cognome è obbligatorio.');
+            }
+            if (!utente.email) {
+                setWarningEmail('L\'email è obbligatoria.');
+            } else if (!/\S+@\S+\.\S+/.test(utente.email)) {
+                setWarningEmail('L\'email non è valida.');
+            }
+            if (!utente.password) {
+                setWarningPassword('La password è obbligatoria.');
+            } else if (utente.password.length < 3) {
+                setWarningPassword('La password deve contenere almeno 3 caratteri.');
+            }
+        } else {
+            dispatch(registraUtente(utente));
+            if(error && error.message){
+                setServerError(error.message);
+            }else{
+                setServerError(null);
+                navigator("/login");
+            }
+        }
+    }
 
     return (
         <>
@@ -62,6 +75,9 @@ const MySignup = () => {
                                         value={utente.nome}
                                         onChange={(e) => setUtente({ ...utente, nome: e.target.value })}
                                     />
+                                    {warningNome && (
+                                        <p className="text-danger">{warningNome}</p>
+                                    )}
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="cognome">
                                     <Form.Label>Cognome</Form.Label>
@@ -70,6 +86,9 @@ const MySignup = () => {
                                         value={utente.cognome}
                                         onChange={(e) => setUtente({ ...utente, cognome: e.target.value })}
                                     />
+                                    {warningCognome && (
+                                        <p className="text-danger">{warningCognome}</p>
+                                    )}
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email</Form.Label>
@@ -78,6 +97,9 @@ const MySignup = () => {
                                         value={utente.email}
                                         onChange={(e) => setUtente({ ...utente, email: e.target.value })}
                                     />
+                                    {warningEmail && (
+                                        <p className="text-danger">{warningEmail}</p>
+                                    )}
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="password">
                                     <Form.Label>Password</Form.Label>
@@ -86,14 +108,17 @@ const MySignup = () => {
                                         value={utente.password}
                                         onChange={(e) => setUtente({ ...utente, password: e.target.value })}
                                     />
+                                    {warningPassword && (
+                                        <p className="text-danger">{warningPassword}</p>
+                                    )}
                                 </Form.Group>
                                 <button
                                     type="button"
                                     style={{ color: "black" }}
                                     onClick={handleClick}
-                                    disabled={isLoading}
+                                    disabled={registraLogin}
                                     className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100"
-                                >{isLoading ? (
+                                >{registraLogin ? (
                                     <>
                                         <Spinner animation="grow" size="sm" className="me-2" />
                                     </>
@@ -102,7 +127,6 @@ const MySignup = () => {
                                 )}
                                 </button>
                             </Form>
-                            {error && <Alert variant="danger">{error}</Alert>}
                             <div className="d-flex justify-content-between align-items-center mt-3">
                                 <p className="m-0 fs-6">Hai già un account?</p>
                                 <NavLink
@@ -114,6 +138,11 @@ const MySignup = () => {
                                     Accedi
                                 </NavLink>
                             </div>
+                            {serverError !== null && (
+                                <div className="d-flex justify-content-between align-items-center mt-3">
+                                    <Alert className="w-100 text-center" variant="danger">{error.message}</Alert>
+                                </div>
+                            )}
                         </div>
                     </Col>
                 </Row>
