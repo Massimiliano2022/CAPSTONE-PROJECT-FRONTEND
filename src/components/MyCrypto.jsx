@@ -79,7 +79,7 @@ const MyCrypto = () => {
                             <h2 className="me-4">Valore {selectedCrypto.nome}</h2>
                             <p className="text-muted mb-0">{cryptoSymbol}</p>
                         </div>
-                        <p className="fs-3">$ {selectedCrypto.prezzo.toFixed(4)} <span style={{ color: variazioneColor }}>{Number(selectedCrypto.percententuale_variazione_1h).toFixed(4)}</span></p>
+                        <p className="fs-3">$ {selectedCrypto.prezzo} <span style={{ color: variazioneColor }}>{selectedCrypto.percententuale_variazione_1h}</span></p>
                     </Col>
                 </Row>
                 <Row className="pb-5">
