@@ -34,7 +34,7 @@ const MyMain = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                <Row className={`d-flex py-5 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
+                <Row className={`d-flex align-items-center py-5 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
                     <Col sm={6} className="d-flex flex-column">
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
