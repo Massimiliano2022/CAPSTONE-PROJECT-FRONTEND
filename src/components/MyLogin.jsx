@@ -44,7 +44,7 @@ const MyLogin = () => {
     useEffect(() => {
         dispatch(removeLoginError());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [error])
 
     useEffect(() => {
         if (utenteCorrente && utenteCorrente.jwtToken) {
