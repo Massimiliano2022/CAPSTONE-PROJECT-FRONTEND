@@ -17,11 +17,19 @@ export const GET_REGISTRA_LOADING ="GET_REGISTRA_LOADING";
 export const REGISTRA_ERROR = "REGISTRA_ERROR";
 export const REMOVE_REGISTRA_ERROR ="REMOVE_REGISTRA_ERROR";
 export const REGISTRA_SUCCESS = "REGISTRA_SUCCESS";
-export const REGISTRA_SUCCESS_RESET ="REGISTRA_SUCCESS_RESET"; 
+export const REGISTRA_SUCCESS_RESET ="REGISTRA_SUCCESS_RESET";
 
+//CURRENT CRYPTO DATA
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
+export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO"; 
+export const CURRENT_DATA_LOADING_ON ="CURRENT_DATA_LOADING_ON"; 
+export const CURRENT_DATA_LOADING_OFF ="CURRENT_DATA_LOADING_OFF";
+export const GET_CURRENT_DATA_LOADING ="GET_CURRENT_DATA_LOADING";
+export const CURRENT_DATA_ERROR="CURRENT_DATA_ERROR";
+export const REMOVE_CURRENT_DATA_ERROR="REMOVE_CURRENT_DATA_ERROR";
+
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
-export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
+
 export const GET_WALLET_UTENTE_CORRENTE = "GET_WALLET_UTENTE_CORRENTE";
 export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 export const POST_OPERAZIONE = "POST_OPERAZIONE";
@@ -56,13 +64,13 @@ export const getUtenteCorrente = (utente) => {
   };
 };
 
+export const getLoginLoading = () => ({
+  type:GET_LOGIN_LOADING,
+});
+
 export const loginError = error => ({
   type: LOGIN_ERROR,
   payload: error
-});
-
-export const getLoginLoading = () => ({
-  type:GET_LOGIN_LOADING,
 });
 
 export const removeLoginError = () => ({
@@ -107,25 +115,25 @@ export const registraUtente = (utente) => {
   };
 };
 
+export const getRegistraLoading = () => ({
+  type:GET_REGISTRA_LOADING,
+});
+
 export const registraError = error => ({
   type: REGISTRA_ERROR,
   payload: error
 });
 
-export const getRegistraLoading = () => ({
-  type:GET_REGISTRA_LOADING,
+export const removeRegistraError = () => ({
+  type: REMOVE_REGISTRA_ERROR,
 });
 
 export const registraSuccessReset=() => ({
   type:REGISTRA_SUCCESS_RESET,
 })
 
-export const removeRegistraError = () => ({
-  type: REMOVE_REGISTRA_ERROR,
-});
-
-
-export const getCurrentCryptoData = () => {
+//CURRENT CRYPTO DATA
+/*export const getCurrentCryptoData = () => {
   return async dispatch => {
     const fetchData = async () => {
       try {
@@ -148,27 +156,49 @@ export const getCurrentCryptoData = () => {
     fetchData();
     setInterval(fetchData, 60000);
   }
-};
+};*/
 
-export const getMonthlyCryptoData = simbolo => {
-  return async dispatch => {
+export const getCurrentCryptoData = () => {
+  let intervalId = null;
+
+  const fetchData = async (dispatch) => {
     try {
-      const url = `http://localhost:3001/crypto/monthly/${simbolo}`;
-      let response = await fetch(url, {
+      dispatch({
+        type: CURRENT_DATA_LOADING_ON
+      });
+      let response = await fetch(`http://localhost:3001/crypto`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
       if (response.ok) {
-        const data = await response.json();
-        dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
+        let data = await response.json();
+        let sortedData = [...data].sort((a, b) => a.id - b.id);
+        dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: sortedData });
+        console.log(sortedData);
+      } else {
+        let error = await response.json();
+        dispatch({ type: CURRENT_DATA_ERROR, payload: error });
       }
     } catch (error) {
-      console.log(error);
+      dispatch({type: CURRENT_DATA_ERROR, payload: "Errore nel reperimento dei dati: " + error.message});
+    } finally {
+      dispatch({type: CURRENT_DATA_LOADING_OFF});
     }
   };
+
+  return async (dispatch, getState) => {
+    // Esegui la fetch immediatamente
+    await fetchData(dispatch);
+
+    // setInterval esegue fetchData ogni minuto
+    intervalId = setInterval(() => {
+      fetchData(dispatch);
+    }, 60000);
+  };
 };
+
 
 export const getSelectedCrypto = simbolo => {
   return async dispatch => {
@@ -183,6 +213,39 @@ export const getSelectedCrypto = simbolo => {
       if (response.ok) {
         const data = await response.json();
         dispatch({ type: GET_SELECTED_CRYPTO, payload: data });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getCurrentDataLoading = () => ({
+  type:GET_CURRENT_DATA_LOADING,
+});
+
+export const getCurrentDataError = error => ({
+  type: CURRENT_DATA_ERROR,
+  payload: error
+});
+
+export const removeCurrentDataError = () => ({
+  type: REMOVE_CURRENT_DATA_ERROR,
+});
+
+export const getMonthlyCryptoData = simbolo => {
+  return async dispatch => {
+    try {
+      const url = `http://localhost:3001/crypto/monthly/${simbolo}`;
+      let response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
       }
     } catch (error) {
       console.log(error);
