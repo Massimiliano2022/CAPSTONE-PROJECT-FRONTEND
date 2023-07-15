@@ -12,7 +12,7 @@ const MyLogin = () => {
 
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
     const error = useSelector(state => state.utenteCorrente.error);
-    const loadingLogin = useSelector(state => state.utenteCorrente.isLoading);
+    const loading = useSelector(state => state.utenteCorrente.isLoading);
     const success = useSelector(state => state.utenteCorrente.success);
 
     const [warningEmail, setWarningEmail] = useState("");
@@ -102,10 +102,10 @@ const MyLogin = () => {
                                     type="button"
                                     onClick={handleClick}
                                     style={{ color: "black" }}
-                                    disabled={loadingLogin}
+                                    disabled={loading}
                                     className="btn btn-warning mt-2 text-center rounded rounded-1 p-2 w-100"
                                 >
-                                    {showSuccessAlert || loadingLogin ? (
+                                    {showSuccessAlert || loading ? (
                                         <>
                                             <Spinner animation="grow" size="sm" className="me-2" />
                                         </>
