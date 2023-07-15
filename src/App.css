@@ -14,6 +14,14 @@ td {
   height: 300px;
 }
 
+.login-div {
+  height: calc(100vh - 72.84px); /* calcolo height sottraendo l'altezza della barra di navigazione */
+}
+
+.main-div{
+  height:calc(50vh - 72.84px);
+}
+
 /* Breakpoint per dispositivi con larghezza massima di 575px */
 @media screen and (max-width: 575px) {
   .main-img {

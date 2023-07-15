@@ -61,8 +61,8 @@ const MyLogin = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                <Row className="py-5" style={{ minHeight: "100vh" }}>
-                    <Col className="d-flex justify-content-center align-items-center flex-column">
+                <Row>
+                    <Col className="d-flex justify-content-center align-items-center flex-column login-div">
                         <div className="p-5 d-flex flex-column justify-content-center" style={{ background: "#2d2d2d", minHeight:"400px" }}>
                             <h2 className="text-center">Accedi</h2>
                             <Form>
