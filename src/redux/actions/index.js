@@ -194,27 +194,6 @@ export const cryptoDataSuccessReset=() => ({
 })
 
 //SELECTED CRYPTO
-/*export const getSelectedCrypto = simbolo => {
-  return async dispatch => {
-    try {
-      const url = `http://localhost:3001/crypto/${simbolo}`;
-      let response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        dispatch({ type: GET_SELECTED_CRYPTO, payload: data });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};*/
-
-//SELECTED CRYPTO
 export const getSelectedCrypto = simbolo => {
   return async (dispatch, getState) => {
     try {
