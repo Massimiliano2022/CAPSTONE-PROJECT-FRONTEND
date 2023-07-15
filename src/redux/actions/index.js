@@ -250,28 +250,6 @@ export const selectedCryptoSuccessReset=() => ({
   type:SELECTED_CRYPTO_SUCCESS_RESET,
 })
 
-
-//MONTHLY CRYPTO DATA
-/*export const getMonthlyCryptoData = simbolo => {
-  return async dispatch => {
-    try {
-      const url = `http://localhost:3001/crypto/monthly/${simbolo}`;
-      let response = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};*/
-
 //MONTHLY CRYPTO DATA
 export const getMonthlyCryptoData = simbolo => {
   return async (dispatch, getState) => {
