@@ -20,6 +20,8 @@ const MySignup = () => {
     const [warningEmail, setWarningEmail] = useState("");
     const [warningPassword, setWarningPassword] = useState("");
     
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
     const [utente, setUtente] = useState({
         nome: "",
         cognome: "",
@@ -62,8 +64,22 @@ const MySignup = () => {
     useEffect(() => {
         dispatch(removeRegistraError());
         dispatch(registraSuccessReset());
+        setShowSuccessAlert(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        if (success) {
+          setShowSuccessAlert(true);
+          const timer = setTimeout(() => {
+            dispatch(registraSuccessReset());
+            setShowSuccessAlert(false);
+            navigator('/login'); // Reindirizza l'utente alla pagina /login
+          }, 1500); // Mostra l'Alert per 1,5 secondi
+      
+          return () => clearTimeout(timer); // Pulisci il timer se il componente viene smontato prima che scada il tempo
+        }
+      }, [success,dispatch,navigator]);
 
     return (
         <>
@@ -148,7 +164,7 @@ const MySignup = () => {
                                     <Alert className="w-100 text-center" variant="danger">{error.message}</Alert>
                                 </div>
                             )}
-                            {success && (
+                            {showSuccessAlert && (
                                 <div className="d-flex justify-content-between align-items-center mt-2">
                                     <Alert className="w-100 text-center" variant="success">Registrazione effettuata con successo!</Alert>
                                 </div>
