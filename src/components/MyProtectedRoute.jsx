@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import MyMain from "./MyMain";
+import MyLogin from "./MyLogin";
 
 const MyProtectedRoute = (Component) => {
     const AuthRoute = () => {
@@ -10,7 +10,8 @@ const MyProtectedRoute = (Component) => {
         if (isAuth) {
             return <Component />;
         } else {
-            return <MyMain/>;
+            //return <Navigate to="/login" />;
+            return <MyLogin/>
         }
     };
 
