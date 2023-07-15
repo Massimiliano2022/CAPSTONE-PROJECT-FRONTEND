@@ -1,15 +1,21 @@
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { getCurrentCryptoData } from '../redux/actions'
+import { getCurrentCryptoData, removeCurrentDataError } from '../redux/actions'
 import MyCryptoCard from './MyCryptoCard'
 
 const MyCryptoList = () => {
 
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
+    const error = useSelector(state => state.currentCryptoData.error);
+    const loading = useSelector(state => state.currentCryptoData.isLoading);
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCurrentCryptoData());
+        if (cryptosPrice) {
+            dispatch(removeCurrentDataError());
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -32,10 +38,12 @@ const MyCryptoList = () => {
                         </Form>
                     </Col>*/}
                 <Row className="pb-5">
-                    {!cryptosPrice ? (
-                        <div className="d-flex justify-content-center align-items-center vh-100">
-                            <Spinner animation="grow" variant="warning" />
-                        </div>
+                    {loading || error ? (
+                        <>
+                            <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
+                                <Spinner animation="grow" variant="warning" className="me-2" />
+                            </div>
+                        </>
                     ) : (
                         <>
                             {cryptosPrice.map(crypto => (
