@@ -66,7 +66,7 @@ const MyLogin = () => {
                         <div className="p-5 d-flex flex-column justify-content-center" style={{ background: "#2d2d2d" }}>
                             <h2 className="text-center">Accedi</h2>
                             <Form>
-                                <Form.Group className="mb-3" controlId="email">
+                                <Form.Group className="mb-2" controlId="email">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
                                         type="email"
@@ -74,10 +74,10 @@ const MyLogin = () => {
                                         onChange={(e) => setUtente({ ...utente, email: e.target.value })}
                                     />
                                     {warningEmail && (
-                                        <p className="text-danger">{warningEmail}</p>
+                                        <p className="text-danger mb-2">{warningEmail}</p>
                                     )}
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="password">
+                                <Form.Group className="mb-2" controlId="password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control
                                         type="password"
@@ -85,7 +85,7 @@ const MyLogin = () => {
                                         onChange={(e) => setUtente({ ...utente, password: e.target.value })}
                                     />
                                     {warningPassword && (
-                                        <p className="text-danger">{warningPassword}</p>
+                                        <p className="text-danger mb-2">{warningPassword}</p>
                                     )}
                                 </Form.Group>
                                 <button
@@ -93,7 +93,7 @@ const MyLogin = () => {
                                     onClick={handleClick}
                                     style={{ color: "black" }}
                                     disabled={loadingLogin}
-                                    className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100"
+                                    className="btn btn-warning mt-2 text-center rounded rounded-1 p-2 w-100"
                                 >
                                     {loadingLogin ? (
                                         <>
@@ -104,7 +104,7 @@ const MyLogin = () => {
                                     )}
                                 </button>
                             </Form>
-                            <div className="d-flex justify-content-between align-items-center mt-3">
+                            <div className="d-flex justify-content-between align-items-center mt-2">
                                 <p className="m-0 fs-6">Non hai un account?</p>
                                 <NavLink
                                     to={"/signup"}
@@ -116,7 +116,7 @@ const MyLogin = () => {
                                 </NavLink>
                             </div>
                             {error && (
-                                <div className="d-flex justify-content-between align-items-center mt-3">
+                                <div className="d-flex justify-content-between align-items-center mt-2">
                                     <Alert className="w-100 text-center" variant="danger">{error.message}</Alert>
                                 </div>
                             )}

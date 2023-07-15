@@ -73,7 +73,7 @@ const MySignup = () => {
                         <div className="p-5" style={{ background: "#2d2d2d"}}>
                             <h2 className="text-center">Iscriviti</h2>
                             <Form>
-                                <Form.Group className="mb-3" controlId="nome">
+                                <Form.Group className="mb-2" controlId="nome">
                                     <Form.Label>Nome</Form.Label>
                                     <Form.Control
                                         type="text"
@@ -81,10 +81,10 @@ const MySignup = () => {
                                         onChange={(e) => setUtente({ ...utente, nome: e.target.value })}
                                     />
                                     {warningNome && (
-                                        <p className="text-danger">{warningNome}</p>
+                                        <p className="text-danger mb-2">{warningNome}</p>
                                     )}
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="cognome">
+                                <Form.Group className="mb-2" controlId="cognome">
                                     <Form.Label>Cognome</Form.Label>
                                     <Form.Control
                                         type="text"
@@ -92,10 +92,10 @@ const MySignup = () => {
                                         onChange={(e) => setUtente({ ...utente, cognome: e.target.value })}
                                     />
                                     {warningCognome && (
-                                        <p className="text-danger">{warningCognome}</p>
+                                        <p className="text-danger mb-2">{warningCognome}</p>
                                     )}
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="email">
+                                <Form.Group className="mb-2" controlId="email">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
                                         type="email"
@@ -103,10 +103,10 @@ const MySignup = () => {
                                         onChange={(e) => setUtente({ ...utente, email: e.target.value })}
                                     />
                                     {warningEmail && (
-                                        <p className="text-danger">{warningEmail}</p>
+                                        <p className="text-danger mb-2">{warningEmail}</p>
                                     )}
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="password">
+                                <Form.Group className="mb-2" controlId="password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control
                                         type="password"
@@ -114,7 +114,7 @@ const MySignup = () => {
                                         onChange={(e) => setUtente({ ...utente, password: e.target.value })}
                                     />
                                     {warningPassword && (
-                                        <p className="text-danger">{warningPassword}</p>
+                                        <p className="text-danger mb-2">{warningPassword}</p>
                                     )}
                                 </Form.Group>
                                 <button
@@ -122,7 +122,7 @@ const MySignup = () => {
                                     style={{ color: "black" }}
                                     onClick={handleClick}
                                     disabled={success}
-                                    className="btn btn-warning mt-3 text-center rounded rounded-1 p-2 w-100"
+                                    className="btn btn-warning mt-2 text-center rounded rounded-1 p-2 w-100"
                                 >{loading ? (
                                     <>
                                         <Spinner animation="grow" size="sm" className="me-2" />
@@ -132,7 +132,7 @@ const MySignup = () => {
                                 )}
                                 </button>
                             </Form>
-                            <div className="d-flex justify-content-between align-items-center mt-3">
+                            <div className="d-flex justify-content-between align-items-center mt-2">
                                 <p className="m-0 fs-6">Hai già un account?</p>
                                 <NavLink
                                     to={"/login"}
@@ -144,12 +144,12 @@ const MySignup = () => {
                                 </NavLink>
                             </div>
                             {error && error.message &&(
-                                <div className="d-flex justify-content-between align-items-center mt-3">
+                                <div className="d-flex justify-content-between align-items-center mt-2">
                                     <Alert className="w-100 text-center" variant="danger">{error.message}</Alert>
                                 </div>
                             )}
                             {success && (
-                                <div className="d-flex justify-content-between align-items-center mt-3">
+                                <div className="d-flex justify-content-between align-items-center mt-2">
                                     <Alert className="w-100 text-center" variant="success">Registrazione effettuata con successo!</Alert>
                                 </div>
                             )}
