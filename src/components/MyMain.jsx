@@ -5,8 +5,8 @@ import { BsFillPersonFill, BsCurrencyExchange, BsWallet2 } from "react-icons/bs"
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { getCurrentCryptoData, removeCurrentDataError } from '../redux/actions'
+import { useEffect, useRef, useState } from 'react'
+import { cryptoDataSuccessReset, getCurrentCryptoData, removeCryptoDataError } from '../redux/actions'
 import MyCryptoCard from './MyCryptoCard'
 
 
@@ -14,19 +14,41 @@ const MyMain = () => {
 
     const navigator = useNavigate();
 
+    const dispatch = useDispatch();
+
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
     const error = useSelector(state => state.currentCryptoData.error);
     const loading = useSelector(state => state.currentCryptoData.isLoading);
+    const success = useSelector(state => state.currentCryptoData.success);
 
-    const dispatch = useDispatch();
+    const timeoutRef = useRef(null);
+
+    useEffect(()=>{
+        dispatch(removeCryptoDataError());
+        dispatch(cryptoDataSuccessReset());
+    },[]);
 
     useEffect(() => {
-        dispatch(getCurrentCryptoData());
-        if (cryptosPrice) {
-            dispatch(removeCurrentDataError());
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        const fetchData = () => {
+            dispatch(getCurrentCryptoData());
+        };
+        fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
+        const startTimer = () => {
+            timeoutRef.current = setTimeout(() => {
+                fetchData();
+                startTimer();
+            }, 60000);
+        };
+        const resetTimer = () => {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        };
+        startTimer(); // Avviamo il timer all'avvio del componente
+        return () => {
+            resetTimer(); // Alla dismissione del componente, resettiamo il timer
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const effettuaOperazione = () => {
@@ -97,7 +119,7 @@ const MyMain = () => {
             </Container>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className='py-5'>
-                    {loading || error ? (
+                    {error || loading || !success ? (
                         <>
                             <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
                                 <Spinner animation="grow" variant="warning" className="me-2" />

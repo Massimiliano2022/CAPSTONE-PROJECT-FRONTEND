@@ -21,12 +21,14 @@ export const REGISTRA_SUCCESS_RESET ="REGISTRA_SUCCESS_RESET";
 
 //CURRENT CRYPTO DATA
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
-export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO"; 
-export const CURRENT_DATA_LOADING_ON ="CURRENT_DATA_LOADING_ON"; 
-export const CURRENT_DATA_LOADING_OFF ="CURRENT_DATA_LOADING_OFF";
-export const GET_CURRENT_DATA_LOADING ="GET_CURRENT_DATA_LOADING";
-export const CURRENT_DATA_ERROR="CURRENT_DATA_ERROR";
-export const REMOVE_CURRENT_DATA_ERROR="REMOVE_CURRENT_DATA_ERROR";
+export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
+export const GET_CRYPTO_DATA_LOADING_ON="GET_CRYPTO_DATA_LOADING_ON";
+export const GET_CRYPTO_DATA_LOADING_OFF="GET_CRYPTO_DATA_LOADING_OFF";
+export const GET_CRYPTO_DATA_LOADING="GET_CRYPTO_DATA_LOADING";
+export const GET_CRYPTO_DATA_ERROR="GET_CRYPTO_DATA_ERROR";
+export const REMOVE_CRYPTO_DATA_ERROR="REMOVE_CRYPTO_DATA_ERROR";
+export const CRYPTO_DATA_SUCCESS="CRYPTO_DATA_SUCCESS";
+export const CRYPTO_DATA_SUCCESS_RESET="CRYPTO_DATA_SUCCESS_RESET";
 
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
 
@@ -132,14 +134,14 @@ export const registraSuccessReset=() => ({
   type:REGISTRA_SUCCESS_RESET,
 })
 
+// CURRENT CRYPTO DATA
 export const getCurrentCryptoData = () => {
-  let intervalId = null;
-  const fetchData = async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
       dispatch({
-        type: CURRENT_DATA_LOADING_ON
+        type: GET_CRYPTO_DATA_LOADING_ON
       });
-      let response = await fetch(`http://localhost:3001/crypto`, {
+      let response = await fetch( `http://localhost:3001/crypto`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -149,27 +151,38 @@ export const getCurrentCryptoData = () => {
         let data = await response.json();
         let sortedData = [...data].sort((a, b) => a.id - b.id);
         dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: sortedData });
-        dispatch({type: REMOVE_CURRENT_DATA_ERROR});
+        dispatch({type:CRYPTO_DATA_SUCCESS});
+        dispatch({type:REMOVE_CRYPTO_DATA_ERROR});
       } else {
         let error = await response.json();
-        dispatch({ type: CURRENT_DATA_ERROR, payload: error });
+        dispatch({ type: GET_CRYPTO_DATA_ERROR, payload: error });
+        dispatch({type:CRYPTO_DATA_SUCCESS_RESET});
       }
     } catch (error) {
-      dispatch({type: CURRENT_DATA_ERROR, payload: "Errore nel reperimento dei dati: " + error.message});
+      dispatch({type: GET_CRYPTO_DATA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
+      dispatch({type:CRYPTO_DATA_SUCCESS_RESET});
     } finally {
-      dispatch({type: CURRENT_DATA_LOADING_OFF});
+      dispatch({type: GET_CRYPTO_DATA_LOADING_OFF});
     }
   };
-  return async (dispatch, getState) => {
-    // Esegui la fetch immediatamente
-    await fetchData(dispatch);
-
-    // setInterval esegue fetchData ogni minuto
-    intervalId = setInterval(() => {
-      fetchData(dispatch);
-    }, 60000);
-  };
 };
+
+export const getCryptoDataLoading = () => ({
+  type:GET_CRYPTO_DATA_LOADING,
+});
+
+export const getCryptoDataError = error => ({
+  type: GET_CRYPTO_DATA_ERROR,
+  payload: error
+});
+
+export const removeCryptoDataError = () => ({
+  type: REMOVE_CRYPTO_DATA_ERROR,
+});
+
+export const cryptoDataSuccessReset=() => ({
+  type:CRYPTO_DATA_SUCCESS_RESET,
+})
 
 export const getSelectedCrypto = simbolo => {
   return async dispatch => {
@@ -190,19 +203,6 @@ export const getSelectedCrypto = simbolo => {
     }
   };
 };
-
-export const getCurrentDataLoading = () => ({
-  type:GET_CURRENT_DATA_LOADING,
-});
-
-export const getCurrentDataError = error => ({
-  type: CURRENT_DATA_ERROR,
-  payload: error
-});
-
-export const removeCurrentDataError = () => ({
-  type: REMOVE_CURRENT_DATA_ERROR,
-});
 
 export const getMonthlyCryptoData = simbolo => {
   return async dispatch => {

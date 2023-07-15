@@ -1,22 +1,45 @@
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { getCurrentCryptoData, removeCurrentDataError } from '../redux/actions'
+import { useEffect, useRef } from 'react'
+import { cryptoDataSuccessReset, getCurrentCryptoData, removeCryptoDataError } from '../redux/actions'
 import MyCryptoCard from './MyCryptoCard'
 
 const MyCryptoList = () => {
 
+    const dispatch = useDispatch();
+
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
     const error = useSelector(state => state.currentCryptoData.error);
     const loading = useSelector(state => state.currentCryptoData.isLoading);
+    const success = useSelector(state => state.currentCryptoData.success);
+    
+    const timeoutRef = useRef(null);
 
-    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(removeCryptoDataError());
+        dispatch(cryptoDataSuccessReset());
+    },[]);
+
     useEffect(() => {
-        dispatch(getCurrentCryptoData());
-        if (cryptosPrice) {
-            dispatch(removeCurrentDataError());
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        const fetchData = () => {
+            dispatch(getCurrentCryptoData());
+        };
+        fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
+        const startTimer = () => {
+            timeoutRef.current = setTimeout(() => {
+                fetchData();
+                startTimer();
+            }, 60000);
+        };
+        const resetTimer = () => {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        };
+        startTimer(); // Avviamo il timer all'avvio del componente
+        return () => {
+            resetTimer(); // Alla dismissione del componente, resettiamo il timer
+        };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -38,7 +61,7 @@ const MyCryptoList = () => {
                         </Form>
                     </Col>*/}
                 <Row className="pb-5">
-                    {loading || error ? (
+                    {error || loading || !success ? (
                         <>
                             <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
                                 <Spinner animation="grow" variant="warning" className="me-2" />
