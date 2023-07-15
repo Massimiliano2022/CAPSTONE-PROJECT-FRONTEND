@@ -72,35 +72,6 @@ const MyCrypto = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, cryptoSymbol]);
 
-    /*useEffect(() => {
-        const fetchData = () => {
-            dispatch(getSelectedCrypto(cryptoSymbol));
-        };
-
-        fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
-
-        const startTimer = () => {
-            timeoutRef.current = setTimeout(() => {
-                fetchData();
-                startTimer();
-            }, 60000);
-        };
-
-        const resetTimer = () => {
-            clearTimeout(timeoutRef.current);
-            timeoutRef.current = null;
-        };
-
-        startTimer(); // Avviamo il timer all'avvio del componente
-
-        return () => {
-            resetTimer(); // Alla dismissione del componente, resettiamo il timer
-        };
-    }, [dispatch, cryptoSymbol]);*/
-
-    console.log("ERROR: " +error);
-    console.log("SUCCESS :" +success);
-
     const variazioneColor = selectedCrypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
 
     return (
