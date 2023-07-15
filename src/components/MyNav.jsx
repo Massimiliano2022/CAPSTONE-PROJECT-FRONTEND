@@ -2,7 +2,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../img/DigitFin.png'
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
-import { removeUtenteCorrente, removeWalletUtenteCorrente } from '../redux/actions';
+import { loginSuccessReset, removeUtenteCorrente, removeWalletUtenteCorrente } from '../redux/actions';
 
 
 const MyNav = () => {
@@ -17,6 +17,7 @@ const MyNav = () => {
         e.preventDefault();
         dispatch(removeUtenteCorrente());
         dispatch(removeWalletUtenteCorrente());
+        dispatch(loginSuccessReset());
         navigator('/');
     };
 

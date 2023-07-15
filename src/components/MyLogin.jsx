@@ -51,6 +51,7 @@ const MyLogin = () => {
 
     useEffect(() => {
         dispatch(removeLoginError());
+        dispatch(loginSuccessReset());
         setShowSuccessAlert(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
