@@ -102,7 +102,7 @@ const MyLogin = () => {
                                     type="button"
                                     onClick={handleClick}
                                     style={{ color: "black" }}
-                                    disabled={success}
+                                    disabled={loadingLogin}
                                     className="btn btn-warning mt-2 text-center rounded rounded-1 p-2 w-100"
                                 >
                                     {showSuccessAlert || loadingLogin ? (
