@@ -1,12 +1,12 @@
 import mainImg from '../img/main.svg'
 
 import { BiLogIn } from "react-icons/bi";
-import { BsFillPersonFill, BsCurrencyExchange,BsWallet2} from "react-icons/bs";
+import { BsFillPersonFill, BsCurrencyExchange, BsWallet2 } from "react-icons/bs";
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { getCurrentCryptoData } from '../redux/actions'
+import { getCurrentCryptoData, removeCurrentDataError } from '../redux/actions'
 import MyCryptoCard from './MyCryptoCard'
 
 
@@ -15,13 +15,17 @@ const MyMain = () => {
     const navigator = useNavigate();
 
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
-
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
-    
+    const error = useSelector(state => state.currentCryptoData.error);
+    const loading = useSelector(state => state.currentCryptoData.isLoading);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getCurrentCryptoData());
+        if (cryptosPrice) {
+            dispatch(removeCurrentDataError());
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -60,7 +64,7 @@ const MyMain = () => {
                         </Link>
                     </Col>
                     <Col md={6} className="d-flex justify-content-end">
-                        <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange'/>
+                        <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
                 <Row className={`d-flex align-items-center py-5 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
@@ -87,17 +91,25 @@ const MyMain = () => {
                         </Link>
                     </Col>
                     <Col sm={6} className="d-flex justify-content-end">
-                        <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange'/>
+                        <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
             </Container>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className='py-5'>
-                    <>
-                        {cryptosPrice.slice(0, 4).map(crypto => (
-                            <MyCryptoCard crypto={crypto} key={crypto.id} />
-                        ))}
-                    </>
+                    {loading || error ? (
+                        <>
+                            <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
+                                <Spinner animation="grow" variant="warning" className="me-2" />
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            {cryptosPrice.slice(0, 4).map(crypto => (
+                                <MyCryptoCard crypto={crypto} key={crypto.id} />
+                            ))}
+                        </>
+                    )}
                 </Row>
             </Container>
         </>

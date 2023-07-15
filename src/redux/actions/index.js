@@ -132,35 +132,8 @@ export const registraSuccessReset=() => ({
   type:REGISTRA_SUCCESS_RESET,
 })
 
-//CURRENT CRYPTO DATA
-/*export const getCurrentCryptoData = () => {
-  return async dispatch => {
-    const fetchData = async () => {
-      try {
-        const url = `http://localhost:3001/crypto`;
-        let response = await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (response.ok) {
-          const data = await response.json();
-          const sortedData = [...data].sort((a, b) => a.id - b.id);
-          dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: sortedData });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-    setInterval(fetchData, 60000);
-  }
-};*/
-
 export const getCurrentCryptoData = () => {
   let intervalId = null;
-
   const fetchData = async (dispatch) => {
     try {
       dispatch({
@@ -176,7 +149,7 @@ export const getCurrentCryptoData = () => {
         let data = await response.json();
         let sortedData = [...data].sort((a, b) => a.id - b.id);
         dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: sortedData });
-        console.log(sortedData);
+        dispatch({type: REMOVE_CURRENT_DATA_ERROR});
       } else {
         let error = await response.json();
         dispatch({ type: CURRENT_DATA_ERROR, payload: error });
@@ -187,7 +160,6 @@ export const getCurrentCryptoData = () => {
       dispatch({type: CURRENT_DATA_LOADING_OFF});
     }
   };
-
   return async (dispatch, getState) => {
     // Esegui la fetch immediatamente
     await fetchData(dispatch);
@@ -198,7 +170,6 @@ export const getCurrentCryptoData = () => {
     }, 60000);
   };
 };
-
 
 export const getSelectedCrypto = simbolo => {
   return async dispatch => {
