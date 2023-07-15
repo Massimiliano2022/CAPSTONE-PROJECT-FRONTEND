@@ -10,6 +10,7 @@ import { Card, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getCurrentCryptoData } from '../redux/actions'
+import { Link } from 'react-router-dom'
 
 const cryptoLogos = {
     btc: btcLogo,
@@ -23,11 +24,11 @@ const cryptoLogos = {
 };
 
 const MyTrendCrypto = ({ selectedCrypto }) => {
-    
+
     const dispatch = useDispatch();
 
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
-    
+
     useEffect(() => {
         dispatch(getCurrentCryptoData());
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,13 +43,15 @@ const MyTrendCrypto = ({ selectedCrypto }) => {
                 <Table className='text-light m-0'>
                     <tbody className="d-flex flex-column">
                         {filteredCryptosPrice.map(crypto => (
-                            <tr key={crypto.id} className="d-flex flex-row justify-content-between align-items-center">
-                                <td className="d-flex align-items-center p-0">
-                                    <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={30} className="img-fluid object-fit-cover" />
-                                    <span className="fs-6 ms-2">{crypto.simbolo}</span>
-                                </td>
-                                <td className="fs-6">$ {crypto.prezzo.toFixed(4)}</td>
-                            </tr>
+                            <Link to={`/crypto/${crypto.simbolo.toLowerCase()}`} className="nav-link">
+                                <tr key={crypto.id} className="d-flex flex-row justify-content-between align-items-center">
+                                    <td className="d-flex align-items-center p-0">
+                                        <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={30} className="img-fluid object-fit-cover" />
+                                        <span className="fs-6 ms-2">{crypto.simbolo}</span>
+                                    </td>
+                                    <td className="fs-6">$ {crypto.prezzo.toFixed(4)}</td>
+                                </tr>
+                            </Link>
                         ))}
                     </tbody>
                 </Table>
