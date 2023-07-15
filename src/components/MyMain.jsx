@@ -63,7 +63,7 @@ const MyMain = () => {
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange'/>
                     </Col>
                 </Row>
-                <Row className={`d-flex py-5 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
+                <Row className={`d-flex align-items-center py-5 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
                     <Col sm={6} className="d-flex flex-column">
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Button
