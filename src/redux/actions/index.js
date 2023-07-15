@@ -39,7 +39,15 @@ export const REMOVE_SELECTED_CRYPTO_ERROR="REMOVE_SELECTED_CRYPTO_ERROR";
 export const SELECTED_CRYPTO_SUCCESS="SELECTED_CRYPTO_SUCCESS";
 export const SELECTED_CRYPTO_SUCCESS_RESET="SELECTED_CRYPTO_SUCCESS_RESET"; 
 
+//MONTHLY CRYPTO DATA
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
+export const GET_MONTHLY_CRYPTO_DATA_LOADING_ON = "GET_MONTHLY_CRYPTO_DATA_LOADING_ON";
+export const GET_MONTHLY_CRYPTO_DATA_LOADING_OFF ="GET_MONTHLY_CRYPTO_DATA_LOADING_OFF";
+export const GET_MONTHLY_CRYPTO_DATA_LOADING ="GET_MONTHLY_CRYPTO_DATA_LOADING";
+export const GET_MONTHLY_CRYPTO_DATA_ERROR ="GET_MONTHLY_CRYPTO_DATA_ERROR";
+export const REMOVE_MONTHLY_CRYPTO_DATA_ERROR ="REMOVE_MONTHLY_CRYPTO_DATA_ERROR";
+export const MONTHLY_CRYPTO_DATA_SUCCESS ="MONTHLY_CRYPTO_DATA_SUCCESS";
+export const MONTHLY_CRYPTO_DATA_SUCCESS_RESET = "MONTHLY_CRYPTO_DATA_SUCCESS_RESET";
 
 export const GET_WALLET_UTENTE_CORRENTE = "GET_WALLET_UTENTE_CORRENTE";
 export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
@@ -244,8 +252,7 @@ export const selectedCryptoSuccessReset=() => ({
 
 
 //MONTHLY CRYPTO DATA
-
-export const getMonthlyCryptoData = simbolo => {
+/*export const getMonthlyCryptoData = simbolo => {
   return async dispatch => {
     try {
       const url = `http://localhost:3001/crypto/monthly/${simbolo}`;
@@ -263,8 +270,58 @@ export const getMonthlyCryptoData = simbolo => {
       console.log(error);
     }
   };
+};*/
+
+//MONTHLY CRYPTO DATA
+export const getMonthlyCryptoData = simbolo => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: GET_MONTHLY_CRYPTO_DATA_LOADING_ON
+      });
+      let response = await fetch( `http://localhost:3001/crypto/monthly/${simbolo}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        let data = await response.json();
+        dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
+        dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS});
+        dispatch({type:REMOVE_MONTHLY_CRYPTO_DATA_ERROR});
+      } else {
+        let error = await response.json();
+        dispatch({ type: GET_MONTHLY_CRYPTO_DATA_ERROR, payload: error });
+        dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS_RESET});
+      }
+    } catch (error) {
+      dispatch({type: GET_MONTHLY_CRYPTO_DATA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
+      dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS});
+    } finally {
+      dispatch({type: GET_MONTHLY_CRYPTO_DATA_LOADING_OFF});
+    }
+  };
 };
 
+export const getMonthlyCryptoDataLoading = () => ({
+  type:GET_MONTHLY_CRYPTO_DATA_LOADING,
+});
+
+export const getMonthlyCryptoDataError = error => ({
+  type: GET_MONTHLY_CRYPTO_DATA_ERROR,
+  payload: error
+});
+
+export const removeMonthlyCryptoDataError = () => ({
+  type: REMOVE_MONTHLY_CRYPTO_DATA_ERROR,
+});
+
+export const monthlyCryptoDataSuccessReset=() => ({
+  type:MONTHLY_CRYPTO_DATA_SUCCESS,
+})
+
+//WALLET
 export const getWalletUtenteCorrente = jwtToken => {
   return async dispatch => {
     try {

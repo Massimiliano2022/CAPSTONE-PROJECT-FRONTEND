@@ -23,9 +23,11 @@ const cryptoLogos = {
 };
 
 const MyTrendCrypto = ({ selectedCrypto }) => {
-    const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
+    
     const dispatch = useDispatch();
 
+    const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
+    
     useEffect(() => {
         dispatch(getCurrentCryptoData());
         // eslint-disable-next-line react-hooks/exhaustive-deps

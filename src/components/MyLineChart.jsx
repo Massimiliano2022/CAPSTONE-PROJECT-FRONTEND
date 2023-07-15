@@ -26,9 +26,10 @@ ChartJs.register(LineElement,
 )
 
 const MyLineChart = ({ simbolo, selectedCrypto }) => {
-    const monthlyCryptoData = useSelector(state => state.monthlyCryptoData.monthlyData);
-
+    
     const dispatch = useDispatch();
+
+    const monthlyCryptoData = useSelector(state => state.monthlyCryptoData.monthlyData);
 
     useEffect(() => {
         dispatch(getMonthlyCryptoData(simbolo));
