@@ -21,7 +21,6 @@ export const REGISTRA_SUCCESS_RESET ="REGISTRA_SUCCESS_RESET";
 
 //CURRENT CRYPTO DATA
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
-export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
 export const GET_CRYPTO_DATA_LOADING_ON="GET_CRYPTO_DATA_LOADING_ON";
 export const GET_CRYPTO_DATA_LOADING_OFF="GET_CRYPTO_DATA_LOADING_OFF";
 export const GET_CRYPTO_DATA_LOADING="GET_CRYPTO_DATA_LOADING";
@@ -29,6 +28,16 @@ export const GET_CRYPTO_DATA_ERROR="GET_CRYPTO_DATA_ERROR";
 export const REMOVE_CRYPTO_DATA_ERROR="REMOVE_CRYPTO_DATA_ERROR";
 export const CRYPTO_DATA_SUCCESS="CRYPTO_DATA_SUCCESS";
 export const CRYPTO_DATA_SUCCESS_RESET="CRYPTO_DATA_SUCCESS_RESET";
+
+//SELECTED CRYPTO
+export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
+export const GET_SELECTED_CRYPTO_LOADING_ON = "GET_SELECTED_CRYPTO_LOADING_ON";
+export const GET_SELECTED_CRYPTO_LOADING_OFF = "GET_SELECTED_CRYPTO_LOADING_OFF";
+export const GET_SELECTED_CRYPTO_LOADING ="GET_SELECTED_CRYPTO_LOADING";
+export const GET_SELECTED_CRYPTO_ERROR ="GET_SELECTED_CRYPTO_ERROR";
+export const REMOVE_SELECTED_CRYPTO_ERROR="REMOVE_SELECTED_CRYPTO_ERROR";
+export const SELECTED_CRYPTO_SUCCESS="SELECTED_CRYPTO_SUCCESS";
+export const SELECTED_CRYPTO_SUCCESS_RESET="SELECTED_CRYPTO_SUCCESS_RESET"; 
 
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
 
@@ -184,7 +193,8 @@ export const cryptoDataSuccessReset=() => ({
   type:CRYPTO_DATA_SUCCESS_RESET,
 })
 
-export const getSelectedCrypto = simbolo => {
+//SELECTED CRYPTO
+/*export const getSelectedCrypto = simbolo => {
   return async dispatch => {
     try {
       const url = `http://localhost:3001/crypto/${simbolo}`;
@@ -202,7 +212,59 @@ export const getSelectedCrypto = simbolo => {
       console.log(error);
     }
   };
+};*/
+
+//SELECTED CRYPTO
+export const getSelectedCrypto = simbolo => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: GET_SELECTED_CRYPTO_LOADING_ON
+      });
+      let response = await fetch( `http://localhost:3001/crypto/${simbolo}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        let data = await response.json();
+        dispatch({ type: GET_SELECTED_CRYPTO, payload: data });
+        dispatch({type:SELECTED_CRYPTO_SUCCESS});
+        dispatch({type:REMOVE_SELECTED_CRYPTO_ERROR});
+      } else {
+        let error = await response.json();
+        dispatch({ type: GET_SELECTED_CRYPTO_ERROR, payload: error });
+        dispatch({type:SELECTED_CRYPTO_SUCCESS_RESET});
+      }
+    } catch (error) {
+      dispatch({type: GET_SELECTED_CRYPTO_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
+      dispatch({type:SELECTED_CRYPTO_SUCCESS_RESET});
+    } finally {
+      dispatch({type: GET_SELECTED_CRYPTO_LOADING_OFF});
+    }
+  };
 };
+
+export const getSelectedCryptoLoading = () => ({
+  type:GET_SELECTED_CRYPTO_LOADING,
+});
+
+export const getSelectedCryptoError = error => ({
+  type: GET_SELECTED_CRYPTO_ERROR,
+  payload: error
+});
+
+export const removeSelectedCryptoError = () => ({
+  type: REMOVE_SELECTED_CRYPTO_ERROR,
+});
+
+export const selectedCryptoSuccessReset=() => ({
+  type:SELECTED_CRYPTO_SUCCESS_RESET,
+})
+
+
+//MONTHLY CRYPTO DATA
 
 export const getMonthlyCryptoData = simbolo => {
   return async dispatch => {

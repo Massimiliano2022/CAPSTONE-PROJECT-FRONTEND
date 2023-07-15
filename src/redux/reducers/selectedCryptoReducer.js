@@ -1,51 +1,53 @@
-import { GET_CURRENT_CRYPTO_DATA, GET_CRYPTO_DATA_LOADING_ON, GET_CRYPTO_DATA_LOADING_OFF, GET_CRYPTO_DATA_LOADING, GET_CRYPTO_DATA_ERROR, REMOVE_CRYPTO_DATA_ERROR, CRYPTO_DATA_SUCCESS, CRYPTO_DATA_SUCCESS_RESET } from "../actions";
+import { GET_SELECTED_CRYPTO, GET_SELECTED_CRYPTO_LOADING_ON, GET_SELECTED_CRYPTO_LOADING_OFF, GET_SELECTED_CRYPTO_LOADING, GET_SELECTED_CRYPTO_ERROR, REMOVE_SELECTED_CRYPTO_ERROR, SELECTED_CRYPTO_SUCCESS, SELECTED_CRYPTO_SUCCESS_RESET } from "../actions";
 
 const initialState = {
-    cryptoData: [],
+    selectedCrypto: {
+
+    },
     isLoading: false,
     error: null,
     success: false,
 };
 
-const cryptoPriceReducer = (state = initialState, action) => {
+const selectedCryptoReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_CURRENT_CRYPTO_DATA:
+        case GET_SELECTED_CRYPTO:
             return {
                 ...state,
-                cryptoData:
+                selectedCrypto:
                     action.payload
             }
-        case GET_CRYPTO_DATA_LOADING_ON:
+        case GET_SELECTED_CRYPTO_LOADING_ON:
             return {
                 ...state,
                 isLoading: true
             };
-        case GET_CRYPTO_DATA_LOADING_OFF:
+        case GET_SELECTED_CRYPTO_LOADING_OFF:
             return {
                 ...state,
                 isLoading: false
             };
-        case GET_CRYPTO_DATA_LOADING:
+        case GET_SELECTED_CRYPTO_LOADING:
             return {
                 ...state,
                 isLoading: action.payload
             };
-        case GET_CRYPTO_DATA_ERROR:
+        case GET_SELECTED_CRYPTO_ERROR:
             return {
                 ...state,
                 error: action.payload
             };
-        case REMOVE_CRYPTO_DATA_ERROR:
+        case REMOVE_SELECTED_CRYPTO_ERROR:
             return {
                 ...state,
                 error: null
             }
-        case CRYPTO_DATA_SUCCESS:
+        case SELECTED_CRYPTO_SUCCESS:
             return {
                 ...state,
                 success: true
             };
-        case CRYPTO_DATA_SUCCESS_RESET:
+        case SELECTED_CRYPTO_SUCCESS_RESET:
             return {
                 ...state,
                 success: false
@@ -55,4 +57,4 @@ const cryptoPriceReducer = (state = initialState, action) => {
     }
 };
 
-export default cryptoPriceReducer;
+export default selectedCryptoReducer;
