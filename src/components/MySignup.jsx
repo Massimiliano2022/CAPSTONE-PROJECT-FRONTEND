@@ -75,7 +75,7 @@ const MySignup = () => {
             dispatch(registraSuccessReset());
             setShowSuccessAlert(false);
             navigator('/login'); // Reindirizza l'utente alla pagina /login
-          }, 1500); // Mostra l'Alert per 1,5 secondi
+          }, 1000); // Mostra l'Alert per 1,5 secondi
       
           return () => clearTimeout(timer); // Pulisci il timer se il componente viene smontato prima che scada il tempo
         }

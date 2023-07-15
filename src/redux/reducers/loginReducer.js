@@ -1,11 +1,12 @@
-import { GET_UTENTE_CORRENTE, LOGIN_LOADING_ON, LOGIN_LOADING_OFF, GET_LOGIN_LOADING, LOGIN_ERROR, REMOVE_LOGIN_ERROR, REMOVE_UTENTE_CORRENTE } from "../actions";
+import { GET_UTENTE_CORRENTE, LOGIN_LOADING_ON, LOGIN_LOADING_OFF, GET_LOGIN_LOADING, LOGIN_ERROR, REMOVE_LOGIN_ERROR, REMOVE_UTENTE_CORRENTE, LOGIN_SUCCESS, LOGIN_SUCCESS_RESET } from "../actions";
 
 const initialState = {
     userData: {
 
     },
     isLoading: false,
-    error: null
+    error: null,
+    success: false,
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -50,6 +51,16 @@ const loginReducer = (state = initialState, action) => {
                 },
                 error: null
             }
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                success: true
+            };
+        case LOGIN_SUCCESS_RESET:
+            return {
+                ...state,
+                success: false
+            };
         default:
             return state;
     }

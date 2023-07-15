@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Alert, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getUtenteCorrente, removeLoginError } from "../redux/actions";
+import { getUtenteCorrente, loginSuccessReset, removeLoginError } from "../redux/actions";
 
 const MyLogin = () => {
 
@@ -13,9 +13,12 @@ const MyLogin = () => {
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
     const error = useSelector(state => state.utenteCorrente.error);
     const loadingLogin = useSelector(state => state.utenteCorrente.isLoading);
+    const success = useSelector(state => state.utenteCorrente.success);
 
     const [warningEmail, setWarningEmail] = useState("");
     const [warningPassword, setWarningPassword] = useState("");
+
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const [utente, setUtente] = useState({
         email: "",
@@ -48,15 +51,29 @@ const MyLogin = () => {
 
     useEffect(() => {
         dispatch(removeLoginError());
+        setShowSuccessAlert(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (utenteCorrente && utenteCorrente.jwtToken) {
             navigator('/');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente, error]);
+    }, [utenteCorrente, error]);*/
+
+    useEffect(() => {
+        if (utenteCorrente && utenteCorrente.jwtToken && success) {
+            setShowSuccessAlert(true);
+            const timer = setTimeout(() => {
+                dispatch(loginSuccessReset());
+                setShowSuccessAlert(false);
+                navigator('/'); // Reindirizza l'utente alla pagina /
+            }, 1000); // Mostra l'Alert per 1,5 secondi
+
+            return () => clearTimeout(timer); // Pulisci il timer se il componente viene smontato prima che scada il tempo
+        }
+    }, [utenteCorrente, success, dispatch, navigator]);
 
     return (
         <>
@@ -92,10 +109,10 @@ const MyLogin = () => {
                                     type="button"
                                     onClick={handleClick}
                                     style={{ color: "black" }}
-                                    disabled={loadingLogin}
+                                    disabled={success}
                                     className="btn btn-warning mt-2 text-center rounded rounded-1 p-2 w-100"
                                 >
-                                    {loadingLogin ? (
+                                    {showSuccessAlert || loadingLogin ? (
                                         <>
                                             <Spinner animation="grow" size="sm" className="me-2" />
                                         </>
@@ -118,6 +135,11 @@ const MyLogin = () => {
                             {error && (
                                 <div className="d-flex justify-content-between align-items-center mt-2">
                                     <Alert className="w-100 text-center" variant="danger">{error.message}</Alert>
+                                </div>
+                            )}
+                            {showSuccessAlert && (
+                                <div className="d-flex justify-content-between align-items-center mt-2">
+                                    <Alert className="w-100 text-center" variant="success">Accesso effettuato!</Alert>
                                 </div>
                             )}
                         </div>

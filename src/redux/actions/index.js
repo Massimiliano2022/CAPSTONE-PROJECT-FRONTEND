@@ -6,6 +6,8 @@ export const GET_LOGIN_LOADING = "GET_LOGIN_LOADING";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const REMOVE_LOGIN_ERROR ="REMOVE_LOGIN_ERROR";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_SUCCESS_RESET ="LOGIN_SUCCESS_RESET"; 
 
 //REGISTRA UTENTE
 export const POST_REGISTRA_UTENTE ="POST_REGISTRA_UTENTE";
@@ -41,6 +43,7 @@ export const getUtenteCorrente = (utente) => {
       if (response.ok) {
         let userData = await response.json();
         dispatch({ type: GET_UTENTE_CORRENTE, payload: userData });
+        dispatch({type:LOGIN_SUCCESS});
       } else {
         let error = await response.json();
         dispatch({ type: LOGIN_ERROR, payload: error });
@@ -69,6 +72,10 @@ export const removeLoginError = () => ({
 export const removeUtenteCorrente = () => ({
   type: REMOVE_UTENTE_CORRENTE,
 });
+
+export const loginSuccessReset=() => ({
+  type:LOGIN_SUCCESS_RESET,
+})
 
 //REGISTRA
 export const registraUtente = (utente) => {
