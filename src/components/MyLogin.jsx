@@ -55,23 +55,16 @@ const MyLogin = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    /*useEffect(() => {
-        if (utenteCorrente && utenteCorrente.jwtToken) {
-            navigator('/');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente, error]);*/
-
     useEffect(() => {
         if (utenteCorrente && utenteCorrente.jwtToken && success) {
             setShowSuccessAlert(true);
             const timer = setTimeout(() => {
                 dispatch(loginSuccessReset());
                 setShowSuccessAlert(false);
-                navigator('/'); // Reindirizza l'utente alla pagina /
-            }, 1000); // Mostra l'Alert per 1,5 secondi
+                navigator('/');
+            }, 1000);
 
-            return () => clearTimeout(timer); // Pulisci il timer se il componente viene smontato prima che scada il tempo
+            return () => clearTimeout(timer);
         }
     }, [utenteCorrente, success, dispatch, navigator]);
 

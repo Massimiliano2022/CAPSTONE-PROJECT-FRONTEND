@@ -19,7 +19,7 @@ const MySignup = () => {
     const [warningCognome, setWarningCognome] = useState("");
     const [warningEmail, setWarningEmail] = useState("");
     const [warningPassword, setWarningPassword] = useState("");
-    
+
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const [utente, setUtente] = useState({
@@ -70,23 +70,23 @@ const MySignup = () => {
 
     useEffect(() => {
         if (success) {
-          setShowSuccessAlert(true);
-          const timer = setTimeout(() => {
-            dispatch(registraSuccessReset());
-            setShowSuccessAlert(false);
-            navigator('/login'); // Reindirizza l'utente alla pagina /login
-          }, 1000); // Mostra l'Alert per 1,5 secondi
-      
-          return () => clearTimeout(timer); // Pulisci il timer se il componente viene smontato prima che scada il tempo
+            setShowSuccessAlert(true);
+            const timer = setTimeout(() => {
+                dispatch(registraSuccessReset());
+                setShowSuccessAlert(false);
+                navigator('/login');
+            }, 1000);
+
+            return () => clearTimeout(timer);
         }
-      }, [success,dispatch,navigator]);
+    }, [success, dispatch, navigator]);
 
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row>
                     <Col className="d-flex justify-content-center align-items-center flex-column login-div">
-                        <div className="p-5" style={{ background: "#2d2d2d"}}>
+                        <div className="p-5" style={{ background: "#2d2d2d" }}>
                             <h2 className="text-center">Iscriviti</h2>
                             <Form>
                                 <Form.Group className="mb-2" controlId="nome">
@@ -159,7 +159,7 @@ const MySignup = () => {
                                     Accedi
                                 </NavLink>
                             </div>
-                            {error && error.message &&(
+                            {error && error.message && (
                                 <div className="d-flex justify-content-between align-items-center mt-2">
                                     <Alert className="w-100 text-center" variant="danger">{error.message}</Alert>
                                 </div>
