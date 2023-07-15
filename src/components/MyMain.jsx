@@ -5,7 +5,7 @@ import { BsFillPersonFill, BsCurrencyExchange, BsWallet2 } from "react-icons/bs"
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef} from 'react'
 import { cryptoDataSuccessReset, getCurrentCryptoData, removeCryptoDataError } from '../redux/actions'
 import MyCryptoCard from './MyCryptoCard'
 
@@ -27,6 +27,7 @@ const MyMain = () => {
     useEffect(()=>{
         dispatch(removeCryptoDataError());
         dispatch(cryptoDataSuccessReset());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     useEffect(() => {

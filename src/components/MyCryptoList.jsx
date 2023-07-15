@@ -18,6 +18,7 @@ const MyCryptoList = () => {
     useEffect(()=>{
         dispatch(removeCryptoDataError());
         dispatch(cryptoDataSuccessReset());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     useEffect(() => {
