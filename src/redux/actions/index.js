@@ -49,8 +49,18 @@ export const REMOVE_MONTHLY_CRYPTO_DATA_ERROR ="REMOVE_MONTHLY_CRYPTO_DATA_ERROR
 export const MONTHLY_CRYPTO_DATA_SUCCESS ="MONTHLY_CRYPTO_DATA_SUCCESS";
 export const MONTHLY_CRYPTO_DATA_SUCCESS_RESET = "MONTHLY_CRYPTO_DATA_SUCCESS_RESET";
 
-export const GET_WALLET_UTENTE_CORRENTE = "GET_WALLET_UTENTE_CORRENTE";
+//WALLET
+export const GET_WALLET_CORRENTE = "GET_WALLET_CORRENTE";
+export const GET_WALLET_CORRENTE_LOADING_ON ="GET_WALLET_CORRENTE_LOADING_ON";
+export const GET_WALLET_CORRENTE_LOADING_OFF ="GET_WALLET_CORRENTE_LOADING_OFF";
+export const GET_WALLET_CORRENTE_LOADING = "GET_WALLET_CORRENTE_LOADING";
+export const GET_WALLET_CORRENTE_ERROR = "GET_WALLET_CORRENTE_ERROR";
+export const REMOVE_WALLET_CORRENTE_ERROR ="REMOVE_WALLET_CORRENTE_ERROR";
+export const SELECTED_WALLET_CORRENTE_SUCCESS ="SELECTED_WALLET_CORRENTE_SUCCESS";
+export const SELECTED_WALLET_CORRENTE_SUCCESS_RESET ="SELECTED_WALLET_CORRENTE_SUCCESS_RESET";
 export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
+
+
 export const POST_OPERAZIONE = "POST_OPERAZIONE";
 
 //LOGIN
@@ -300,7 +310,7 @@ export const monthlyCryptoDataSuccessReset=() => ({
 })
 
 //WALLET
-export const getWalletUtenteCorrente = jwtToken => {
+/*export const getWalletUtenteCorrente = jwtToken => {
   return async dispatch => {
     try {
       const url = `http://localhost:3001/wallet/me`;
@@ -312,13 +322,62 @@ export const getWalletUtenteCorrente = jwtToken => {
       })
       if (response.ok) {
         const data = await response.json();
-        dispatch({ type: GET_WALLET_UTENTE_CORRENTE, payload: data });
+        dispatch({ type: GET_WALLET_CORRENTE, payload: data });
       }
     } catch (error) {
       console.log(error);
     }
   };
-}
+}*/
+
+//WALLET
+export const getWalletUtenteCorrente = jwtToken => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: GET_WALLET_CORRENTE_LOADING_ON
+      });
+      let response = await fetch( `http://localhost:3001/wallet/me`, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + jwtToken,
+        },
+      });
+      if (response.ok) {
+        let data = await response.json();
+        dispatch({ type: GET_WALLET_CORRENTE, payload: data });
+        dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS});
+        dispatch({type:REMOVE_WALLET_CORRENTE_ERROR});
+      } else {
+        let error = await response.json();
+        dispatch({ type: GET_WALLET_CORRENTE_ERROR, payload: error });
+        dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS_RESET});
+      }
+    } catch (error) {
+      dispatch({type: GET_WALLET_CORRENTE_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
+      dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS});
+    } finally {
+      dispatch({type: GET_WALLET_CORRENTE_LOADING_OFF});
+    }
+  };
+};
+
+export const getWalletCorrenteLoading = () => ({
+  type:GET_WALLET_CORRENTE_LOADING,
+});
+
+export const getWalletCorrenteError = error => ({
+  type: GET_WALLET_CORRENTE_ERROR,
+  payload: error
+});
+
+export const removeWalletCorrenteError = () => ({
+  type: REMOVE_WALLET_CORRENTE_ERROR,
+});
+
+export const walletCorrenteSuccessReset=() => ({
+  type:SELECTED_WALLET_CORRENTE_SUCCESS_RESET,
+})
 
 export const removeWalletUtenteCorrente = () => ({
   type: REMOVE_WALLET_UTENTE_CORRENTE,

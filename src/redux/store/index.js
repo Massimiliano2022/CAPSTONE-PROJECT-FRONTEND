@@ -13,7 +13,7 @@ import selectedCryptoReducer from "../reducers/selectedCryptoReducer";
 const persistConfig = {
     key: "root",
     storage,
-    blacklist: ['registraUtente','currentCryptoData','selectedCryptoReducer','monthlyCryptoData','walletCorrente']
+    blacklist: ['registraUtente','currentCryptoData','selectedCryptoData','monthlyCryptoData','walletCorrente']
   };
 
 const rootReducer = combineReducers({
