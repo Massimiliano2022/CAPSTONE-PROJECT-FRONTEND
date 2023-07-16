@@ -17,9 +17,12 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const walletCorrente = useSelector(state => state.walletCorrente.wallet);
 
-    const [showCompra, setShowCompra] = useState(true);
+    const rispostaOperazione = useSelector(state => state.effettuaOperazione.operazione);
+    const error = useSelector(state => state.effettuaOperazione.error);
+    const loading = useSelector(state => state.effettuaOperazione.isLoading);
+    const success = useSelector(state => state.effettuaOperazione.success);
 
-    const [operazioneEffettuata, setOperazioneEffettuata] = useState(false);
+    const [showCompra, setShowCompra] = useState(true);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -39,16 +42,15 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
         if (utenteCorrente && utenteCorrente.jwtToken) {
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
-        setOperazioneEffettuata(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente, operazioneEffettuata]);
+    }, [utenteCorrente,rispostaOperazione,error]);
 
     useEffect(() => {
         if (walletCorrente) {
             setOperazione({ ...operazione, idWallet: walletCorrente.id });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [walletCorrente]);
+    }, [walletCorrente,rispostaOperazione,error]);
 
     const handleCompraClick = () => {
         setShowCompra(true);
@@ -75,8 +77,6 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
             handleShowModal();
             setModalMessage("Operazione completata con successo!");
-
-            setOperazioneEffettuata(true);
             setOperazione({ ...operazione, quantita: "" });
         }
     };

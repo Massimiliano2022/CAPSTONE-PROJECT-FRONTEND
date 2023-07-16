@@ -292,7 +292,6 @@ export const getMonthlyCryptoData = simbolo => {
       }
     } catch (error) {
       dispatch({type: GET_MONTHLY_CRYPTO_DATA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
-      //dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS});
       dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS_RESET});
     } finally {
       dispatch({type: GET_MONTHLY_CRYPTO_DATA_LOADING_OFF});
@@ -342,7 +341,6 @@ export const getWalletUtenteCorrente = jwtToken => {
       }
     } catch (error) {
       dispatch({type: GET_WALLET_CORRENTE_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
-      //dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS});
       dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS_RESET});
     } finally {
       dispatch({type: GET_WALLET_CORRENTE_LOADING_OFF});
@@ -372,31 +370,6 @@ export const removeWalletUtenteCorrente = () => ({
 });
 
 //OPERAZIONE
-/*export const postOperazione = (jwtToken, operazione) => {
-  return async () => {
-    try {
-      const response = await fetch(`http://localhost:3001/operazioni`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + jwtToken
-        },
-        body: JSON.stringify(operazione),
-      });
-      if (response.ok) {
-        const userData = await response.json();
-        console.log(userData);
-      } else {
-        const errorData = await response.json();
-        console.log(errorData);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}*/
-
-//OPERAZIONE
 export const postOperazione = (jwtToken, operazione) => {
   return async (dispatch, getState) => {
     try {
@@ -415,6 +388,7 @@ export const postOperazione = (jwtToken, operazione) => {
         let operazione = await response.json();
         dispatch({ type: POST_OPERAZIONE, payload: operazione });
         dispatch({type:OPERAZIONE_SUCCESS});
+        dispatch({type:REMOVE_OPERAZIONE_ERROR});
         console.log(operazione);
       } else {
         let error = await response.json();
