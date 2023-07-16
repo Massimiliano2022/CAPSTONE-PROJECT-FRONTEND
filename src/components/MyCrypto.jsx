@@ -11,7 +11,7 @@ import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { getSelectedCrypto, removeSelectedCryptoError, selectedCryptoSuccessReset } from '../redux/actions'
+import { getSelectedCrypto } from '../redux/actions'
 
 import MyLineChart from './MyLineChart';
 import MyOperazione from './MyOperazione'
@@ -38,17 +38,8 @@ const MyCrypto = () => {
     const cryptoSymbol = simbolo.toUpperCase();
 
     const selectedCrypto = useSelector(state => state.selectedCryptoData.selectedCrypto);
-    const error = useSelector(state => state.selectedCryptoData.error);
-    const loading = useSelector(state => state.selectedCryptoData.isLoading);
-    const success = useSelector(state => state.selectedCryptoData.success);
-
+    
     const timeoutRef = useRef(null);
-
-    useEffect(() => {
-        dispatch(removeSelectedCryptoError());
-        dispatch(selectedCryptoSuccessReset());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         const fetchData = () => {
@@ -77,7 +68,7 @@ const MyCrypto = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                {error || loading || !success ? (
+                {!selectedCrypto ? (
                     <>
                         <div className='d-flex justify-content-center align-items-center' style={{ height: "100vh" }}>
                             <Spinner animation="grow" variant="warning" className="me-2" />

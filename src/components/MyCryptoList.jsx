@@ -1,7 +1,7 @@
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef } from 'react'
-import { cryptoDataSuccessReset, getCurrentCryptoData, removeCryptoDataError } from '../redux/actions'
+import { getCurrentCryptoData } from '../redux/actions'
 import MyCryptoCard from './MyCryptoCard'
 
 const MyCryptoList = () => {
@@ -9,17 +9,8 @@ const MyCryptoList = () => {
     const dispatch = useDispatch();
 
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
-    const error = useSelector(state => state.currentCryptoData.error);
-    const loading = useSelector(state => state.currentCryptoData.isLoading);
-    const success = useSelector(state => state.currentCryptoData.success);
     
     const timeoutRef = useRef(null);
-
-    useEffect(()=>{
-        dispatch(removeCryptoDataError());
-        dispatch(cryptoDataSuccessReset());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
 
     useEffect(() => {
         const fetchData = () => {
@@ -62,7 +53,7 @@ const MyCryptoList = () => {
                         </Form>
                     </Col>*/}
                 <Row className="pb-5">
-                    {error || loading || !success ? (
+                    {!cryptosPrice ? (
                         <>
                             <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
                                 <Spinner animation="grow" variant="warning" className="me-2" />

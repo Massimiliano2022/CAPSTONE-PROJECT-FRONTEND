@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef} from 'react'
-import { cryptoDataSuccessReset, getCurrentCryptoData, removeCryptoDataError } from '../redux/actions'
+import { getCurrentCryptoData} from '../redux/actions'
 import MyCryptoCard from './MyCryptoCard'
 
 
@@ -18,17 +18,8 @@ const MyMain = () => {
 
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
-    const error = useSelector(state => state.currentCryptoData.error);
-    const loading = useSelector(state => state.currentCryptoData.isLoading);
-    const success = useSelector(state => state.currentCryptoData.success);
-
+    
     const timeoutRef = useRef(null);
-
-    useEffect(()=>{
-        dispatch(removeCryptoDataError());
-        dispatch(cryptoDataSuccessReset());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
 
     useEffect(() => {
         const fetchData = () => {
@@ -120,7 +111,7 @@ const MyMain = () => {
             </Container>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
                 <Row className='py-5'>
-                    {error || loading || !success ? (
+                    {!cryptosPrice ? (
                         <>
                             <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
                                 <Spinner animation="grow" variant="warning" className="me-2" />

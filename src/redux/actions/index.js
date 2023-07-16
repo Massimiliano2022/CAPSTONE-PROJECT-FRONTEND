@@ -21,54 +21,22 @@ export const REGISTRA_SUCCESS_RESET ="REGISTRA_SUCCESS_RESET";
 
 //CURRENT CRYPTO DATA
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
-export const GET_CRYPTO_DATA_LOADING_ON="GET_CRYPTO_DATA_LOADING_ON";
-export const GET_CRYPTO_DATA_LOADING_OFF="GET_CRYPTO_DATA_LOADING_OFF";
-export const GET_CRYPTO_DATA_LOADING="GET_CRYPTO_DATA_LOADING";
-export const GET_CRYPTO_DATA_ERROR="GET_CRYPTO_DATA_ERROR";
-export const REMOVE_CRYPTO_DATA_ERROR="REMOVE_CRYPTO_DATA_ERROR";
-export const CRYPTO_DATA_SUCCESS="CRYPTO_DATA_SUCCESS";
-export const CRYPTO_DATA_SUCCESS_RESET="CRYPTO_DATA_SUCCESS_RESET";
 
 //SELECTED CRYPTO
 export const GET_SELECTED_CRYPTO = "GET_SELECTED_CRYPTO";
-export const GET_SELECTED_CRYPTO_LOADING_ON = "GET_SELECTED_CRYPTO_LOADING_ON";
-export const GET_SELECTED_CRYPTO_LOADING_OFF = "GET_SELECTED_CRYPTO_LOADING_OFF";
-export const GET_SELECTED_CRYPTO_LOADING ="GET_SELECTED_CRYPTO_LOADING";
-export const GET_SELECTED_CRYPTO_ERROR ="GET_SELECTED_CRYPTO_ERROR";
-export const REMOVE_SELECTED_CRYPTO_ERROR="REMOVE_SELECTED_CRYPTO_ERROR";
-export const SELECTED_CRYPTO_SUCCESS="SELECTED_CRYPTO_SUCCESS";
-export const SELECTED_CRYPTO_SUCCESS_RESET="SELECTED_CRYPTO_SUCCESS_RESET"; 
+
 
 //MONTHLY CRYPTO DATA
 export const GET_MONTHLY_CRYPTO_DATA = "GET_MONTHLY_CRYPTO_DATA";
-export const GET_MONTHLY_CRYPTO_DATA_LOADING_ON = "GET_MONTHLY_CRYPTO_DATA_LOADING_ON";
-export const GET_MONTHLY_CRYPTO_DATA_LOADING_OFF ="GET_MONTHLY_CRYPTO_DATA_LOADING_OFF";
-export const GET_MONTHLY_CRYPTO_DATA_LOADING ="GET_MONTHLY_CRYPTO_DATA_LOADING";
-export const GET_MONTHLY_CRYPTO_DATA_ERROR ="GET_MONTHLY_CRYPTO_DATA_ERROR";
-export const REMOVE_MONTHLY_CRYPTO_DATA_ERROR ="REMOVE_MONTHLY_CRYPTO_DATA_ERROR";
-export const MONTHLY_CRYPTO_DATA_SUCCESS ="MONTHLY_CRYPTO_DATA_SUCCESS";
-export const MONTHLY_CRYPTO_DATA_SUCCESS_RESET = "MONTHLY_CRYPTO_DATA_SUCCESS_RESET";
 
 //WALLET
 export const GET_WALLET_CORRENTE = "GET_WALLET_CORRENTE";
-export const GET_WALLET_CORRENTE_LOADING_ON ="GET_WALLET_CORRENTE_LOADING_ON";
-export const GET_WALLET_CORRENTE_LOADING_OFF ="GET_WALLET_CORRENTE_LOADING_OFF";
-export const GET_WALLET_CORRENTE_LOADING = "GET_WALLET_CORRENTE_LOADING";
-export const GET_WALLET_CORRENTE_ERROR = "GET_WALLET_CORRENTE_ERROR";
-export const REMOVE_WALLET_CORRENTE_ERROR ="REMOVE_WALLET_CORRENTE_ERROR";
-export const SELECTED_WALLET_CORRENTE_SUCCESS ="SELECTED_WALLET_CORRENTE_SUCCESS";
-export const SELECTED_WALLET_CORRENTE_SUCCESS_RESET ="SELECTED_WALLET_CORRENTE_SUCCESS_RESET";
 export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 
 //OPERAZIONE
-export const POST_OPERAZIONE = "POST_OPERAZIONE";
-export const OPERAZIONE_LOADING_ON = "OPERAZIONE_LOADING_ON";
-export const OPERAZIONE_LOADING_OFF ="OPERAZIONE_LOADING_OFF";
-export const GET_OPERAZIONE_LOADING ="GET_OPERAZIONE_LOADING";
-export const OPERAZIONE_ERROR ="OPERAZIONE_ERROR";
+export const ESEGUI_OPERAZIONE = "ESEGUI_OPERAZIONE";
+export const GET_OPERAZIONE_ERROR ="GET_OPERAZIONE_ERROR";
 export const REMOVE_OPERAZIONE_ERROR ="REMOVE_OPERAZIONE_ERROR";
-export const OPERAZIONE_SUCCESS ="OPERAZIONE_SUCCESS";
-export const OPERAZIONE_SUCCESS_RESET ="OPERAZIONE_SUCCESS_RESET";
 
 //LOGIN
 export const getUtenteCorrente = (utente) => {
@@ -172,9 +140,6 @@ export const registraSuccessReset=() => ({
 export const getCurrentCryptoData = () => {
   return async (dispatch, getState) => {
     try {
-      dispatch({
-        type: GET_CRYPTO_DATA_LOADING_ON
-      });
       let response = await fetch( `http://localhost:3001/crypto`, {
         method: "GET",
         headers: {
@@ -185,46 +150,20 @@ export const getCurrentCryptoData = () => {
         let data = await response.json();
         let sortedData = [...data].sort((a, b) => a.id - b.id);
         dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: sortedData });
-        dispatch({type:CRYPTO_DATA_SUCCESS});
-        dispatch({type:REMOVE_CRYPTO_DATA_ERROR});
       } else {
         let error = await response.json();
-        dispatch({ type: GET_CRYPTO_DATA_ERROR, payload: error });
-        dispatch({type:CRYPTO_DATA_SUCCESS_RESET});
+        console.log(error);
       }
     } catch (error) {
-      dispatch({type: GET_CRYPTO_DATA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
-      dispatch({type:CRYPTO_DATA_SUCCESS_RESET});
-    } finally {
-      dispatch({type: GET_CRYPTO_DATA_LOADING_OFF});
+      console.log(error);
     }
   };
 };
-
-export const getCryptoDataLoading = () => ({
-  type:GET_CRYPTO_DATA_LOADING,
-});
-
-export const getCryptoDataError = error => ({
-  type: GET_CRYPTO_DATA_ERROR,
-  payload: error
-});
-
-export const removeCryptoDataError = () => ({
-  type: REMOVE_CRYPTO_DATA_ERROR,
-});
-
-export const cryptoDataSuccessReset=() => ({
-  type:CRYPTO_DATA_SUCCESS_RESET,
-})
 
 //SELECTED CRYPTO
 export const getSelectedCrypto = simbolo => {
   return async (dispatch, getState) => {
     try {
-      dispatch({
-        type: GET_SELECTED_CRYPTO_LOADING_ON
-      });
       let response = await fetch( `http://localhost:3001/crypto/${simbolo}`, {
         method: "GET",
         headers: {
@@ -234,46 +173,20 @@ export const getSelectedCrypto = simbolo => {
       if (response.ok) {
         let data = await response.json();
         dispatch({ type: GET_SELECTED_CRYPTO, payload: data });
-        dispatch({type:SELECTED_CRYPTO_SUCCESS});
-        dispatch({type:REMOVE_SELECTED_CRYPTO_ERROR});
       } else {
         let error = await response.json();
-        dispatch({ type: GET_SELECTED_CRYPTO_ERROR, payload: error });
-        dispatch({type:SELECTED_CRYPTO_SUCCESS_RESET});
+        console.log(error);
       }
     } catch (error) {
-      dispatch({type: GET_SELECTED_CRYPTO_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
-      dispatch({type:SELECTED_CRYPTO_SUCCESS_RESET});
-    } finally {
-      dispatch({type: GET_SELECTED_CRYPTO_LOADING_OFF});
+      console.log(error);
     }
   };
 };
-
-export const getSelectedCryptoLoading = () => ({
-  type:GET_SELECTED_CRYPTO_LOADING,
-});
-
-export const getSelectedCryptoError = error => ({
-  type: GET_SELECTED_CRYPTO_ERROR,
-  payload: error
-});
-
-export const removeSelectedCryptoError = () => ({
-  type: REMOVE_SELECTED_CRYPTO_ERROR,
-});
-
-export const selectedCryptoSuccessReset=() => ({
-  type:SELECTED_CRYPTO_SUCCESS_RESET,
-})
 
 //MONTHLY CRYPTO DATA
 export const getMonthlyCryptoData = simbolo => {
   return async (dispatch, getState) => {
     try {
-      dispatch({
-        type: GET_MONTHLY_CRYPTO_DATA_LOADING_ON
-      });
       let response = await fetch( `http://localhost:3001/crypto/monthly/${simbolo}`, {
         method: "GET",
         headers: {
@@ -283,46 +196,20 @@ export const getMonthlyCryptoData = simbolo => {
       if (response.ok) {
         let data = await response.json();
         dispatch({ type: GET_MONTHLY_CRYPTO_DATA, payload: data });
-        dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS});
-        dispatch({type:REMOVE_MONTHLY_CRYPTO_DATA_ERROR});
       } else {
         let error = await response.json();
-        dispatch({ type: GET_MONTHLY_CRYPTO_DATA_ERROR, payload: error });
-        dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS_RESET});
+        console.log(error);
       }
     } catch (error) {
-      dispatch({type: GET_MONTHLY_CRYPTO_DATA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
-      dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS_RESET});
-    } finally {
-      dispatch({type: GET_MONTHLY_CRYPTO_DATA_LOADING_OFF});
+      console.log(error);
     }
   };
 };
-
-export const getMonthlyCryptoDataLoading = () => ({
-  type:GET_MONTHLY_CRYPTO_DATA_LOADING,
-});
-
-export const getMonthlyCryptoDataError = error => ({
-  type: GET_MONTHLY_CRYPTO_DATA_ERROR,
-  payload: error
-});
-
-export const removeMonthlyCryptoDataError = () => ({
-  type: REMOVE_MONTHLY_CRYPTO_DATA_ERROR,
-});
-
-export const monthlyCryptoDataSuccessReset=() => ({
-  type:MONTHLY_CRYPTO_DATA_SUCCESS,
-})
 
 //WALLET
 export const getWalletUtenteCorrente = jwtToken => {
   return async (dispatch, getState) => {
     try {
-      dispatch({
-        type: GET_WALLET_CORRENTE_LOADING_ON
-      });
       let response = await fetch( `http://localhost:3001/wallet/me`, {
         method: "GET",
         headers: {
@@ -332,38 +219,15 @@ export const getWalletUtenteCorrente = jwtToken => {
       if (response.ok) {
         let data = await response.json();
         dispatch({ type: GET_WALLET_CORRENTE, payload: data });
-        dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS});
-        dispatch({type:REMOVE_WALLET_CORRENTE_ERROR});
       } else {
         let error = await response.json();
-        dispatch({ type: GET_WALLET_CORRENTE_ERROR, payload: error });
-        dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS_RESET});
+        console.log(error);
       }
     } catch (error) {
-      dispatch({type: GET_WALLET_CORRENTE_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
-      dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS_RESET});
-    } finally {
-      dispatch({type: GET_WALLET_CORRENTE_LOADING_OFF});
+      console.log(error);
     }
   };
 };
-
-export const getWalletCorrenteLoading = () => ({
-  type:GET_WALLET_CORRENTE_LOADING,
-});
-
-export const getWalletCorrenteError = error => ({
-  type: GET_WALLET_CORRENTE_ERROR,
-  payload: error
-});
-
-export const removeWalletCorrenteError = () => ({
-  type: REMOVE_WALLET_CORRENTE_ERROR,
-});
-
-export const walletCorrenteSuccessReset=() => ({
-  type:SELECTED_WALLET_CORRENTE_SUCCESS_RESET,
-})
 
 export const removeWalletUtenteCorrente = () => ({
   type: REMOVE_WALLET_UTENTE_CORRENTE,
@@ -373,9 +237,6 @@ export const removeWalletUtenteCorrente = () => ({
 export const postOperazione = (jwtToken, operazione) => {
   return async (dispatch, getState) => {
     try {
-      dispatch({
-        type: OPERAZIONE_LOADING_ON
-      });
       let response = await fetch( `http://localhost:3001/operazioni`, {
         method: "POST",
         headers: {
@@ -386,38 +247,25 @@ export const postOperazione = (jwtToken, operazione) => {
       });
       if (response.ok) {
         let operazione = await response.json();
-        dispatch({ type: POST_OPERAZIONE, payload: operazione });
-        dispatch({type:OPERAZIONE_SUCCESS});
+        dispatch({ type: ESEGUI_OPERAZIONE, payload: operazione });
         dispatch({type:REMOVE_OPERAZIONE_ERROR});
         console.log(operazione);
       } else {
         let error = await response.json();
-        dispatch({ type: OPERAZIONE_ERROR, payload: error.message });
-        dispatch({type: OPERAZIONE_SUCCESS_RESET});
+        dispatch({ type: GET_OPERAZIONE_ERROR, payload: error.message });
         console.log(error);
       }
     } catch (error) {
-      dispatch({type: OPERAZIONE_ERROR,payload: "Errore durante operazione : " + error.message});
-      dispatch({type: OPERAZIONE_SUCCESS_RESET});
-    } finally {
-      dispatch({type: OPERAZIONE_LOADING_OFF});
+      dispatch({type: GET_OPERAZIONE_ERROR,payload: "Errore durante operazione : " + error.message});
     }
   };
 };
 
-export const getOperazioneLoading = () => ({
-  type:GET_OPERAZIONE_LOADING,
-});
-
-export const operazioneError = error => ({
-  type: OPERAZIONE_ERROR,
+export const getOperazioneError = error => ({
+  type: GET_OPERAZIONE_ERROR,
   payload: error
 });
 
 export const removeOperazioneError = () => ({
   type: REMOVE_OPERAZIONE_ERROR,
 });
-
-export const operazioneSuccessReset=() => ({
-  type:OPERAZIONE_SUCCESS_RESET,
-})

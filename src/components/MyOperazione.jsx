@@ -19,9 +19,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const rispostaOperazione = useSelector(state => state.effettuaOperazione.operazione);
     const error = useSelector(state => state.effettuaOperazione.error);
-    const loading = useSelector(state => state.effettuaOperazione.isLoading);
-    const success = useSelector(state => state.effettuaOperazione.success);
-
+    
     const [showCompra, setShowCompra] = useState(true);
 
     const [showModal, setShowModal] = useState(false);
@@ -43,14 +41,14 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente,rispostaOperazione,error]);
+    }, [utenteCorrente]);
 
     useEffect(() => {
         if (walletCorrente) {
             setOperazione({ ...operazione, idWallet: walletCorrente.id });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [walletCorrente,rispostaOperazione,error]);
+    }, [walletCorrente]);
 
     const handleCompraClick = () => {
         setShowCompra(true);

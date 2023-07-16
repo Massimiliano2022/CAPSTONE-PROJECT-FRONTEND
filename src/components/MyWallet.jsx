@@ -3,7 +3,7 @@ import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useEffect, useRef } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getWalletUtenteCorrente, removeWalletCorrenteError, walletCorrenteSuccessReset } from '../redux/actions'
+import { getWalletUtenteCorrente } from '../redux/actions'
 
 import MyProtectedRoute from "./MyProtectedRoute";
 
@@ -18,17 +18,8 @@ const MyWallet = () => {
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
     const walletCorrente = useSelector(state => state.walletCorrente.wallet);
-    const error = useSelector(state => state.walletCorrente.error);
-    const loading = useSelector(state => state.walletCorrente.isLoading);
-    const success = useSelector(state => state.walletCorrente.success);
-
+    
     const timeoutRef = useRef(null);
-
-    useEffect(() => {
-        dispatch(removeWalletCorrenteError());
-        dispatch(walletCorrenteSuccessReset());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     useEffect(() => {
         const fetchData = () => {
@@ -57,7 +48,7 @@ const MyWallet = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                {error || loading || !success ? (
+                {!walletCorrente ? (
                     <div className="d-flex justify-content-center align-items-center vh-100">
                         <Spinner animation="grow" variant="warning" />
                     </div>
