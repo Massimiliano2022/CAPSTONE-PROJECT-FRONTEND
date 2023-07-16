@@ -18,8 +18,6 @@ const MyNav = () => {
         dispatch(removeUtenteCorrente());
         dispatch(removeWalletUtenteCorrente());
         dispatch(loginSuccessReset());
-
-        //VERIFICA
         dispatch(walletCorrenteSuccessReset());
         
         navigator('/');
