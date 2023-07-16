@@ -19,8 +19,6 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const [showCompra, setShowCompra] = useState(true);
 
-    const [warningQuantita, setWarningQuantita] = useState("");
-
     const [operazioneEffettuata, setOperazioneEffettuata] = useState(false);
 
     const [showModal, setShowModal] = useState(false);
@@ -28,7 +26,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
 
-    const [modalMessage,setModalMessage] = useState("");
+    const [modalMessage, setModalMessage] = useState("");
 
     const [operazione, setOperazione] = useState({
         idWallet: "",
@@ -63,13 +61,13 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
     };
 
     const eseguiOperazione = async () => {
-        setWarningQuantita("");
         if (!operazione.quantita) {
-            setWarningQuantita('Inserire la quantità!');
-        }else if(operazione.quantita && (!utenteCorrente || !utenteCorrente.utente || !utenteCorrente.jwtToken || !walletCorrente)){
+            handleShowModal();
+            setModalMessage('Inserire la quantità!');
+        } else if (operazione.quantita && (!utenteCorrente || !utenteCorrente.utente || !utenteCorrente.jwtToken || !walletCorrente)) {
             handleShowModal();
             setModalMessage("Devi effettuare l'accesso per eseguire un operazione!");
-        }else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
+        } else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
             console.log(utenteCorrente);
             console.log(walletCorrente);
             console.log(operazione);
@@ -119,9 +117,6 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                                         value={operazione.quantita}
                                         onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })}
                                     />
-                                    {warningQuantita && (
-                                        <p className="text-danger mb-2">{warningQuantita}</p>
-                                    )}
                                 </Form.Group>
                             </Form>
                             <div className="d-flex align-items-center p-2 rounded-4" style={{ background: "#1E1E1E" }}>
@@ -158,9 +153,6 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                                         value={operazione.quantita}
                                         onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })}
                                     />
-                                    {warningQuantita && (
-                                        <p className="text-danger mb-2">{warningQuantita}</p>
-                                    )}
                                 </Form.Group>
                             </Form>
                             <div className="d-flex align-items-center p-2 rounded-4" style={{ background: "#1E1E1E" }}>
@@ -186,7 +178,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                     </Card.Body>
                 </Card>
             )}
-            <MyOperazioneModal showModal={showModal} handleCloseModal={handleCloseModal} modalMessage={modalMessage}/>
+            <MyOperazioneModal showModal={showModal} handleCloseModal={handleCloseModal} modalMessage={modalMessage} />
         </>
     )
 };
