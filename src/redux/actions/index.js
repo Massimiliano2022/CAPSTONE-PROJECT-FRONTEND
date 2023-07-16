@@ -60,7 +60,15 @@ export const SELECTED_WALLET_CORRENTE_SUCCESS ="SELECTED_WALLET_CORRENTE_SUCCESS
 export const SELECTED_WALLET_CORRENTE_SUCCESS_RESET ="SELECTED_WALLET_CORRENTE_SUCCESS_RESET";
 export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 
+//OPERAZIONE
 export const POST_OPERAZIONE = "POST_OPERAZIONE";
+export const OPERAZIONE_LOADING_ON = "OPERAZIONE_LOADING_ON";
+export const OPERAZIONE_LOADING_OFF ="OPERAZIONE_LOADING_OFF";
+export const GET_OPERAZIONE_LOADING ="GET_OPERAZIONE_LOADING";
+export const OPERAZIONE_ERROR ="OPERAZIONE_ERROR";
+export const REMOVE_OPERAZIONE_ERROR ="REMOVE_OPERAZIONE_ERROR";
+export const OPERAZIONE_SUCCESS ="OPERAZIONE_SUCCESS";
+export const OPERAZIONE_SUCCESS_RESET ="OPERAZIONE_SUCCESS_RESET";
 
 //LOGIN
 export const getUtenteCorrente = (utente) => {
@@ -85,7 +93,7 @@ export const getUtenteCorrente = (utente) => {
         dispatch({ type: LOGIN_ERROR, payload: error });
       }
     } catch (error) {
-      dispatch({type: LOGIN_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
+      dispatch({type: LOGIN_ERROR,payload: "Errore in fase di login : " + error.message});
     } finally {
       dispatch({type: LOGIN_LOADING_OFF});
     }
@@ -136,7 +144,7 @@ export const registraUtente = (utente) => {
         dispatch({ type: REGISTRA_ERROR, payload: error });
       }
     } catch (error) {
-      dispatch({type: REGISTRA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
+      dispatch({type: REGISTRA_ERROR,payload: "Errore in fase di registrazione : " + error.message});
     } finally {
       dispatch({type: REGISTRA_LOADING_OFF});
     }
@@ -284,7 +292,8 @@ export const getMonthlyCryptoData = simbolo => {
       }
     } catch (error) {
       dispatch({type: GET_MONTHLY_CRYPTO_DATA_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
-      dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS});
+      //dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS});
+      dispatch({type:MONTHLY_CRYPTO_DATA_SUCCESS_RESET});
     } finally {
       dispatch({type: GET_MONTHLY_CRYPTO_DATA_LOADING_OFF});
     }
@@ -333,7 +342,8 @@ export const getWalletUtenteCorrente = jwtToken => {
       }
     } catch (error) {
       dispatch({type: GET_WALLET_CORRENTE_ERROR,payload: "Errore nel reperimento dei dati: " + error.message});
-      dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS});
+      //dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS});
+      dispatch({type:SELECTED_WALLET_CORRENTE_SUCCESS_RESET});
     } finally {
       dispatch({type: GET_WALLET_CORRENTE_LOADING_OFF});
     }
@@ -362,7 +372,7 @@ export const removeWalletUtenteCorrente = () => ({
 });
 
 //OPERAZIONE
-export const postOperazione = (jwtToken, operazione) => {
+/*export const postOperazione = (jwtToken, operazione) => {
   return async () => {
     try {
       const response = await fetch(`http://localhost:3001/operazioni`, {
@@ -384,4 +394,56 @@ export const postOperazione = (jwtToken, operazione) => {
       console.log(error);
     }
   }
-}
+}*/
+
+//OPERAZIONE
+export const postOperazione = (jwtToken, operazione) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: OPERAZIONE_LOADING_ON
+      });
+      let response = await fetch( `http://localhost:3001/operazioni`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + jwtToken
+        },
+        body: JSON.stringify(operazione),
+      });
+      if (response.ok) {
+        let operazione = await response.json();
+        dispatch({ type: POST_OPERAZIONE, payload: operazione });
+        dispatch({type:OPERAZIONE_SUCCESS});
+        console.log(operazione);
+      } else {
+        let error = await response.json();
+        dispatch({ type: OPERAZIONE_ERROR, payload: error.message });
+        dispatch({type: OPERAZIONE_SUCCESS_RESET});
+        console.log(error);
+      }
+    } catch (error) {
+      dispatch({type: OPERAZIONE_ERROR,payload: "Errore durante operazione : " + error.message});
+      dispatch({type: OPERAZIONE_SUCCESS_RESET});
+    } finally {
+      dispatch({type: OPERAZIONE_LOADING_OFF});
+    }
+  };
+};
+
+export const getOperazioneLoading = () => ({
+  type:GET_OPERAZIONE_LOADING,
+});
+
+export const operazioneError = error => ({
+  type: OPERAZIONE_ERROR,
+  payload: error
+});
+
+export const removeOperazioneError = () => ({
+  type: REMOVE_OPERAZIONE_ERROR,
+});
+
+export const operazioneSuccessReset=() => ({
+  type:OPERAZIONE_SUCCESS_RESET,
+})

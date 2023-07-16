@@ -9,11 +9,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import registraUtenteReducer from "../reducers/registraUtenteReducer";
 import selectedCryptoReducer from "../reducers/selectedCryptoReducer";
+import operazioneReducer from "../reducers/operazioneReducer";
 
 const persistConfig = {
     key: "root",
     storage,
-    blacklist: ['registraUtente','currentCryptoData','selectedCryptoData','monthlyCryptoData','walletCorrente']
+    blacklist: ['registraUtente','currentCryptoData','selectedCryptoData','monthlyCryptoData','walletCorrente','effettuaOperazione']
   };
 
 const rootReducer = combineReducers({
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
     currentCryptoData:cryptoPriceReducer,
     selectedCryptoData:selectedCryptoReducer,
     monthlyCryptoData:monthlyCryptoReducer,
-    walletCorrente:walletReducer
+    walletCorrente:walletReducer,
+    effettuaOperazione:operazioneReducer
   });
   
   const persistedReducer = persistReducer(persistConfig, rootReducer);

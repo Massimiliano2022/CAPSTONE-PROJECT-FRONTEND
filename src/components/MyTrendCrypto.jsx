@@ -43,15 +43,13 @@ const MyTrendCrypto = ({ selectedCrypto }) => {
                 <Table className='text-light m-0'>
                     <tbody className="d-flex flex-column">
                         {filteredCryptosPrice.map(crypto => (
-                            <Link key={crypto.id} to={`/crypto/${crypto.simbolo.toLowerCase()}`} className="nav-link">
-                                <tr className="d-flex flex-row justify-content-between align-items-center">
-                                    <td className="d-flex align-items-center p-0">
-                                        <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={30} className="img-fluid object-fit-cover" />
-                                        <span className="fs-6 ms-2">{crypto.simbolo}</span>
-                                    </td>
-                                    <td className="fs-6">$ {crypto.prezzo.toFixed(4)}</td>
-                                </tr>
-                            </Link>
+                            <tr key={crypto.id} className="d-flex flex-row justify-content-between align-items-center">
+                                <td className="d-flex align-items-center p-0">
+                                    <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={30} className="img-fluid object-fit-cover" />
+                                    <span className="fs-6 ms-2">{crypto.simbolo}</span>
+                                </td>
+                                <td className="fs-6">$ {crypto.prezzo.toFixed(4)}</td>
+                            </tr>
                         ))}
                     </tbody>
                 </Table>
