@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getWalletUtenteCorrente, postOperazione } from "../redux/actions";
+import MyOperazioneModal from "./MyOperazioneModal";
 
 const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const dispatch = useDispatch();
-
-    const navigator = useNavigate();
 
     const { simbolo } = useParams();
 
@@ -24,6 +23,13 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const [operazioneEffettuata, setOperazioneEffettuata] = useState(false);
 
+    const [showModal, setShowModal] = useState(false);
+
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = () => setShowModal(true);
+
+    const [modalMessage,setModalMessage] = useState("");
+
     const [operazione, setOperazione] = useState({
         idWallet: "",
         simboloCrypto: cryptoSymbol,
@@ -37,7 +43,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
         }
         setOperazioneEffettuata(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente,operazioneEffettuata]);
+    }, [utenteCorrente, operazioneEffettuata]);
 
     useEffect(() => {
         if (walletCorrente) {
@@ -57,23 +63,24 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
     };
 
     const eseguiOperazione = async () => {
-
         setWarningQuantita("");
-
-        if(!operazione.quantita){
+        if (!operazione.quantita) {
             setWarningQuantita('Inserire la quantità!');
-        }
-        if (utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente && operazione.quantita) {
+        }else if(operazione.quantita && (!utenteCorrente || !utenteCorrente.utente || !utenteCorrente.jwtToken || !walletCorrente)){
+            handleShowModal();
+            setModalMessage("Devi effettuare l'accesso per eseguire un operazione!");
+        }else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
             console.log(utenteCorrente);
             console.log(walletCorrente);
             console.log(operazione);
             dispatch(postOperazione(utenteCorrente.jwtToken, operazione));
+
+            handleShowModal();
+            setModalMessage("Operazione completata con successo!");
+
             setOperazioneEffettuata(true);
             setOperazione({ ...operazione, quantita: "" });
-        } 
-        /*else {
-            navigator('/wallet');
-        }*/
+        }
     };
 
     return (
@@ -179,6 +186,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                     </Card.Body>
                 </Card>
             )}
+            <MyOperazioneModal showModal={showModal} handleCloseModal={handleCloseModal} modalMessage={modalMessage}/>
         </>
     )
 };
