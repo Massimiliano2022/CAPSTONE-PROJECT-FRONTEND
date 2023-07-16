@@ -20,6 +20,10 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const [showCompra, setShowCompra] = useState(true);
 
+    const [warningQuantita, setWarningQuantita] = useState("");
+
+    const [operazioneEffettuata, setOperazioneEffettuata] = useState(false);
+
     const [operazione, setOperazione] = useState({
         idWallet: "",
         simboloCrypto: cryptoSymbol,
@@ -31,8 +35,9 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
         if (utenteCorrente && utenteCorrente.jwtToken) {
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
+        setOperazioneEffettuata(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente]);
+    }, [utenteCorrente,operazioneEffettuata]);
 
     useEffect(() => {
         if (walletCorrente) {
@@ -52,14 +57,23 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
     };
 
     const eseguiOperazione = async () => {
-        if (utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
+
+        setWarningQuantita("");
+
+        if(!operazione.quantita){
+            setWarningQuantita('Inserire la quantità!');
+        }
+        if (utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente && operazione.quantita) {
             console.log(utenteCorrente);
             console.log(walletCorrente);
             console.log(operazione);
             dispatch(postOperazione(utenteCorrente.jwtToken, operazione));
-        } else {
+            setOperazioneEffettuata(true);
+            setOperazione({ ...operazione, quantita: "" });
+        } 
+        /*else {
             navigator('/wallet');
-        }
+        }*/
     };
 
     return (
@@ -98,6 +112,9 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                                         value={operazione.quantita}
                                         onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })}
                                     />
+                                    {warningQuantita && (
+                                        <p className="text-danger mb-2">{warningQuantita}</p>
+                                    )}
                                 </Form.Group>
                             </Form>
                             <div className="d-flex align-items-center p-2 rounded-4" style={{ background: "#1E1E1E" }}>
@@ -134,6 +151,9 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                                         value={operazione.quantita}
                                         onChange={(e) => setOperazione({ ...operazione, quantita: e.target.value })}
                                     />
+                                    {warningQuantita && (
+                                        <p className="text-danger mb-2">{warningQuantita}</p>
+                                    )}
                                 </Form.Group>
                             </Form>
                             <div className="d-flex align-items-center p-2 rounded-4" style={{ background: "#1E1E1E" }}>
