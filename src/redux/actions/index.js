@@ -60,7 +60,6 @@ export const SELECTED_WALLET_CORRENTE_SUCCESS ="SELECTED_WALLET_CORRENTE_SUCCESS
 export const SELECTED_WALLET_CORRENTE_SUCCESS_RESET ="SELECTED_WALLET_CORRENTE_SUCCESS_RESET";
 export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 
-
 export const POST_OPERAZIONE = "POST_OPERAZIONE";
 
 //LOGIN
@@ -310,27 +309,6 @@ export const monthlyCryptoDataSuccessReset=() => ({
 })
 
 //WALLET
-/*export const getWalletUtenteCorrente = jwtToken => {
-  return async dispatch => {
-    try {
-      const url = `http://localhost:3001/wallet/me`;
-      let response = await fetch(url, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + jwtToken,
-        },
-      })
-      if (response.ok) {
-        const data = await response.json();
-        dispatch({ type: GET_WALLET_CORRENTE, payload: data });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}*/
-
-//WALLET
 export const getWalletUtenteCorrente = jwtToken => {
   return async (dispatch, getState) => {
     try {
@@ -383,6 +361,7 @@ export const removeWalletUtenteCorrente = () => ({
   type: REMOVE_WALLET_UTENTE_CORRENTE,
 });
 
+//OPERAZIONE
 export const postOperazione = (jwtToken, operazione) => {
   return async () => {
     try {
