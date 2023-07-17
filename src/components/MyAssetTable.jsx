@@ -58,20 +58,20 @@ const MyAssetTable = ({ walletCorrente }) => {
                         <Table className='text-light m-0'>
                             <tbody className="d-flex flex-column">
                                 <tr className="d-flex flex-row justify-content-between align-items-center my-2">
-                                    <td className="d-flex align-items-center p-0">
+                                    <td className="d-flex align-items-center p-0 border-0">
                                         <h5>Saldo totale :</h5>
                                     </td>
-                                    <td className="d-flex flex-column text-end">
+                                    <td className="d-flex flex-column text-end border-0">
                                         <h5>$ {totaleParzialeSaldo}</h5>
                                     </td>
                                 </tr>
                                 {updatedListaAsset && updatedListaAsset.map(asset => (
                                     <tr key={asset.crypto.simbolo} className="d-flex flex-row justify-content-between align-items-center my-2">
-                                        <td className="d-flex align-items-center p-0">
+                                        <td className="d-flex align-items-center p-0 border-0">
                                             <img src={cryptoLogos[asset.crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={40} className="img-fluid object-fit-cover" />
                                             <span className="ms-2">{asset.crypto.simbolo}</span>
                                         </td>
-                                        <td className="d-flex flex-column text-end">
+                                        <td className="d-flex flex-column text-end border-0">
                                             {asset.quantita.toFixed(2)}
                                             <p className="text-muted">$ {(asset.crypto.prezzo * asset.quantita).toFixed(2)}</p>
                                         </td>

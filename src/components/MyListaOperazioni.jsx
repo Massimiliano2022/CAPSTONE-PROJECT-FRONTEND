@@ -5,8 +5,7 @@ import { getlistaOperazioni } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const MyListaOperazioni = ({ utenteCorrente }) => {
-
-
+    
     const dispatch = useDispatch();
 
     const listaOperazioni = useSelector(state => state.listaOperazioni.listaOperazioni);
