@@ -15,7 +15,7 @@ const MyOperazioneModal = ({ showModal, handleCloseModal, modalTitle, modalMessa
                 <p className="m-0 fs-5">{modalMessage}</p>
             </Modal.Body>
             <Modal.Footer style={{ background: "#2d2d2d" }}>
-                <Button variant="warning" onClick={handleClose}>Close</Button>
+                <Button variant="warning" onClick={handleClose}>Chiudi</Button>
             </Modal.Footer>
         </Modal>
     );
