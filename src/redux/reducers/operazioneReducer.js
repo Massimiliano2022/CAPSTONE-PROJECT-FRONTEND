@@ -1,10 +1,10 @@
-import { ESEGUI_OPERAZIONE, GET_OPERAZIONE_ERROR, REMOVE_OPERAZIONE_ERROR,REMOVE_OPERAZIONE_DATA } from "../actions";
+import { ESEGUI_OPERAZIONE, OPERAZIONE_LOADING_ON, OPERAZIONE_LOADING_OFF, GET_OPERAZIONE_LOADING, GET_OPERAZIONE_ERROR, REMOVE_OPERAZIONE_ERROR, OPERAZIONE_SUCCESS, OPERAZIONE_SUCCESS_RESET } from "../actions";
 
 const initialState = {
-    operazione: {
-
-    },
+    operazione: null,
+    isLoading: false,
     error: null,
+    success: false,
 };
 
 const operazioneReducer = (state = initialState, action) => {
@@ -15,6 +15,21 @@ const operazioneReducer = (state = initialState, action) => {
                 operazione:
                     action.payload
             }
+        case OPERAZIONE_LOADING_ON:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case OPERAZIONE_LOADING_OFF:
+            return {
+                ...state,
+                isLoading: false
+            };
+        case GET_OPERAZIONE_LOADING:
+            return {
+                ...state,
+                isLoading: action.payload
+            };
         case GET_OPERAZIONE_ERROR:
             return {
                 ...state,
@@ -25,14 +40,19 @@ const operazioneReducer = (state = initialState, action) => {
                 ...state,
                 error: null
             }
-        case REMOVE_OPERAZIONE_DATA:
+        case OPERAZIONE_SUCCESS:
             return {
                 ...state,
-                userData: {
-
-                },
-                error: null
-            }
+                success: true
+            };
+        case OPERAZIONE_SUCCESS_RESET:
+            return {
+                ...state,
+                operazione: null,
+                isLoading: false,
+                error: null,
+                success: false,
+            };
         default:
             return state;
     }

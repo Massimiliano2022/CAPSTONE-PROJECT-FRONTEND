@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { effettuaOperazione, getWalletUtenteCorrente } from "../redux/actions";
+import { effettuaOperazione, getWalletUtenteCorrente, operazioneSuccessReset, removeOperazioneError } from "../redux/actions";
 import MyOperazioneModal from "./MyOperazioneModal";
 
 const MyOperazione = ({ logo, selectedCrypto }) => {
@@ -17,18 +17,13 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const walletCorrente = useSelector(state => state.walletCorrente.wallet);
 
-    const rispostaOperazione = useSelector(state => state.effettuaOperazione.operazione);
+    //const rispostaOperazione = useSelector(state => state.effettuaOperazione.operazione);
+
+    const success = useSelector(state => state.effettuaOperazione.success);
     const error = useSelector(state => state.effettuaOperazione.error);
+    const loading = useSelector(state => state.effettuaOperazione.isLoading);
 
     const [showCompra, setShowCompra] = useState(true);
-
-    const [showModal, setShowModal] = useState(false);
-
-    const handleCloseModal = () => setShowModal(false);
-    const handleShowModal = () => setShowModal(true);
-
-    const [modalTitle, setModalTitle] = useState("");
-    const [modalMessage, setModalMessage] = useState("");
 
     const [operazione, setOperazione] = useState({
         idWallet: "",
@@ -37,42 +32,27 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
         quantita: ""
     });
 
+    const [showModal, setShowModal] = useState(false);
+
+    const [modalTitle,setModalTitle] = useState("");
+    const [modalMessage,setModalMessage] = useState("");
+
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = () => setShowModal(true);
+
     useEffect(() => {
         if (utenteCorrente && utenteCorrente.jwtToken) {
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente]);
+    }, [utenteCorrente, success, error, loading]);
 
     useEffect(() => {
         if (walletCorrente) {
             setOperazione({ ...operazione, idWallet: walletCorrente.id });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [walletCorrente]);
-
-    useEffect(() => {
-        if (rispostaOperazione || (error && error.message)) {
-            setShowModal(true);
-        } else {
-            setShowModal(false);
-        }
-    }, [rispostaOperazione, error]);
-
-    useEffect(() => {
-        if (rispostaOperazione && !error) {
-          handleShowModal();
-          setModalTitle("Operazione completata con successo!");
-          setModalMessage("Operazione completata con successo!");
-          setOperazione({ ...operazione, quantita: "" });
-        } else if (error && error.message) {
-          handleShowModal();
-          setModalTitle("Errore");
-          setModalMessage(error.message);
-          setOperazione({ ...operazione, quantita: "" });
-        }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [rispostaOperazione, error]);
+    }, [walletCorrente, success, error, loading]);
 
     const handleCompraClick = () => {
         setShowCompra(true);
@@ -86,18 +66,33 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const eseguiOperazione = async (e) => {
         e.preventDefault();
+
+        dispatch(removeOperazioneError());
+        
+        handleShowModal();
+
         if (!operazione.quantita) {
-            handleShowModal();
-            setModalTitle("Errore!");
-            setModalMessage('Inserire la quantità!');
+            setModalTitle('Errore');
+            setModalMessage('Inserire la quantita!');
+            console.log('Inserire la quantita!');
         } else if (operazione.quantita && (!utenteCorrente || !utenteCorrente.utente || !utenteCorrente.jwtToken || !walletCorrente)) {
-            handleShowModal();
-            setModalTitle("Errore!");
+            setModalTitle('Errore');
             setModalMessage("Devi effettuare l'accesso per eseguire un operazione!");
+            console.log("Devi effettuare l'accesso per eseguire un operazione!");
         } else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
             dispatch(effettuaOperazione(utenteCorrente.jwtToken, operazione));
         }
     };
+
+    useEffect(() => {
+        dispatch(removeOperazioneError());
+        dispatch(operazioneSuccessReset());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    console.log("SUCCESS: "+success);
+    console.log(error);
+    console.log("LOADING:" +loading);
 
     return (
         <>
@@ -196,14 +191,9 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                     </Card.Body>
                 </Card>
             )}
-            {rispostaOperazione || (error && error.message) ? (
-                <MyOperazioneModal
-                    showModal={showModal}
-                    handleCloseModal={handleCloseModal}
-                    modalTitle={modalTitle}
-                    modalMessage={modalMessage}
-                />
-            ) : null}
+            {!loading && (
+                <MyOperazioneModal showModal={showModal} handleCloseModal={handleCloseModal} modalMessage={modalMessage} modalTitle={modalTitle} />
+            )}
         </>
     )
 };

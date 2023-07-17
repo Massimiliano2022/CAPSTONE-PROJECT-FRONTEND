@@ -1,23 +1,23 @@
 //LOGIN
 export const GET_UTENTE_CORRENTE = "GET_UTENTE_CORRENTE";
 export const LOGIN_LOADING_ON = "LOGIN_LOADING_ON";
-export const LOGIN_LOADING_OFF ="LOGIN_LOADING_OFF";
+export const LOGIN_LOADING_OFF = "LOGIN_LOADING_OFF";
 export const GET_LOGIN_LOADING = "GET_LOGIN_LOADING";
 export const LOGIN_ERROR = "LOGIN_ERROR";
-export const REMOVE_LOGIN_ERROR ="REMOVE_LOGIN_ERROR";
+export const REMOVE_LOGIN_ERROR = "REMOVE_LOGIN_ERROR";
 export const REMOVE_UTENTE_CORRENTE = "REMOVE_UTENTE_CORRENTE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_SUCCESS_RESET ="LOGIN_SUCCESS_RESET"; 
+export const LOGIN_SUCCESS_RESET = "LOGIN_SUCCESS_RESET";
 
 //REGISTRA UTENTE
-export const POST_REGISTRA_UTENTE ="POST_REGISTRA_UTENTE";
-export const REGISTRA_LOADING_ON ="REGISTRA_LOADING_ON";
-export const REGISTRA_LOADING_OFF ="REGISTRA_LOADING_OFF";
-export const GET_REGISTRA_LOADING ="GET_REGISTRA_LOADING";
+export const POST_REGISTRA_UTENTE = "POST_REGISTRA_UTENTE";
+export const REGISTRA_LOADING_ON = "REGISTRA_LOADING_ON";
+export const REGISTRA_LOADING_OFF = "REGISTRA_LOADING_OFF";
+export const GET_REGISTRA_LOADING = "GET_REGISTRA_LOADING";
 export const REGISTRA_ERROR = "REGISTRA_ERROR";
-export const REMOVE_REGISTRA_ERROR ="REMOVE_REGISTRA_ERROR";
+export const REMOVE_REGISTRA_ERROR = "REMOVE_REGISTRA_ERROR";
 export const REGISTRA_SUCCESS = "REGISTRA_SUCCESS";
-export const REGISTRA_SUCCESS_RESET ="REGISTRA_SUCCESS_RESET";
+export const REGISTRA_SUCCESS_RESET = "REGISTRA_SUCCESS_RESET";
 
 //CURRENT CRYPTO DATA
 export const GET_CURRENT_CRYPTO_DATA = "GET_CURRENT_CRYPTO_DATA";
@@ -35,9 +35,13 @@ export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 
 //OPERAZIONE
 export const ESEGUI_OPERAZIONE = "ESEGUI_OPERAZIONE";
-export const GET_OPERAZIONE_ERROR ="GET_OPERAZIONE_ERROR";
-export const REMOVE_OPERAZIONE_ERROR ="REMOVE_OPERAZIONE_ERROR";
-export const REMOVE_OPERAZIONE_DATA ="REMOVE_OPERAZIONE_DATA";
+export const OPERAZIONE_LOADING_ON = "OPERAZIONE_LOADING_ON";
+export const OPERAZIONE_LOADING_OFF = "OPERAZIONE_LOADING_OFF";
+export const GET_OPERAZIONE_LOADING = "GET_OPERAZIONE_LOADING";
+export const GET_OPERAZIONE_ERROR = "GET_OPERAZIONE_ERROR";
+export const REMOVE_OPERAZIONE_ERROR = "REMOVE_OPERAZIONE_ERROR";
+export const OPERAZIONE_SUCCESS = "OPERAZIONE_SUCCESS";
+export const OPERAZIONE_SUCCESS_RESET = "OPERAZIONE_SUCCESS_RESET";
 
 //LOGIN
 export const getUtenteCorrente = (utente) => {
@@ -46,7 +50,7 @@ export const getUtenteCorrente = (utente) => {
       dispatch({
         type: LOGIN_LOADING_ON
       });
-      let response = await fetch( `http://localhost:3001/auth/login`, {
+      let response = await fetch(`http://localhost:3001/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,21 +60,21 @@ export const getUtenteCorrente = (utente) => {
       if (response.ok) {
         let userData = await response.json();
         dispatch({ type: GET_UTENTE_CORRENTE, payload: userData });
-        dispatch({type:LOGIN_SUCCESS});
+        dispatch({ type: LOGIN_SUCCESS });
       } else {
         let error = await response.json();
         dispatch({ type: LOGIN_ERROR, payload: error });
       }
     } catch (error) {
-      dispatch({type: LOGIN_ERROR,payload: "Errore in fase di login : " + error.message});
+      dispatch({ type: LOGIN_ERROR, payload: "Errore in fase di login : " + error.message });
     } finally {
-      dispatch({type: LOGIN_LOADING_OFF});
+      dispatch({ type: LOGIN_LOADING_OFF });
     }
   };
 };
 
 export const getLoginLoading = () => ({
-  type:GET_LOGIN_LOADING,
+  type: GET_LOGIN_LOADING,
 });
 
 export const loginError = error => ({
@@ -86,8 +90,8 @@ export const removeUtenteCorrente = () => ({
   type: REMOVE_UTENTE_CORRENTE,
 });
 
-export const loginSuccessReset=() => ({
-  type:LOGIN_SUCCESS_RESET,
+export const loginSuccessReset = () => ({
+  type: LOGIN_SUCCESS_RESET,
 })
 
 //REGISTRA
@@ -97,7 +101,7 @@ export const registraUtente = (utente) => {
       dispatch({
         type: REGISTRA_LOADING_ON
       });
-      let response = await fetch( `http://localhost:3001/auth/register`, {
+      let response = await fetch(`http://localhost:3001/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,21 +111,21 @@ export const registraUtente = (utente) => {
       if (response.ok) {
         let userData = await response.json();
         dispatch({ type: POST_REGISTRA_UTENTE, payload: userData });
-        dispatch({type:REGISTRA_SUCCESS});
+        dispatch({ type: REGISTRA_SUCCESS });
       } else {
         let error = await response.json();
         dispatch({ type: REGISTRA_ERROR, payload: error });
       }
     } catch (error) {
-      dispatch({type: REGISTRA_ERROR,payload: "Errore in fase di registrazione : " + error.message});
+      dispatch({ type: REGISTRA_ERROR, payload: "Errore in fase di registrazione : " + error.message });
     } finally {
-      dispatch({type: REGISTRA_LOADING_OFF});
+      dispatch({ type: REGISTRA_LOADING_OFF });
     }
   };
 };
 
 export const getRegistraLoading = () => ({
-  type:GET_REGISTRA_LOADING,
+  type: GET_REGISTRA_LOADING,
 });
 
 export const registraError = error => ({
@@ -133,15 +137,15 @@ export const removeRegistraError = () => ({
   type: REMOVE_REGISTRA_ERROR,
 });
 
-export const registraSuccessReset=() => ({
-  type:REGISTRA_SUCCESS_RESET,
+export const registraSuccessReset = () => ({
+  type: REGISTRA_SUCCESS_RESET,
 })
 
 // CURRENT CRYPTO DATA
 export const getCurrentCryptoData = () => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch( `http://localhost:3001/crypto`, {
+      let response = await fetch(`http://localhost:3001/crypto`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -165,7 +169,7 @@ export const getCurrentCryptoData = () => {
 export const getSelectedCrypto = simbolo => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch( `http://localhost:3001/crypto/${simbolo}`, {
+      let response = await fetch(`http://localhost:3001/crypto/${simbolo}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -188,7 +192,7 @@ export const getSelectedCrypto = simbolo => {
 export const getMonthlyCryptoData = simbolo => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch( `http://localhost:3001/crypto/monthly/${simbolo}`, {
+      let response = await fetch(`http://localhost:3001/crypto/monthly/${simbolo}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -211,7 +215,7 @@ export const getMonthlyCryptoData = simbolo => {
 export const getWalletUtenteCorrente = jwtToken => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch( `http://localhost:3001/wallet/me`, {
+      let response = await fetch(`http://localhost:3001/wallet/me`, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + jwtToken,
@@ -238,7 +242,10 @@ export const removeWalletUtenteCorrente = () => ({
 export const effettuaOperazione = (jwtToken, operazione) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch( `http://localhost:3001/operazioni`, {
+      dispatch({
+        type: OPERAZIONE_LOADING_ON
+      });
+      let response = await fetch(`http://localhost:3001/operazioni`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -249,7 +256,7 @@ export const effettuaOperazione = (jwtToken, operazione) => {
       if (response.ok) {
         let operazione = await response.json();
         dispatch({ type: ESEGUI_OPERAZIONE, payload: operazione });
-        dispatch({type:REMOVE_OPERAZIONE_ERROR});
+        dispatch({ type: OPERAZIONE_SUCCESS });
         console.log(operazione);
       } else {
         let error = await response.json();
@@ -257,10 +264,16 @@ export const effettuaOperazione = (jwtToken, operazione) => {
         console.log(error);
       }
     } catch (error) {
-      dispatch({type: GET_OPERAZIONE_ERROR,payload: "Errore durante operazione : " + error.message});
+      dispatch({ type: GET_OPERAZIONE_ERROR, payload: "Errore durante operazione : " + error.message });
+    } finally {
+      dispatch({ type: OPERAZIONE_LOADING_OFF });
     }
   };
 };
+
+export const getOperazioneLoading = () => ({
+  type: GET_OPERAZIONE_LOADING,
+});
 
 export const getOperazioneError = error => ({
   type: GET_OPERAZIONE_ERROR,
@@ -271,6 +284,7 @@ export const removeOperazioneError = () => ({
   type: REMOVE_OPERAZIONE_ERROR,
 });
 
-export const removeOperazioneData = () => ({
-  type: REMOVE_OPERAZIONE_DATA,
-});
+export const operazioneSuccessReset = () => ({
+  type: OPERAZIONE_SUCCESS_RESET,
+})
+

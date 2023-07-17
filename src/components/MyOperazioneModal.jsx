@@ -1,6 +1,6 @@
 import { Button, Modal } from "react-bootstrap";
 
-const MyOperazioneModal = ({ showModal, handleCloseModal,modalTitle,modalMessage }) => {
+const MyOperazioneModal = ({ showModal, handleCloseModal, modalTitle, modalMessage}) => {
 
     const handleClose = () => {
         handleCloseModal();
