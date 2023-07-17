@@ -19,7 +19,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const rispostaOperazione = useSelector(state => state.effettuaOperazione.operazione);
     const error = useSelector(state => state.effettuaOperazione.error);
-    
+
     const [showCompra, setShowCompra] = useState(true);
 
     const [showModal, setShowModal] = useState(false);
@@ -27,6 +27,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
 
+    const [modalTitle, setModalTitle] = useState("");
     const [modalMessage, setModalMessage] = useState("");
 
     const [operazione, setOperazione] = useState({
@@ -50,6 +51,29 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [walletCorrente]);
 
+    useEffect(() => {
+        if (rispostaOperazione || (error && error.message)) {
+            setShowModal(true);
+        } else {
+            setShowModal(false);
+        }
+    }, [rispostaOperazione, error]);
+
+    useEffect(() => {
+        if (rispostaOperazione && !error) {
+          handleShowModal();
+          setModalTitle("Operazione completata con successo!");
+          setModalMessage("Operazione completata con successo!");
+          setOperazione({ ...operazione, quantita: "" });
+        } else if (error && error.message) {
+          handleShowModal();
+          setModalTitle("Errore");
+          setModalMessage(error.message);
+          setOperazione({ ...operazione, quantita: "" });
+        }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [rispostaOperazione, error]);
+
     const handleCompraClick = () => {
         setShowCompra(true);
         setOperazione({ ...operazione, tipoOperazione: "BUY" });
@@ -60,22 +84,18 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
         setOperazione({ ...operazione, tipoOperazione: "SELL" });
     };
 
-    const eseguiOperazione = async () => {
+    const eseguiOperazione = async (e) => {
+        e.preventDefault();
         if (!operazione.quantita) {
             handleShowModal();
+            setModalTitle("Errore!");
             setModalMessage('Inserire la quantità!');
         } else if (operazione.quantita && (!utenteCorrente || !utenteCorrente.utente || !utenteCorrente.jwtToken || !walletCorrente)) {
             handleShowModal();
+            setModalTitle("Errore!");
             setModalMessage("Devi effettuare l'accesso per eseguire un operazione!");
         } else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
-            console.log(utenteCorrente);
-            console.log(walletCorrente);
-            console.log(operazione);
             dispatch(postOperazione(utenteCorrente.jwtToken, operazione));
-
-            handleShowModal();
-            setModalMessage("Operazione completata con successo!");
-            setOperazione({ ...operazione, quantita: "" });
         }
     };
 
@@ -176,7 +196,14 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                     </Card.Body>
                 </Card>
             )}
-            <MyOperazioneModal showModal={showModal} handleCloseModal={handleCloseModal} modalMessage={modalMessage} />
+            {rispostaOperazione || (error && error.message) ? (
+                <MyOperazioneModal
+                    showModal={showModal}
+                    handleCloseModal={handleCloseModal}
+                    modalTitle={modalTitle}
+                    modalMessage={modalMessage}
+                />
+            ) : null}
         </>
     )
 };

@@ -37,6 +37,7 @@ export const REMOVE_WALLET_UTENTE_CORRENTE = "REMOVE_WALLET_UTENTE_CORRENTE";
 export const ESEGUI_OPERAZIONE = "ESEGUI_OPERAZIONE";
 export const GET_OPERAZIONE_ERROR ="GET_OPERAZIONE_ERROR";
 export const REMOVE_OPERAZIONE_ERROR ="REMOVE_OPERAZIONE_ERROR";
+export const REMOVE_OPERAZIONE_DATA ="REMOVE_OPERAZIONE_DATA";
 
 //LOGIN
 export const getUtenteCorrente = (utente) => {
@@ -268,4 +269,8 @@ export const getOperazioneError = error => ({
 
 export const removeOperazioneError = () => ({
   type: REMOVE_OPERAZIONE_ERROR,
+});
+
+export const removeOperazioneData = () => ({
+  type: REMOVE_OPERAZIONE_DATA,
 });

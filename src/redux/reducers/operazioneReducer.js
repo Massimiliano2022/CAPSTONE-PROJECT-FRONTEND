@@ -1,4 +1,4 @@
-import { ESEGUI_OPERAZIONE,  GET_OPERAZIONE_ERROR, REMOVE_OPERAZIONE_ERROR} from "../actions";
+import { ESEGUI_OPERAZIONE, GET_OPERAZIONE_ERROR, REMOVE_OPERAZIONE_ERROR,REMOVE_OPERAZIONE_DATA } from "../actions";
 
 const initialState = {
     operazione: {
@@ -23,6 +23,14 @@ const operazioneReducer = (state = initialState, action) => {
         case REMOVE_OPERAZIONE_ERROR:
             return {
                 ...state,
+                error: null
+            }
+        case REMOVE_OPERAZIONE_DATA:
+            return {
+                ...state,
+                userData: {
+
+                },
                 error: null
             }
         default:
