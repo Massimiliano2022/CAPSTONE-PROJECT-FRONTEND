@@ -33,8 +33,8 @@ const MyCryptoPriceHistory = ({ simbolo, selectedCrypto }) => {
         <Card style={{ background: "#2d2d2d" }}>
             <Card.Body>
                 <Card.Title className="mb-3">Storico dei prezzi {simbolo}/USD</Card.Title>
-                <Table className='text-light m-0'>
-                    <thead style={{ background: "#0B0E11" }}>
+                <Table className='text-light m-0 table table-dark table-striped'>
+                    <thead>
                         <tr>
                             <th>Periodo</th>
                             <th>Prezzo</th>

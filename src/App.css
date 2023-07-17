@@ -1,14 +1,14 @@
-table,
+/*table,
 th,
 tr,
 td {
   border: 0;
-}
+}*/
 
-.wallet-table {
+/*.wallet-table {
   border: 0;
   text-align: center;
-}
+}*/
 
 .main-img {
   height: 300px;

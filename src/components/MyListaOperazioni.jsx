@@ -1,21 +1,25 @@
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Card, Spinner, Table } from "react-bootstrap";
+import { getlistaOperazioni } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const MyListaOperazioni = ({ walletCorrente }) => {
+const MyListaOperazioni = ({ utenteCorrente }) => {
 
-    const [reverseLista, setReverseLista] = useState([]);
 
-    useEffect(() => {
-        if (walletCorrente && walletCorrente.listaOperazioni) {
-            const reversedList = [...walletCorrente.listaOperazioni].reverse();
-            setReverseLista(reversedList);
-        }
-    }, [walletCorrente]);
+    const dispatch = useDispatch();
+
+    const listaOperazioni = useSelector(state => state.listaOperazioni.listaOperazioni);
+
+    useEffect(()=>{
+        dispatch(getlistaOperazioni(utenteCorrente.jwtToken,0));
+        console.log(listaOperazioni);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[utenteCorrente]);
 
     return (
         <>
-            {!walletCorrente && !walletCorrente.listaOperazioni ? (
+            {!listaOperazioni || !listaOperazioni.content ? (
                 <div className="d-flex justify-content-center align-items-center" >
                     <Spinner animation="grow" variant="warning" />
                 </div>
@@ -23,8 +27,8 @@ const MyListaOperazioni = ({ walletCorrente }) => {
                 <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
                     <Card.Body>
                         <Card.Title className="mb-3">Storico operazioni</Card.Title>
-                        <Table className='text-light m-0 wallet-table'>
-                            <thead style={{ background: "#0B0E11" }}>
+                        <Table className='text-light m-0 table table-dark table-striped'>
+                            <thead>
                                 <tr>
                                     <th>Data operazione</th>
                                     <th>Tipo operazione</th>
@@ -35,8 +39,8 @@ const MyListaOperazioni = ({ walletCorrente }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {reverseLista && reverseLista.map((operazione) => (
-                                    <tr key={operazione.id}>
+                                {listaOperazioni && listaOperazioni.content.map((operazione) => (
+                                    <tr key={operazione.id} className="border-1">
                                         <td>{moment(operazione.dataOperazione).format('DD/MM/YYYY HH:mm:ss')}</td>
                                         <td>{operazione.tipoOperazione}</td>
                                         <td>{operazione.crypto.simbolo}</td>
