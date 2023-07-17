@@ -292,7 +292,7 @@ export const operazioneSuccessReset = () => ({
 export const getlistaOperazioni = (jwtToken,pagina) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch(`http://localhost:3001/operazioni/me?page=${pagina}`, {
+      let response = await fetch(`http://localhost:3001/operazioni/me?page=${pagina}&order=dataOperazione`, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + jwtToken,
