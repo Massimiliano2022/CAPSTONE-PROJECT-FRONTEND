@@ -34,8 +34,8 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const [showModal, setShowModal] = useState(false);
 
-    const [modalTitle,setModalTitle] = useState("");
-    const [modalMessage,setModalMessage] = useState("");
+    const [modalTitle, setModalTitle] = useState("");
+    const [modalMessage, setModalMessage] = useState("");
 
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
@@ -45,14 +45,14 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
             dispatch(getWalletUtenteCorrente(utenteCorrente.jwtToken));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente, success, error, loading]);
+    }, [utenteCorrente, success, error, loading, rispostaOperazione]);
 
     useEffect(() => {
         if (walletCorrente) {
             setOperazione({ ...operazione, idWallet: walletCorrente.id });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [walletCorrente, success, error, loading]);
+    }, [walletCorrente, success, error, loading, rispostaOperazione]);
 
     const handleCompraClick = () => {
         setShowCompra(true);
@@ -84,24 +84,40 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
             console.log("Devi effettuare l'accesso per eseguire un operazione!");
         } else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
             dispatch(effettuaOperazione(utenteCorrente.jwtToken, operazione));
-            if(success){
+            /*if(success){
                 setModalTitle('Operazione effettuata con successo!');
                 setModalMessage('Operazione effettuata con successo!');
                 setOperazione({ ...operazione, quantita: "" });
                 console.log('Operazione effettuata con successo!');
-            }
+                console.log(success);
+            }else{
+                setModalTitle('Errore!');
+                setModalMessage('Operazione annullata!');
+                setOperazione({ ...operazione, quantita: "" });
+                console.log('Operazione annullata!');
+                console.log(success);
+            }*/
         }
     };
 
     useEffect(() => {
-        dispatch(removeOperazioneError());
-        //dispatch(operazioneSuccessReset());
+        if (success) {
+            setModalTitle('Operazione effettuata con successo!');
+            if(rispostaOperazione.tipoOperazione === 'BUY'){
+                setModalMessage('Comprato ' + rispostaOperazione.quantita + ' ' + rispostaOperazione.crypto.simbolo + ' a ' + rispostaOperazione.prezzoAcquisto + ' $');
+            }else{
+                setModalMessage('Venduto ' + rispostaOperazione.quantita + ' ' + rispostaOperazione.crypto.simbolo + ' a ' + rispostaOperazione.prezzoVendita + ' $');
+            }
+            setOperazione({ ...operazione, quantita: "" });
+            console.log('Operazione effettuata con successo!');
+            console.log(rispostaOperazione);
+        } else if (error) {
+            setModalTitle('Errore!');
+            setModalMessage(error);
+            setOperazione({ ...operazione, quantita: "" });
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    //console.log("SUCCESS: "+success);
-    //console.log(error);
-    //console.log("LOADING:" +loading);
+    }, [success, error, rispostaOperazione]);
 
     return (
         <>
