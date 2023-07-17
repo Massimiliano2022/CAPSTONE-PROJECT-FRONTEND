@@ -256,11 +256,9 @@ export const effettuaOperazione = (jwtToken, operazione) => {
         let operazione = await response.json();
         dispatch({ type: ESEGUI_OPERAZIONE, payload: operazione });
         dispatch({ type: OPERAZIONE_SUCCESS });
-        console.log(operazione);
       } else {
         let error = await response.json();
         dispatch({ type: GET_OPERAZIONE_ERROR, payload: error.message });
-        console.log(error);
       }
     } catch (error) {
       dispatch({ type: GET_OPERAZIONE_ERROR, payload: "Errore durante operazione : " + error.message });
