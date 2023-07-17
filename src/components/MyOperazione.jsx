@@ -68,7 +68,8 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
         e.preventDefault();
 
         dispatch(removeOperazioneError());
-        
+        setModalTitle("");
+        setModalMessage("");
         handleShowModal();
 
         if (!operazione.quantita) {
