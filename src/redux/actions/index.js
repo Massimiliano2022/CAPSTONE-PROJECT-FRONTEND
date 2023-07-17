@@ -43,6 +43,9 @@ export const REMOVE_OPERAZIONE_ERROR = "REMOVE_OPERAZIONE_ERROR";
 export const OPERAZIONE_SUCCESS = "OPERAZIONE_SUCCESS";
 export const OPERAZIONE_SUCCESS_RESET = "OPERAZIONE_SUCCESS_RESET";
 
+//LISTA OPERAZIONI
+export const GET_LISTA_OPERAZIONI ="GET_LISTA_OPERAZIONI";
+
 //LOGIN
 export const getUtenteCorrente = (utente) => {
   return async (dispatch, getState) => {
@@ -285,3 +288,25 @@ export const operazioneSuccessReset = () => ({
   type: OPERAZIONE_SUCCESS_RESET,
 })
 
+//LISTA OPERAZIONI
+export const getlistaOperazioni = (jwtToken,pagina) => {
+  return async (dispatch, getState) => {
+    try {
+      let response = await fetch(`http://localhost:3001/operazioni/me?page=${pagina}`, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + jwtToken,
+        },
+      });
+      if (response.ok) {
+        let data = await response.json();
+        dispatch({ type: GET_LISTA_OPERAZIONI, payload: data });
+      } else {
+        let error = await response.json();
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

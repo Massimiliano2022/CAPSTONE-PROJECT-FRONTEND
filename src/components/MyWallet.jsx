@@ -3,7 +3,7 @@ import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useEffect, useRef } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getWalletUtenteCorrente } from '../redux/actions'
+import { getWalletUtenteCorrente, getlistaOperazioni } from '../redux/actions'
 
 import MyProtectedRoute from "./MyProtectedRoute";
 
@@ -18,6 +18,12 @@ const MyWallet = () => {
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
 
     const walletCorrente = useSelector(state => state.walletCorrente.wallet);
+
+    /*const listaOperazioni = useSelector(state => state.listaOperazioni.listaOperazioni);
+    useEffect(()=>{
+        dispatch(getlistaOperazioni(utenteCorrente.jwtToken,0));
+        console.log(listaOperazioni);
+    },[utenteCorrente,utenteCorrente.jwtToken]);*/
     
     const timeoutRef = useRef(null);
 
