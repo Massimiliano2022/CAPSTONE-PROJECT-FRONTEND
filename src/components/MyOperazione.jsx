@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { effettuaOperazione, getWalletUtenteCorrente, operazioneSuccessReset, removeOperazioneError } from "../redux/actions";
+import { effettuaOperazione, getWalletUtenteCorrente,removeOperazioneError } from "../redux/actions";
 import MyOperazioneModal from "./MyOperazioneModal";
 
 const MyOperazione = ({ logo, selectedCrypto }) => {
@@ -84,19 +84,6 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
             console.log("Devi effettuare l'accesso per eseguire un operazione!");
         } else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
             dispatch(effettuaOperazione(utenteCorrente.jwtToken, operazione));
-            /*if(success){
-                setModalTitle('Operazione effettuata con successo!');
-                setModalMessage('Operazione effettuata con successo!');
-                setOperazione({ ...operazione, quantita: "" });
-                console.log('Operazione effettuata con successo!');
-                console.log(success);
-            }else{
-                setModalTitle('Errore!');
-                setModalMessage('Operazione annullata!');
-                setOperazione({ ...operazione, quantita: "" });
-                console.log('Operazione annullata!');
-                console.log(success);
-            }*/
         }
     };
 
@@ -109,8 +96,6 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
                 setModalMessage('Venduto ' + rispostaOperazione.quantita + ' ' + rispostaOperazione.crypto.simbolo + ' a ' + rispostaOperazione.prezzoVendita + ' $');
             }
             setOperazione({ ...operazione, quantita: "" });
-            console.log('Operazione effettuata con successo!');
-            console.log(rispostaOperazione);
         } else if (error) {
             setModalTitle('Errore!');
             setModalMessage(error);
