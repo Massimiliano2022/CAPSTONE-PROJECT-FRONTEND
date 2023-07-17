@@ -17,7 +17,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
 
     const walletCorrente = useSelector(state => state.walletCorrente.wallet);
 
-    //const rispostaOperazione = useSelector(state => state.effettuaOperazione.operazione);
+    const rispostaOperazione = useSelector(state => state.effettuaOperazione.operazione);
 
     const success = useSelector(state => state.effettuaOperazione.success);
     const error = useSelector(state => state.effettuaOperazione.error);
@@ -84,18 +84,24 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
             console.log("Devi effettuare l'accesso per eseguire un operazione!");
         } else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
             dispatch(effettuaOperazione(utenteCorrente.jwtToken, operazione));
+            if(success){
+                setModalTitle('Operazione effettuata con successo!');
+                setModalMessage('Operazione effettuata con successo!');
+                setOperazione({ ...operazione, quantita: "" });
+                console.log('Operazione effettuata con successo!');
+            }
         }
     };
 
     useEffect(() => {
         dispatch(removeOperazioneError());
-        dispatch(operazioneSuccessReset());
+        //dispatch(operazioneSuccessReset());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log("SUCCESS: "+success);
-    console.log(error);
-    console.log("LOADING:" +loading);
+    //console.log("SUCCESS: "+success);
+    //console.log(error);
+    //console.log("LOADING:" +loading);
 
     return (
         <>

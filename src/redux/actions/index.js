@@ -242,9 +242,8 @@ export const removeWalletUtenteCorrente = () => ({
 export const effettuaOperazione = (jwtToken, operazione) => {
   return async (dispatch, getState) => {
     try {
-      dispatch({
-        type: OPERAZIONE_LOADING_ON
-      });
+      dispatch({type: OPERAZIONE_LOADING_ON});
+      dispatch({type: OPERAZIONE_SUCCESS_RESET});
       let response = await fetch(`http://localhost:3001/operazioni`, {
         method: "POST",
         headers: {
@@ -267,7 +266,6 @@ export const effettuaOperazione = (jwtToken, operazione) => {
       dispatch({ type: GET_OPERAZIONE_ERROR, payload: "Errore durante operazione : " + error.message });
     } finally {
       dispatch({ type: OPERAZIONE_LOADING_OFF });
-      dispatch({type: OPERAZIONE_SUCCESS_RESET});
     }
   };
 };
