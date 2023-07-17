@@ -14,7 +14,6 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
 
     useEffect(() => {
         dispatch(getlistaOperazioni(utenteCorrente.jwtToken, currentPage));
-        console.log(listaOperazioni);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [utenteCorrente, currentPage]);
 
