@@ -74,10 +74,12 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
         if (!operazione.quantita) {
             setModalTitle('Errore');
             setModalMessage('Inserire la quantita!');
+            setOperazione({ ...operazione, quantita: "" });
             console.log('Inserire la quantita!');
         } else if (operazione.quantita && (!utenteCorrente || !utenteCorrente.utente || !utenteCorrente.jwtToken || !walletCorrente)) {
             setModalTitle('Errore');
             setModalMessage("Devi effettuare l'accesso per eseguire un operazione!");
+            setOperazione({ ...operazione, quantita: "" });
             console.log("Devi effettuare l'accesso per eseguire un operazione!");
         } else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
             dispatch(effettuaOperazione(utenteCorrente.jwtToken, operazione));
