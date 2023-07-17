@@ -1,20 +1,22 @@
 import moment from 'moment';
-import { useEffect } from 'react';
-import { Card, Spinner, Table } from "react-bootstrap";
+import { useEffect, useState } from 'react';
+import { Button, Card, Spinner, Table } from "react-bootstrap";
 import { getlistaOperazioni } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const MyListaOperazioni = ({ utenteCorrente }) => {
-    
+
     const dispatch = useDispatch();
 
     const listaOperazioni = useSelector(state => state.listaOperazioni.listaOperazioni);
 
-    useEffect(()=>{
-        dispatch(getlistaOperazioni(utenteCorrente.jwtToken,0));
+    const [currentPage, setCurrentPage] = useState(0);
+
+    useEffect(() => {
+        dispatch(getlistaOperazioni(utenteCorrente.jwtToken, currentPage));
         console.log(listaOperazioni);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[utenteCorrente]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [utenteCorrente, currentPage]);
 
     return (
         <>
@@ -50,6 +52,26 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
                                 ))}
                             </tbody>
                         </Table>
+                        <div className='my-3 d-flex justify-content-center'>
+                            {listaOperazioni && (
+                                <>
+                                    <Button
+                                        className="text-white"
+                                        variant="outline-secondary"
+                                        disabled={listaOperazioni.first}
+                                        onClick={() => setCurrentPage(currentPage - 1)}>
+                                        Pagina precedente
+                                    </Button>
+                                    <Button
+                                        className="text-white"
+                                        variant="outline-secondary"
+                                        disabled={listaOperazioni.last}
+                                        onClick={() => setCurrentPage(currentPage + 1)}>
+                                        Pagina successiva
+                                    </Button>
+                                </>
+                            )}
+                        </div>
                     </Card.Body>
                 </Card>
             )}
