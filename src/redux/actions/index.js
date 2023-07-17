@@ -235,7 +235,7 @@ export const removeWalletUtenteCorrente = () => ({
 });
 
 //OPERAZIONE
-export const postOperazione = (jwtToken, operazione) => {
+export const effettuaOperazione = (jwtToken, operazione) => {
   return async (dispatch, getState) => {
     try {
       let response = await fetch( `http://localhost:3001/operazioni`, {

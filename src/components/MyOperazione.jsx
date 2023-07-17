@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getWalletUtenteCorrente, postOperazione } from "../redux/actions";
+import { effettuaOperazione, getWalletUtenteCorrente } from "../redux/actions";
 import MyOperazioneModal from "./MyOperazioneModal";
 
 const MyOperazione = ({ logo, selectedCrypto }) => {
@@ -95,7 +95,7 @@ const MyOperazione = ({ logo, selectedCrypto }) => {
             setModalTitle("Errore!");
             setModalMessage("Devi effettuare l'accesso per eseguire un operazione!");
         } else if (operazione.quantita && utenteCorrente && utenteCorrente.utente && utenteCorrente.jwtToken && walletCorrente) {
-            dispatch(postOperazione(utenteCorrente.jwtToken, operazione));
+            dispatch(effettuaOperazione(utenteCorrente.jwtToken, operazione));
         }
     };
 
