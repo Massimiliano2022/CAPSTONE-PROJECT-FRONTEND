@@ -267,6 +267,7 @@ export const effettuaOperazione = (jwtToken, operazione) => {
       dispatch({ type: GET_OPERAZIONE_ERROR, payload: "Errore durante operazione : " + error.message });
     } finally {
       dispatch({ type: OPERAZIONE_LOADING_OFF });
+      dispatch({type: OPERAZIONE_SUCCESS_RESET});
     }
   };
 };
