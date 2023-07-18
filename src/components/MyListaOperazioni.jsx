@@ -56,7 +56,7 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
                                 <Form.Select
                                     size="sm"
                                     aria-label="crypto"
-                                    className='bg-dark text-white'
+                                    className='bg-dark text-white w-50'
                                     onChange={(event) => setSelectedCryptoForm(event.target.value)}
                                 >
                                     <option value="">Crypto</option>
