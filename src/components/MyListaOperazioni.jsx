@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { Alert, Button, Card, Spinner, Table } from "react-bootstrap";
+import { Alert, Button, Card, Dropdown, DropdownButton, Spinner, Table } from "react-bootstrap";
 import { getlistaOperazioni } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,13 +20,25 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
     return (
         <>
             {!listaOperazioni || !listaOperazioni.content ? (
-                <div className="d-flex justify-content-center align-items-center" style={{height:"50vh"}} >
+                <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }} >
                     <Spinner animation="grow" variant="warning" />
                 </div>
             ) : (
                 <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
                     <Card.Body>
                         <Card.Title className="mb-3">Storico operazioni</Card.Title>
+                        <DropdownButton
+                            id="dropdown-button-dark-example2"
+                            variant="secondary"
+                            title="Tipo operazione"
+                            className="mt-2"
+                            data-bs-theme="dark"
+                        >
+                            <Dropdown.Item href="#/action-1" active>
+                                BUY
+                            </Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">SELL</Dropdown.Item>
+                        </DropdownButton>
                         {listaOperazioni.content.length > 0 ? (
                             <>
                                 <Table className='text-light m-0 table table-dark table-striped'>
