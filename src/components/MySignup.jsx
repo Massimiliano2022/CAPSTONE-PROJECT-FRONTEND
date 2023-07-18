@@ -141,7 +141,7 @@ const MySignup = () => {
                                     className="btn btn-warning mt-2 text-center rounded rounded-1 p-2 w-100"
                                 >{showSuccessAlert || loading ? (
                                     <>
-                                        <Spinner animation="grow" size="sm" className="me-2" />
+                                        <Spinner animation="grow" size="sm"/>
                                     </>
                                 ) : (
                                     "Iscriviti"

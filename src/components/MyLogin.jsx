@@ -108,7 +108,7 @@ const MyLogin = () => {
                                 >
                                     {showSuccessAlert || loading ? (
                                         <>
-                                            <Spinner animation="grow" size="sm" className="me-2" />
+                                            <Spinner animation="grow" size="sm"/>
                                         </>
                                     ) : (
                                         'Accedi'
