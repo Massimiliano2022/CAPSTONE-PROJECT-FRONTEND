@@ -5,9 +5,11 @@ import { BsFillPersonFill, BsCurrencyExchange, BsWallet2 } from "react-icons/bs"
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useRef} from 'react'
-import { getCurrentCryptoData} from '../redux/actions'
+import { useEffect, useRef } from 'react'
+import { getCurrentCryptoData } from '../redux/actions'
 import MyCryptoCard from './MyCryptoCard'
+import MyMainTablePrice from './MyMainTablePrice';
+import MyMainCryptoCard from './MyMainCryptoCard';
 
 
 const MyMain = () => {
@@ -18,7 +20,7 @@ const MyMain = () => {
 
     const utenteCorrente = useSelector(state => state.utenteCorrente.userData);
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
-    
+
     const timeoutRef = useRef(null);
 
     useEffect(() => {
@@ -40,7 +42,7 @@ const MyMain = () => {
         return () => {
             resetTimer(); // Alla dismissione del componente, resettiamo il timer
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const effettuaOperazione = () => {
@@ -119,9 +121,10 @@ const MyMain = () => {
                         </>
                     ) : (
                         <>
-                            {cryptosPrice.slice(0, 4).map(crypto => (
-                                <MyCryptoCard crypto={crypto} key={crypto.id} />
+                            {cryptosPrice.slice(0, 2).map(crypto => (
+                                <MyMainCryptoCard crypto={crypto} key={crypto.id} />
                             ))}
+                            <MyMainTablePrice cryptosPrice={cryptosPrice} />
                         </>
                     )}
                 </Row>
