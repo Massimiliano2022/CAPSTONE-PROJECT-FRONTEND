@@ -27,12 +27,18 @@ td {
   .main-img {
     height: 225px;
   }
+  .line-chart {
+    height: 30vh;
+  }
 }
 
 /* Breakpoint per dispositivi con larghezza compresa tra 576px e 655px */
 @media screen and (min-width: 575px) and (max-width: 655px) {
   .main-img {
     height: 250px;
+  }
+  .line-chart {
+    height: 30vh;
   }
 }
 

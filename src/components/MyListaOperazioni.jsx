@@ -20,7 +20,7 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
     return (
         <>
             {!listaOperazioni || !listaOperazioni.content ? (
-                <div className="d-flex justify-content-center align-items-center" >
+                <div className="d-flex justify-content-center align-items-center" style={{height:"50vh"}} >
                     <Spinner animation="grow" variant="warning" />
                 </div>
             ) : (

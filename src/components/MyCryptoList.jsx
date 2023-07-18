@@ -53,7 +53,7 @@ const MyCryptoList = () => {
                         </Form>
                     </Col>*/}
                 <Row className="pb-5">
-                    {!cryptosPrice ? (
+                    {!cryptosPrice || cryptosPrice.length === 0 ? (
                         <>
                             <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
                                 <Spinner animation="grow" variant="warning" className="me-2" />
