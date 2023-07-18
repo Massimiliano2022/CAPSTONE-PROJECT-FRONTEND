@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { Alert, Button, Card, Dropdown, DropdownButton, Spinner, Table } from "react-bootstrap";
+import { Alert, Button, Card, Form, Spinner, Table } from "react-bootstrap";
 import { getlistaOperazioni } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,10 +12,24 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
+    const [tipoOperazioneForm, setTipoOperazioneForm] = useState("");
+    const [selectedCryptoForm, setSelectedCryptoForm] = useState("");
+
     useEffect(() => {
-        dispatch(getlistaOperazioni(utenteCorrente.jwtToken, currentPage));
+        setCurrentPage(0);
+      }, [tipoOperazioneForm, selectedCryptoForm]);
+
+    useEffect(() => {
+        let  url = `http://localhost:3001/operazioni/me?page=${currentPage}&order=dataOperazione`;
+        if (tipoOperazioneForm !== "") {
+            url += `&tipoOperazione=${tipoOperazioneForm}`;
+        }
+        if (selectedCryptoForm !== "") {
+            url += `&simboloCrypto=${selectedCryptoForm}`;
+        }
+        dispatch(getlistaOperazioni(utenteCorrente.jwtToken, url));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente, currentPage]);
+    }, [utenteCorrente, currentPage, tipoOperazioneForm, selectedCryptoForm]);
 
     return (
         <>
@@ -26,19 +40,37 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
             ) : (
                 <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
                     <Card.Body>
-                        <Card.Title className="mb-3">Storico operazioni</Card.Title>
-                        <DropdownButton
-                            id="dropdown-button-dark-example2"
-                            variant="secondary"
-                            title="Tipo operazione"
-                            className="mt-2"
-                            data-bs-theme="dark"
-                        >
-                            <Dropdown.Item href="#/action-1" active>
-                                BUY
-                            </Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">SELL</Dropdown.Item>
-                        </DropdownButton>
+                        <div className='d-flex justify-content-between align-items-center mb-3'>
+                            <Card.Title className="mb-0">Storico operazioni</Card.Title>
+                            <Form className='d-flex justify-content-end'>
+                                <Form.Select
+                                    size="sm"
+                                    aria-label="tipoOperazione"
+                                    className='me-3 bg-dark text-white'
+                                    onChange={(event) => setTipoOperazioneForm(event.target.value)}
+                                >
+                                    <option value="">Tipo operazione</option>
+                                    <option value="BUY">BUY</option>
+                                    <option value="SELL">SELL</option>
+                                </Form.Select>
+                                <Form.Select
+                                    size="sm"
+                                    aria-label="crypto"
+                                    className='bg-dark text-white'
+                                    onChange={(event) => setSelectedCryptoForm(event.target.value)}
+                                >
+                                    <option value="">Crypto</option>
+                                    <option value="BTC">BTC</option>
+                                    <option value="ETH">ETH</option>
+                                    <option value="ADA">ADA</option>
+                                    <option value="DOT">DOT</option>
+                                    <option value="MATIC">MATIC</option>
+                                    <option value="XRP">XRP</option>
+                                    <option value="DOGE">DOGE</option>
+                                    <option value="SAND">SAND</option>
+                                </Form.Select>
+                            </Form>
+                        </div>
                         {listaOperazioni.content.length > 0 ? (
                             <>
                                 <Table className='text-light m-0 table table-dark table-striped'>
