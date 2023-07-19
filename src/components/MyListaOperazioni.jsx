@@ -17,10 +17,10 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
 
     useEffect(() => {
         setCurrentPage(0);
-      }, [tipoOperazioneForm, selectedCryptoForm]);
+    }, [tipoOperazioneForm, selectedCryptoForm]);
 
     useEffect(() => {
-        let  url = `http://localhost:3001/operazioni/me?page=${currentPage}&order=dataOperazione`;
+        let url = `http://localhost:3001/operazioni/me?page=${currentPage}&order=dataOperazione`;
         if (tipoOperazioneForm !== "") {
             url += `&tipoOperazione=${tipoOperazioneForm}`;
         }
