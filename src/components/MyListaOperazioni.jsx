@@ -20,13 +20,21 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
     const [selectedCryptoForm, setSelectedCryptoForm] = useState("");
 
     const handleStartDateChange = (value) => {
-        setStartDate(value);
-        console.log(startDate);
-    };
+        if (value) {
+            const formattedDate = moment(value).startOf('day').format('DD/MM/YYYY');
+            setStartDate(formattedDate);
+          } else {
+            setStartDate('');
+          }
+    }; 
 
     const handleEndDateChange = (value) => {
-        setEndDate(value);
-        console.log(endDate);
+        if (value) {
+            const formattedDate = moment(value).endOf('day').format('DD/MM/YYYY');
+            setEndDate(formattedDate);
+          } else {
+            setEndDate('');
+          }
     };
 
     useEffect(() => {
@@ -41,9 +49,17 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
         if (selectedCryptoForm !== "") {
             url += `&simboloCrypto=${selectedCryptoForm}`;
         }
+        if (startDate) {
+            const encodedStartDate = encodeURIComponent(startDate);
+            url += `&startDate=${encodedStartDate}`;
+        }
+        if(endDate){
+            const encodedEndDate = encodeURIComponent(endDate);
+            url += `&endDate=${encodedEndDate}`;
+        }
         dispatch(getlistaOperazioni(utenteCorrente.jwtToken, url));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [utenteCorrente, currentPage, tipoOperazioneForm, selectedCryptoForm]);
+    }, [utenteCorrente, currentPage, tipoOperazioneForm, selectedCryptoForm, startDate, endDate]);
 
     return (
         <>
@@ -62,17 +78,19 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
                                     value={startDate}
                                     placeholderText='Seleziona data inizio'
                                     onChange={handleStartDateChange}
-                                    dateFormat="dd/MM/yyyy hh:mm:ss"
+                                    dateFormat="dd/MM/yyyy"
+                                    showTimeSelect={false}
                                     className='bg-dark text-light'
                                 />
                             </Form.Group>
                             <Form.Group controlId="endDate" className='me-3' style={{ border: "2px solid white",borderRadius:"0.25rem"}}>
                                 <ReactDatePicker
                                     id="endDate"
-                                    value={endDate}
+                                    value={endDate} 
                                     placeholderText='Seleziona data fine'
                                     onChange={handleEndDateChange}
-                                    dateFormat="dd/MM/yyyy hh:mm:ss"
+                                    dateFormat="dd/MM/yyyy"
+                                    showTimeSelect={false}
                                     className='bg-dark text-light'
                                 />
                             </Form.Group>
@@ -102,12 +120,6 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
                                 <option value="DOGE">DOGE</option>
                                 <option value="SAND">SAND</option>
                             </Form.Select>
-                            <Button
-                                className=""
-                                variant="warning"
-                            >
-                                Cerca
-                            </Button>
                         </Form>
                         {listaOperazioni.content.length > 0 ? (
                             <>
