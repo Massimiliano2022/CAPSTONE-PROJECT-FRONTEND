@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Alert, Button, Card, Form, Spinner, Table } from "react-bootstrap";
 import { getlistaOperazioni } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import ReactDatePicker from 'react-datepicker';
 
 const MyListaOperazioni = ({ utenteCorrente }) => {
 
@@ -12,8 +13,21 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
     const [tipoOperazioneForm, setTipoOperazioneForm] = useState("");
     const [selectedCryptoForm, setSelectedCryptoForm] = useState("");
+
+    const handleStartDateChange = (value) => {
+        setStartDate(value);
+        console.log(startDate);
+    };
+
+    const handleEndDateChange = (value) => {
+        setEndDate(value);
+        console.log(endDate);
+    };
 
     useEffect(() => {
         setCurrentPage(0);
@@ -40,37 +54,61 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
             ) : (
                 <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
                     <Card.Body>
-                        <div className='d-flex justify-content-between align-items-center mb-3'>
-                            <Card.Title className="mb-0">Storico operazioni</Card.Title>
-                            <Form className='d-flex justify-content-end'>
-                                <Form.Select
-                                    size="sm"
-                                    aria-label="tipoOperazione"
-                                    className='me-3 bg-dark text-white'
-                                    onChange={(event) => setTipoOperazioneForm(event.target.value)}
-                                >
-                                    <option value="">Tipo operazione</option>
-                                    <option value="BUY">BUY</option>
-                                    <option value="SELL">SELL</option>
-                                </Form.Select>
-                                <Form.Select
-                                    size="sm"
-                                    aria-label="crypto"
-                                    className='bg-dark text-white w-50'
-                                    onChange={(event) => setSelectedCryptoForm(event.target.value)}
-                                >
-                                    <option value="">Crypto</option>
-                                    <option value="BTC">BTC</option>
-                                    <option value="ETH">ETH</option>
-                                    <option value="ADA">ADA</option>
-                                    <option value="DOT">DOT</option>
-                                    <option value="MATIC">MATIC</option>
-                                    <option value="XRP">XRP</option>
-                                    <option value="DOGE">DOGE</option>
-                                    <option value="SAND">SAND</option>
-                                </Form.Select>
-                            </Form>
-                        </div>
+                        <Card.Title className="mb-3">Storico operazioni</Card.Title>
+                        <Form className='d-flex align-items-center  mb-3'>
+                            <Form.Group controlId="startDate" className='me-3' style={{ border: "2px solid white",borderRadius:"0.25rem"}}>
+                                <ReactDatePicker
+                                    id="startDate"
+                                    value={startDate}
+                                    placeholderText='Seleziona data inizio'
+                                    onChange={handleStartDateChange}
+                                    dateFormat="dd/MM/yyyy hh:mm:ss"
+                                    className='bg-dark text-light'
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="endDate" className='me-3' style={{ border: "2px solid white",borderRadius:"0.25rem"}}>
+                                <ReactDatePicker
+                                    id="endDate"
+                                    value={endDate}
+                                    placeholderText='Seleziona data fine'
+                                    onChange={handleEndDateChange}
+                                    dateFormat="dd/MM/yyyy hh:mm:ss"
+                                    className='bg-dark text-light'
+                                />
+                            </Form.Group>
+                            <Form.Select
+                                size="sm"
+                                aria-label="tipoOperazione"
+                                className='me-3 bg-dark text-white'
+                                onChange={(event) => setTipoOperazioneForm(event.target.value)}
+                            >
+                                <option value="">Tipo operazione</option>
+                                <option value="BUY">BUY</option>
+                                <option value="SELL">SELL</option>
+                            </Form.Select>
+                            <Form.Select
+                                size="sm"
+                                aria-label="crypto"
+                                className='bg-dark text-white me-3'
+                                onChange={(event) => setSelectedCryptoForm(event.target.value)}
+                            >
+                                <option value="">Crypto</option>
+                                <option value="BTC">BTC</option>
+                                <option value="ETH">ETH</option>
+                                <option value="ADA">ADA</option>
+                                <option value="DOT">DOT</option>
+                                <option value="MATIC">MATIC</option>
+                                <option value="XRP">XRP</option>
+                                <option value="DOGE">DOGE</option>
+                                <option value="SAND">SAND</option>
+                            </Form.Select>
+                            <Button
+                                className=""
+                                variant="warning"
+                            >
+                                Cerca
+                            </Button>
+                        </Form>
                         {listaOperazioni.content.length > 0 ? (
                             <>
                                 <Table className='text-light m-0 table table-dark table-striped'>
