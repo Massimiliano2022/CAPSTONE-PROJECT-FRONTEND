@@ -24,7 +24,7 @@ const MyMain = () => {
 
     useEffect(() => {
         const fetchData = () => {
-            dispatch(getCurrentCryptoData());
+            dispatch(getCurrentCryptoData('http://localhost:3001/crypto'));
         };
         fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
         const startTimer = () => {

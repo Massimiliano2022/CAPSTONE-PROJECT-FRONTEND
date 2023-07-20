@@ -29,7 +29,7 @@ const MyTrendCrypto = ({ selectedCrypto }) => {
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
 
     useEffect(() => {
-        dispatch(getCurrentCryptoData());
+        dispatch(getCurrentCryptoData('http://localhost:3001/crypto'));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCrypto]);
 

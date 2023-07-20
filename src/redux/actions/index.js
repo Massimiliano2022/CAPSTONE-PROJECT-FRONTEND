@@ -144,11 +144,11 @@ export const registraSuccessReset = () => ({
   type: REGISTRA_SUCCESS_RESET,
 })
 
-// CURRENT CRYPTO DATA
-export const getCurrentCryptoData = () => {
+//CURRENT CRYPTO DATA
+export const getCurrentCryptoData = (url) => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch(`http://localhost:3001/crypto`, {
+      let response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -156,8 +156,8 @@ export const getCurrentCryptoData = () => {
       });
       if (response.ok) {
         let data = await response.json();
-        let sortedData = [...data].sort((a, b) => a.id - b.id);
-        dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: sortedData });
+        //let sortedData = [...data].sort((a, b) => a.id - b.id);
+        dispatch({ type: GET_CURRENT_CRYPTO_DATA, payload: data.content });
       } else {
         let error = await response.json();
         console.log(error);
