@@ -145,10 +145,10 @@ export const registraSuccessReset = () => ({
 })
 
 //CURRENT CRYPTO DATA
-export const getCurrentCryptoData = (url) => {
+export const getCurrentCryptoData = () => {
   return async (dispatch, getState) => {
     try {
-      let response = await fetch(url, {
+      let response = await fetch(`http://localhost:3001/crypto`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

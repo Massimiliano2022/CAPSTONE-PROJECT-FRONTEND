@@ -7,69 +7,51 @@ import MyCryptoCard from './MyCryptoCard'
 const MyCryptoList = () => {
 
   const dispatch = useDispatch();
+
   const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
-
-  const [query, setQuery] = useState("");
-  const [noResults, setNoResults] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [searchResults, setSearchResults] = useState([]);
-
-  const [initialFetch, setInitialFetch] = useState(false);
 
   const timeoutRef = useRef(null);
 
+  const [query, setQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
   useEffect(() => {
+    const fetchData = () => {
+      dispatch(getCurrentCryptoData());
+    };
     fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
     const startTimer = () => {
-      timeoutRef.current = setInterval(() => {
+      timeoutRef.current = setTimeout(() => {
         fetchData();
+        startTimer();
       }, 60000);
     };
     const resetTimer = () => {
-      clearInterval(timeoutRef.current);
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     };
     startTimer(); // Avviamo il timer all'avvio del componente
-    // Alla dismissione del componente, resettiamo il timer
     return () => {
-      resetTimer();
+      resetTimer(); // Alla dismissione del componente, resettiamo il timer
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (initialFetch) { // Aggiungiamo questa condizione per permettere la ricerca solo dopo la fetch iniziale
-      if (query === '') {
-        setSearchResults(cryptosPrice);
-        setNoResults(false);
-      } else {
-        const filteredResults = cryptosPrice.filter((crypto) => {
-          const nome = crypto.nome || '';
-          const simbolo = crypto.simbolo || '';
-          return (
-            nome.toLowerCase().includes(query.toLowerCase()) ||
-            simbolo.toLowerCase().includes(query.toLowerCase())
-          );
-        });
-        setSearchResults(filteredResults);
-        setNoResults(filteredResults.length === 0);
-      }
-    }
-  }, [query, cryptosPrice, initialFetch]);
-
-  const fetchData = () => {
-    setLoading(true);
-    dispatch(getCurrentCryptoData('http://localhost:3001/crypto'))
-      .then(() => {
-        setLoading(false);
-        if (!initialFetch) {
-          setInitialFetch(true); // Impostiamo initialFetch a true dopo la fetch iniziale
-        }
-      })
-      .catch((error) => {
-        console.log('Error fetching data:', error);
-        setLoading(false);
+    if (query === '') {
+      setSearchResults(cryptosPrice);
+    } else {
+      const filteredResults = cryptosPrice.filter((crypto) => {
+        const nome = crypto.nome || '';
+        const simbolo = crypto.simbolo || '';
+        return (
+          nome.toLowerCase().includes(query.toLowerCase()) ||
+          simbolo.toLowerCase().includes(query.toLowerCase())
+        );
       });
-  };
+      setSearchResults(filteredResults);
+    }
+  }, [query, cryptosPrice]);
 
   return (
     <>
@@ -77,7 +59,7 @@ const MyCryptoList = () => {
         <Row className='pt-5'>
           <Col>
             <h2 className="fs-3 p-0 m-0">Panoramica mercati</h2>
-            <p className="text-muted m-0">Tutte le informazioni dei prezzi sono in USD</p>
+            <p className="text-muted m-0">Tutte le informazione dei prezzi sono in USD</p>
           </Col>
           <Col sm={12} md={6}>
             <Form className="d-flex my-3">
@@ -92,12 +74,14 @@ const MyCryptoList = () => {
             </Form>
           </Col>
         </Row>
-        <Row className="pb-5" style={!loading && !noResults && searchResults.length <= 4 ? { minHeight: "50vh" } : {}}>
-          {loading ? (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
-              <Spinner animation="grow" variant="warning" className="me-2" />
-            </div>
-          ) : noResults ? (
+        <Row className="pb-5" style={searchResults.length <= 4 ? { minHeight: "50vh" } : {}}>
+          {!searchResults ? (
+            <>
+              <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
+                <Spinner animation="grow" variant="warning" className="me-2" />
+              </div>
+            </>
+          ) : searchResults.length === 0 ? (
             <div className="" style={{ height: "50vh" }}>
               <Alert className="w-100 text-center" variant="danger" role="alert">
                 Nessun risultato trovato.
@@ -115,5 +99,4 @@ const MyCryptoList = () => {
     </>
   );
 }
-
 export default MyCryptoList;
