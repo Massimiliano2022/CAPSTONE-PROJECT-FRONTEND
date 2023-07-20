@@ -53,7 +53,7 @@ const MyMain = () => {
     return (
         <>
             <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                <Row className={`d-flex align-items-center py-5 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
+                <Row className={`d-flex align-items-center main-div${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
                     <Col md={6} className="d-flex flex-column">
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
@@ -109,9 +109,7 @@ const MyMain = () => {
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
-            </Container>
-            <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                <Row className='py-5'>
+                {/*<Row className='py-5'>
                     {!cryptosPrice || cryptosPrice.length === 0 ? (
                         <>
                             <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
@@ -126,7 +124,7 @@ const MyMain = () => {
                             <MyMainTablePrice cryptosPrice={cryptosPrice} />
                         </>
                     )}
-                </Row>
+                </Row>*/}
             </Container>
         </>
     );

@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/crypto/:simbolo" element={<MyCrypto />} />
         <Route path="/wallet" element={<MyWallet />} />
       </Routes>
-      <MyFooter />
+      {/*<MyFooter />*/}
     </BrowserRouter>
   );
 }
