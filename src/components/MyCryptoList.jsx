@@ -14,18 +14,19 @@ const MyCryptoList = () => {
   const [loading, setLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
 
+  const [initialFetch, setInitialFetch] = useState(false);
+
   const timeoutRef = useRef(null);
 
   useEffect(() => {
     fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
     const startTimer = () => {
-      timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = setInterval(() => {
         fetchData();
       }, 60000);
     };
     const resetTimer = () => {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
+      clearInterval(timeoutRef.current);
     };
     startTimer(); // Avviamo il timer all'avvio del componente
     // Alla dismissione del componente, resettiamo il timer
@@ -36,31 +37,36 @@ const MyCryptoList = () => {
   }, []);
 
   useEffect(() => {
-    if (query === "") {
-      setSearchResults(cryptosPrice);
-      setNoResults(false);
-    } else {
-      const filteredResults = cryptosPrice.filter((crypto) => {
-        const nome = crypto.nome || "";
-        const simbolo = crypto.simbolo || "";
-        return (
-          nome.toLowerCase().includes(query.toLowerCase()) ||
-          simbolo.toLowerCase().includes(query.toLowerCase())
-        );
-      });
-      setSearchResults(filteredResults);
-      setNoResults(filteredResults.length === 0);
+    if (initialFetch) { // Aggiungiamo questa condizione per permettere la ricerca solo dopo la fetch iniziale
+      if (query === '') {
+        setSearchResults(cryptosPrice);
+        setNoResults(false);
+      } else {
+        const filteredResults = cryptosPrice.filter((crypto) => {
+          const nome = crypto.nome || '';
+          const simbolo = crypto.simbolo || '';
+          return (
+            nome.toLowerCase().includes(query.toLowerCase()) ||
+            simbolo.toLowerCase().includes(query.toLowerCase())
+          );
+        });
+        setSearchResults(filteredResults);
+        setNoResults(filteredResults.length === 0);
+      }
     }
-  }, [query, cryptosPrice]);
+  }, [query, cryptosPrice, initialFetch]);
 
   const fetchData = () => {
     setLoading(true);
-    dispatch(getCurrentCryptoData("http://localhost:3001/crypto"))
+    dispatch(getCurrentCryptoData('http://localhost:3001/crypto'))
       .then(() => {
         setLoading(false);
+        if (!initialFetch) {
+          setInitialFetch(true); // Impostiamo initialFetch a true dopo la fetch iniziale
+        }
       })
       .catch((error) => {
-        console.log("Error fetching data:", error);
+        console.log('Error fetching data:', error);
         setLoading(false);
       });
   };
