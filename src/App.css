@@ -1,24 +1,15 @@
-/*table,
-th,
-tr,
-td {
-  border: 0;
-}*/
-
-/*.wallet-table {
-  border: 0;
-  text-align: center;
-}*/
-
-.main-img {
-  height: 300px;
+body{
+  background-color: #1E1E1E;
 }
-
 .login-div {
   height: calc(100vh - 72.84px); /* calcolo height sottraendo l'altezza della barra di navigazione */
 }
 
-.main-div{
+.main-div-mobile{
+  height:calc(100vh - 72.84px);
+}
+
+.main-div-tablet{
   height:calc(50vh - 72.84px);
 }
 
@@ -45,7 +36,7 @@ td {
 /* Breakpoint per dispositivi con larghezza compresa tra 656px e 991px */
 @media screen and (min-width: 655px) and (max-width: 991px) {
   .main-img {
-    height: 250px;
+    height: 225px;
   }
   .line-chart {
     height: 30vh;
@@ -55,7 +46,7 @@ td {
 /* Breakpoint per dispositivi con larghezza uguale o superiore a 992px */
 @media screen and (min-width: 991px) {
   .main-img {
-    height: 259px;
+    height: 400px;
   }
   .line-chart {
     height: 40vh;

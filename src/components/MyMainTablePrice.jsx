@@ -26,7 +26,7 @@ const MyMainTablePrice = ({ cryptosPrice }) => {
     };
 
     return (
-        <Col className='d-none d-sm-none d-md-block pb-5'>
+        <Col>
             <Card style={{ background: "#2d2d2d" }}>
                 <Card.Body>
                     <Table className='text-light m-0 table table-dark table-striped'>
