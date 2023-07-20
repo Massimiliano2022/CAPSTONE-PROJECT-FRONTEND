@@ -12,12 +12,16 @@ const MyCryptoList = () => {
 
   const timeoutRef = useRef(null);
 
+  const [loading, setLoading] = useState(true);
+
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
 
   useEffect(() => {
     const fetchData = () => {
       dispatch(getCurrentCryptoData());
+      setLoading(false);
     };
     fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
     const startTimer = () => {
@@ -75,7 +79,7 @@ const MyCryptoList = () => {
           </Col>
         </Row>
         <Row className="pb-5" style={searchResults.length <= 4 ? { minHeight: "50vh" } : {}}>
-          {!searchResults ? (
+          {loading ? (
             <>
               <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
                 <Spinner animation="grow" variant="warning" className="me-2" />
