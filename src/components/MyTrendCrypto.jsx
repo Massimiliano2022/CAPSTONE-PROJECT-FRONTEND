@@ -36,22 +36,24 @@ const MyTrendCrypto = ({ selectedCrypto }) => {
     const filteredCryptosPrice = cryptosPrice.filter(crypto => crypto.simbolo !== selectedCrypto.simbolo);
 
     return (
-        <Card style={{ background: "#2d2d2d" }}>
-            <Card.Body>
+        <Card className='h-100' style={{ background: "#2d2d2d" }}>
+            <Card.Body className='d-flex flex-column'>
                 <Card.Title className="mb-3">Crypto di tendenza</Card.Title>
-                <Table className='text-light m-0'>
-                    <tbody className="d-flex flex-column">
-                        {filteredCryptosPrice.map(crypto => (
-                            <tr key={crypto.id} className="d-flex flex-row justify-content-between align-items-center">
-                                <td className="d-flex align-items-center p-0 border-0">
-                                    <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={30} className="img-fluid object-fit-cover" />
-                                    <span className="fs-6 ms-2">{crypto.simbolo}</span>
-                                </td>
-                                <td className="fs-6 border-0">$ {crypto.prezzo.toFixed(4)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                <div>
+                    <Table className='text-light m-0'>
+                        <tbody className="d-flex flex-column">
+                            {filteredCryptosPrice.map(crypto => (
+                                <tr key={crypto.id} className="d-flex flex-row justify-content-between align-items-center">
+                                    <td className="d-flex align-items-center p-0 border-0">
+                                        <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={30} className="img-fluid object-fit-cover" />
+                                        <span className="fs-6 ms-2">{crypto.simbolo}</span>
+                                    </td>
+                                    <td className="fs-6 border-0">$ {crypto.prezzo.toFixed(4)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </div>
             </Card.Body>
         </Card>
     );

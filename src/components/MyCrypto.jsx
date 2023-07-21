@@ -38,7 +38,7 @@ const MyCrypto = () => {
     const cryptoSymbol = simbolo.toUpperCase();
 
     const selectedCrypto = useSelector(state => state.selectedCryptoData.selectedCrypto);
-    
+
     const timeoutRef = useRef(null);
 
     useEffect(() => {
@@ -67,16 +67,17 @@ const MyCrypto = () => {
 
     return (
         <>
-            <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-                {!selectedCrypto ? (
-                    <>
-                        <div className='d-flex justify-content-center align-items-center' style={{ height: "100vh" }}>
-                            <Spinner animation="grow" variant="warning" className="me-2" />
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        <Row className="pt-5">
+
+            {!selectedCrypto ? (
+                <>
+                    <div className='d-flex justify-content-center align-items-center' style={{ height: "100vh" }}>
+                        <Spinner animation="grow" variant="warning" className="me-2" />
+                    </div>
+                </>
+            ) : (
+                <>
+                    <Container fluid className="text-light px-5 my-5 d-flex flex-column justify-content-center">
+                        <Row>
                             <Col sm={12}>
                                 <div className="d-flex align-items-center mb-4">
                                     <img src={cryptoLogos[simbolo]} alt={cryptoLogos[simbolo]} width={40} className="me-4" />
@@ -86,9 +87,9 @@ const MyCrypto = () => {
                                 <p className="fs-3">{selectedCrypto.prezzo ? selectedCrypto.prezzo.toFixed(4) : ''}<span style={{ color: variazioneColor }}>{selectedCrypto.percententuale_variazione_1h}</span></p>
                             </Col>
                         </Row>
-                        <Row className="pb-5">
+                        <Row className="">
                             <Col sm={12} md={8}>
-                                <Card className="mb-4" style={{ background: "#2d2d2d" }}>
+                                <Card className="" style={{ background: "#2d2d2d" }}>
                                     <Card.Body>
                                         <MyLineChart simbolo={cryptoSymbol} selectedCrypto={selectedCrypto} />
                                     </Card.Body>
@@ -98,7 +99,9 @@ const MyCrypto = () => {
                                 <MyOperazione logo={cryptoLogos[simbolo]} selectedCrypto={selectedCrypto} />
                             </Col>
                         </Row>
-                        <Row className="pb-5">
+                    </Container>
+                    <Container fluid className="text-light px-5 mb-5 d-flex flex-column justify-content-center">
+                        <Row>
                             <Col sm={12} md={8}>
                                 <MyCryptoPriceHistory simbolo={cryptoSymbol} selectedCrypto={selectedCrypto} />
                             </Col>
@@ -106,9 +109,9 @@ const MyCrypto = () => {
                                 <MyTrendCrypto selectedCrypto={selectedCrypto} />
                             </Col>
                         </Row>
-                    </>
-                )}
-            </Container>
+                    </Container>
+                </>
+            )}
         </>
     );
 }
