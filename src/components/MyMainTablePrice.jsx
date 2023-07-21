@@ -26,7 +26,7 @@ const MyMainTablePrice = ({ cryptosPrice }) => {
     };
 
     return (
-        <Col>
+        <Col className='p-0'>
             <Table className='text-light m-0 table table-dark table-striped'>
                 <thead>
                     <tr>
