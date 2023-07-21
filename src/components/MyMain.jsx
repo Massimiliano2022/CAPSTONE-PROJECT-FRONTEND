@@ -50,16 +50,16 @@ const MyMain = () => {
     }
 
     return (
-        <>  
+        <>
             {/*INIZIO SM*/}
             <Container fluid className="text-light px-5 main-div-mobile d-flex justify-content-center align-items-center d-md-none">
                 <Row className={`d-flex flex-column ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
-                    <Col sm={12} className='mb-3'>
+                    <Col sm={12} className='d-flex flex-column justify-content-between mb-3'>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
                             to={"/signup"}
                             style={{ color: "black" }}
-                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 my-3"
                         >
                             <span className='fs-4 pe-2'>
                                 <BsFillPersonFill />
@@ -70,7 +70,7 @@ const MyMain = () => {
                         </Link>
                         <Link
                             to={"/login"}
-                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50"
                         >
                             <span className='fs-4 pe-2'>
                                 <BiLogIn />
@@ -83,12 +83,12 @@ const MyMain = () => {
                     </Col>
                 </Row>
                 <Row className={`d-flex flex-column ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
-                    <Col sm={12} className='mb-3'>
+                    <Col sm={12} className='d-flex flex-column justify-content-between mb-3'>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Button
                             onClick={effettuaOperazione}
                             style={{ color: "black" }}
-                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 my-3"
                         >
                             <span className='fs-4 pe-2'>
                                 <BsCurrencyExchange />
@@ -97,7 +97,7 @@ const MyMain = () => {
                         </Button>
                         <Link
                             to={"/wallet"}
-                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50"
                         >
                             <span className='fs-4 pe-2'>
                                 <BsWallet2 />
@@ -114,12 +114,12 @@ const MyMain = () => {
             {/*INIZIO MD*/}
             <Container fluid className="text-light px-5 mt-5 main-div-tablet d-flex justify-content-center align-items-center d-none d-md-flex d-lg-none">
                 <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
-                    <Col md={6}>
+                    <Col md={6} className='d-flex flex-column justify-content-between mb-3'>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
                             to={"/signup"}
                             style={{ color: "black" }}
-                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 my-3"
                         >
                             <span className='fs-4 pe-2'>
                                 <BsFillPersonFill />
@@ -130,7 +130,7 @@ const MyMain = () => {
                         </Link>
                         <Link
                             to={"/login"}
-                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50"
                         >
                             <span className='fs-4 pe-2'>
                                 <BiLogIn />
@@ -138,17 +138,17 @@ const MyMain = () => {
                             Accedi
                         </Link>
                     </Col>
-                    <Col md={6} className='d-flex justify-content-end'>
+                    <Col md={12} className='d-flex justify-content-end mt-3'>
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
                 <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
-                    <Col md={6}>
+                    <Col md={6} className='d-flex flex-column justify-content-between mb-3'>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Button
                             onClick={effettuaOperazione}
                             style={{ color: "black" }}
-                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 my-3"
                         >
                             <span className='fs-4 pe-2'>
                                 <BsCurrencyExchange />
@@ -157,7 +157,7 @@ const MyMain = () => {
                         </Button>
                         <Link
                             to={"/wallet"}
-                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50"
                         >
                             <span className='fs-4 pe-2'>
                                 <BsWallet2 />
@@ -165,7 +165,7 @@ const MyMain = () => {
                             Wallet
                         </Link>
                     </Col>
-                    <Col md={6} className='d-flex justify-content-end'>
+                    <Col md={12} className='d-flex justify-content-end mt-3'>
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
@@ -189,12 +189,12 @@ const MyMain = () => {
             {/*INIZIO LG*/}
             <Container fluid className="text-light px-5 mt-5 main-div-tablet d-flex justify-content-center align-items-center d-none d-md-none d-lg-flex">
                 <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
-                    <Col md={12}>
+                    <Col md={6} className='d-flex flex-column justify-content-between'>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
                             to={"/signup"}
                             style={{ color: "black" }}
-                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50"
                         >
                             <span className='fs-4 pe-2'>
                                 <BsFillPersonFill />
@@ -205,7 +205,7 @@ const MyMain = () => {
                         </Link>
                         <Link
                             to={"/login"}
-                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50"
                         >
                             <span className='fs-4 pe-2'>
                                 <BiLogIn />
@@ -213,12 +213,12 @@ const MyMain = () => {
                             Accedi
                         </Link>
                     </Col>
-                    <Col md={12} className='d-flex justify-content-end'>
+                    <Col md={6} className='d-flex justify-content-end'>
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
                 <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
-                    <Col md={12}>
+                    <Col md={6} className='d-flex flex-column justify-content-between'>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Button
                             onClick={effettuaOperazione}
@@ -240,12 +240,12 @@ const MyMain = () => {
                             Wallet
                         </Link>
                     </Col>
-                    <Col md={12} className='d-flex justify-content-end'>
+                    <Col md={6} className='d-flex justify-content-end'>
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
             </Container>
-            <Container fluid className='text-light px-5 mb-5 d-flex justify-content-center align-items-center d-none d-md-none d-lg-flex'>
+            {/*<Container fluid className='text-light px-5 mb-5 d-flex justify-content-center align-items-center d-none d-md-none d-lg-flex'>
                 <Row className='w-100'>
                     {!cryptosPrice || cryptosPrice.length === 0 ? (
                         <>
@@ -259,7 +259,7 @@ const MyMain = () => {
                         </>
                     )}
                 </Row>
-            </Container>
+            </Container>*/}
             {/*FINE LG*/}
         </>
     );
