@@ -54,7 +54,7 @@ const MyMain = () => {
             {/*INIZIO MOBILE*/}
             <Container fluid className="text-light px-5 main-div-mobile d-flex justify-content-center align-items-center d-md-none">
                 <Row className={`d-flex flex-column ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
-                    <Col md={12}>
+                    <Col sm={6}>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
                             to={"/signup"}
@@ -78,12 +78,12 @@ const MyMain = () => {
                             Accedi
                         </Link>
                     </Col>
-                    <Col md={12}>
+                    <Col sm={6}>
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
                 <Row className={`d-flex flex-column ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
-                    <Col md={12}>
+                    <Col sm={6}>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Button
                             onClick={effettuaOperazione}
@@ -105,7 +105,7 @@ const MyMain = () => {
                             Wallet
                         </Link>
                     </Col>
-                    <Col md={12}>
+                    <Col sm={6}>
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
                     </Col>
                 </Row>
@@ -113,7 +113,7 @@ const MyMain = () => {
             {/*FINE MOBILE*/}
             {/*INIZIO TABLET*/}
             <Container fluid className="text-light px-5 main-div-tablet d-flex justify-content-center align-items-center d-none d-md-flex">
-                <Row className={` ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
+                <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
                     <Col md={12}>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
                         <Link
@@ -170,8 +170,8 @@ const MyMain = () => {
                     </Col>
                 </Row>
             </Container>
-            <Container fluid className='text-light px-5 vh-50 d-none d-md-block' style={{ background: "#1E1E1E" }}>
-                <Row className=''>
+            <Container fluid className='text-light px-5 main-div-tablet d-flex justify-content-center align-items-center d-none d-md-flex'>
+                <Row className='w-100'>
                     {!cryptosPrice || cryptosPrice.length === 0 ? (
                         <>
                             <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>

@@ -1,6 +1,7 @@
 body{
   background-color: #1E1E1E;
 }
+
 .login-div {
   height: calc(100vh - 72.84px); /* calcolo height sottraendo l'altezza della barra di navigazione */
 }
@@ -10,7 +11,7 @@ body{
 }
 
 .main-div-tablet{
-  height:calc(50vh - 72.84px);
+  height:calc(50vh - 36.42px);
 }
 
 /* Breakpoint per dispositivi con larghezza massima di 575px */

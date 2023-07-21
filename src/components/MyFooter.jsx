@@ -4,8 +4,8 @@ import { Col, Container, Row } from "react-bootstrap";
 const MyFooter = () =>{
     return(
         <>
-        <Container fluid className="text-light px-5" style={{background: "#2d2d2d"}}>
-            <Row className="d-flex py-5">
+        <Container fluid className="d-none d-md-block" style={{background: "#2d2d2d"}}>
+            <Row className="d-flex py-5 px-5 text-light">
                 <Col md={2}>
                     <p className="fs-5 mb-1">Chi siamo</p>
                     <p className="fs-6 m-0 text-muted">Informazioni</p>
