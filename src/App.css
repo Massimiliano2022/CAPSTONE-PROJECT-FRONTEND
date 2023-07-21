@@ -37,7 +37,7 @@ body{
 /* Breakpoint per dispositivi con larghezza compresa tra 656px e 991px */
 @media screen and (min-width: 655px) and (max-width: 991px) {
   .main-img {
-    height: 225px;
+    height: 240px;
   }
   .line-chart {
     height: 30vh;

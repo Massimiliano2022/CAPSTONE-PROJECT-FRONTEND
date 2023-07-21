@@ -51,7 +51,7 @@ const MyMain = () => {
 
     return (
         <>  
-            {/*INIZIO MOBILE*/}
+            {/*INIZIO SM*/}
             <Container fluid className="text-light px-5 main-div-mobile d-flex justify-content-center align-items-center d-md-none">
                 <Row className={`d-flex flex-column ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
                     <Col sm={12} className='mb-3'>
@@ -110,9 +110,84 @@ const MyMain = () => {
                     </Col>
                 </Row>
             </Container>
-            {/*FINE MOBILE*/}
-            {/*INIZIO TABLET*/}
-            <Container fluid className="text-light px-5 mt-5 main-div-tablet d-flex justify-content-center align-items-center d-none d-md-flex">
+            {/*FINE SM*/}
+            {/*INIZIO MD*/}
+            <Container fluid className="text-light px-5 mt-5 main-div-tablet d-flex justify-content-center align-items-center d-none d-md-flex d-lg-none">
+                <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
+                    <Col md={6}>
+                        <h1>Compra e scambia Crypto su DigitFin</h1>
+                        <Link
+                            to={"/signup"}
+                            style={{ color: "black" }}
+                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                        >
+                            <span className='fs-4 pe-2'>
+                                <BsFillPersonFill />
+                            </span>
+                            <span>
+                                Iscriviti
+                            </span>
+                        </Link>
+                        <Link
+                            to={"/login"}
+                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                        >
+                            <span className='fs-4 pe-2'>
+                                <BiLogIn />
+                            </span>
+                            Accedi
+                        </Link>
+                    </Col>
+                    <Col md={6} className='d-flex justify-content-end'>
+                        <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
+                    </Col>
+                </Row>
+                <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
+                    <Col md={6}>
+                        <h1>Compra e scambia Crypto su DigitFin</h1>
+                        <Button
+                            onClick={effettuaOperazione}
+                            style={{ color: "black" }}
+                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                        >
+                            <span className='fs-4 pe-2'>
+                                <BsCurrencyExchange />
+                            </span>
+                            Compra
+                        </Button>
+                        <Link
+                            to={"/wallet"}
+                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
+                        >
+                            <span className='fs-4 pe-2'>
+                                <BsWallet2 />
+                            </span>
+                            Wallet
+                        </Link>
+                    </Col>
+                    <Col md={6} className='d-flex justify-content-end'>
+                        <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
+                    </Col>
+                </Row>
+            </Container>
+            <Container fluid className='text-light px-5 mb-5 d-flex justify-content-center align-items-center d-none d-md-flex d-lg-none'>
+                <Row className='w-100'>
+                    {!cryptosPrice || cryptosPrice.length === 0 ? (
+                        <>
+                            <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
+                                <Spinner animation="grow" variant="warning" className="me-2" />
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <MyMainTablePrice cryptosPrice={cryptosPrice} />
+                        </>
+                    )}
+                </Row>
+            </Container>
+            {/*FINE MD*/}
+            {/*INIZIO LG*/}
+            <Container fluid className="text-light px-5 mt-5 main-div-tablet d-flex justify-content-center align-items-center d-none d-md-none d-lg-flex">
                 <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? 'd-none' : ''}`}>
                     <Col md={12}>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
@@ -170,7 +245,7 @@ const MyMain = () => {
                     </Col>
                 </Row>
             </Container>
-            <Container fluid className='text-light px-5 mb-5 d-flex justify-content-center align-items-center d-none d-md-flex'>
+            <Container fluid className='text-light px-5 mb-5 d-flex justify-content-center align-items-center d-none d-md-none d-lg-flex'>
                 <Row className='w-100'>
                     {!cryptosPrice || cryptosPrice.length === 0 ? (
                         <>
@@ -185,7 +260,7 @@ const MyMain = () => {
                     )}
                 </Row>
             </Container>
-            {/*FINE TABLET*/}
+            {/*FINE LG*/}
         </>
     );
 }
