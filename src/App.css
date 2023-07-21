@@ -44,8 +44,8 @@ body{
   }
 }
 
-/* Breakpoint per dispositivi con larghezza uguale o superiore a 992px */
-@media screen and (min-width: 991px) {
+/* Breakpoint per dispositivi con larghezza minima 992px*/
+@media screen and (min-width: 991px){
   .main-img {
     height: 262px;
   }
@@ -53,3 +53,23 @@ body{
     height: 40vh;
   }
 }
+
+/* Breakpoint per dispositivi con larghezza compresa tra 992px e 1200px */
+/*@media screen and (min-width: 991px) and (max-width: 1200px) {
+  .main-img {
+    height: 262px;
+  }
+  .line-chart {
+    height: 40vh;
+  }
+}*/
+
+/* Breakpoint per dispositivi con larghezza compresa tra 992px e 1200px */
+/*@media screen and (min-width: 991px) and (max-width: 1200px) {
+  .main-img {
+    height: 300px;
+  }
+  .line-chart {
+    height: 40vh;
+  }
+}*/
