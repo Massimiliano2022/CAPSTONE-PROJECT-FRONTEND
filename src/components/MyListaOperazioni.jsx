@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Alert, Button, Card, Form, Spinner, Table } from "react-bootstrap";
 import { getlistaOperazioni } from '../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import ReactDatePicker from 'react-datepicker';
 
 const MyListaOperazioni = ({ utenteCorrente }) => {
 
