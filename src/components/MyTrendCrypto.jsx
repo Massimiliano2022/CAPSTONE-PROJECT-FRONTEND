@@ -6,7 +6,7 @@ import maticLogo from '../img/polygon.png'
 import xrpLogo from '../img/ripple.png'
 import dogeLogo from '../img/dogecoin.png'
 import sandLogo from '../img/sandbox.png'
-import { Card, Table } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { getCurrentCryptoData } from '../redux/actions'
@@ -29,30 +29,28 @@ const MyTrendCrypto = ({ selectedCrypto }) => {
     const cryptosPrice = useSelector(state => state.currentCryptoData.cryptoData);
 
     useEffect(() => {
-        dispatch(getCurrentCryptoData('http://localhost:3001/crypto'));
+        dispatch(getCurrentCryptoData());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCrypto]);
 
     const filteredCryptosPrice = cryptosPrice.filter(crypto => crypto.simbolo !== selectedCrypto.simbolo);
 
     return (
-        <Card className='h-100' style={{ background: "#2d2d2d" }}>
+        <Card className='h-100' style={{ background: "#2d2d2d"}}>
             <Card.Body className='d-flex flex-column'>
                 <Card.Title className="mb-3">Crypto di tendenza</Card.Title>
                 <div>
-                    <Table className='text-light m-0'>
-                        <tbody className="d-flex flex-column">
-                            {filteredCryptosPrice.map(crypto => (
-                                <tr key={crypto.id} className="d-flex flex-row justify-content-between align-items-center">
-                                    <td className="d-flex align-items-center p-0 border-0">
-                                        <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={30} className="img-fluid object-fit-cover" />
-                                        <span className="fs-6 ms-2">{crypto.simbolo}</span>
-                                    </td>
-                                    <td className="fs-6 border-0">$ {crypto.prezzo.toFixed(4)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
+                    {filteredCryptosPrice.map(crypto => (
+                        <div key={crypto.id} className="d-flex flex-row justify-content-between align-items-center py-2">
+                            <div className="d-flex align-items-center p-0 border-0">
+                                <img src={cryptoLogos[crypto.simbolo.toLowerCase()]} alt={`${crypto.nome} Logo`} width={35} className="img-fluid object-fit-cover" />
+                                <Card.Text className="ms-2">{crypto.simbolo}</Card.Text>
+                            </div>
+                            <div>
+                                <Card.Text className="">$ {crypto.prezzo.toFixed(4)}</Card.Text>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </Card.Body>
         </Card>

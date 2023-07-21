@@ -19,24 +19,6 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
     const [tipoOperazioneForm, setTipoOperazioneForm] = useState("");
     const [selectedCryptoForm, setSelectedCryptoForm] = useState("");
 
-    const handleStartDateChange = (value) => {
-        if (value) {
-            const formattedDate = moment(value).startOf('day').format('DD/MM/YYYY');
-            setStartDate(formattedDate);
-          } else {
-            setStartDate('');
-          }
-    }; 
-
-    const handleEndDateChange = (value) => {
-        if (value) {
-            const formattedDate = moment(value).endOf('day').format('DD/MM/YYYY');
-            setEndDate(formattedDate);
-          } else {
-            setEndDate('');
-          }
-    };
-
     useEffect(() => {
         setCurrentPage(0);
     }, [tipoOperazioneForm, selectedCryptoForm]);
@@ -53,7 +35,7 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
             const encodedStartDate = encodeURIComponent(startDate);
             url += `&startDate=${encodedStartDate}`;
         }
-        if(endDate){
+        if (endDate) {
             const encodedEndDate = encodeURIComponent(endDate);
             url += `&endDate=${encodedEndDate}`;
         }
@@ -72,26 +54,20 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
                     <Card.Body>
                         <Card.Title className="mb-3">Storico operazioni</Card.Title>
                         <Form className='d-flex align-items-center  mb-3'>
-                            <Form.Group controlId="startDate" className='me-3' style={{ border: "2px solid white",borderRadius:"0.25rem"}}>
-                                <ReactDatePicker
-                                    id="startDate"
+                            <Form.Group className="me-3">
+                                <Form.Control
+                                    type="date"
                                     value={startDate}
-                                    placeholderText='Seleziona data inizio'
-                                    onChange={handleStartDateChange}
-                                    dateFormat="dd/MM/yyyy"
-                                    showTimeSelect={false}
-                                    className='bg-dark text-light'
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                    className="bg-dark text-white"
                                 />
                             </Form.Group>
-                            <Form.Group controlId="endDate" className='me-3' style={{ border: "2px solid white",borderRadius:"0.25rem"}}>
-                                <ReactDatePicker
-                                    id="endDate"
-                                    value={endDate} 
-                                    placeholderText='Seleziona data fine'
-                                    onChange={handleEndDateChange}
-                                    dateFormat="dd/MM/yyyy"
-                                    showTimeSelect={false}
-                                    className='bg-dark text-light'
+                            <Form.Group className="me-3">
+                                <Form.Control
+                                    type="date"
+                                    value={endDate}
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                    className="bg-dark text-white"
                                 />
                             </Form.Group>
                             <Form.Select
