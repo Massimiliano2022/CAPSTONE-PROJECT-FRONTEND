@@ -21,7 +21,9 @@ const MyCryptoList = () => {
   useEffect(() => {
     const fetchData = () => {
       dispatch(getCurrentCryptoData());
-      setLoading(false);
+      if(cryptosPrice.length > 0){
+        setLoading(false);
+      }
     };
     fetchData(); // Eseguiamo subito la prima fetch all'avvio del componente
     const startTimer = () => {
@@ -59,7 +61,7 @@ const MyCryptoList = () => {
 
   return (
     <>
-      <Container fluid className="text-light px-5 my-5" style={{minHeight:"100vh"}}>
+      <Container fluid className="text-light px-5 py-5 main-div-mobile">
         <Row>
           <Col className="position-sticky top-0" style={{ zIndex: 999 }}>
             <h2 className="fs-3 p-0 m-0">Panoramica mercati</h2>
@@ -78,7 +80,7 @@ const MyCryptoList = () => {
             </Form>
           </Col>
         </Row>
-        <Row className="">
+        <Row>
           {loading ? (
             <>
               <div className='d-flex justify-content-center align-items-center'>
