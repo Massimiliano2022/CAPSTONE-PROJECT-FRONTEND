@@ -8,7 +8,7 @@ import dogeLogo from '../img/dogecoin.png'
 import sandLogo from '../img/sandbox.png'
 import usdtLogo from '../img/usdt.png'
 
-import { Card, Col, Table } from "react-bootstrap";
+import { Col, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const MyMainTablePrice = ({ cryptosPrice }) => {

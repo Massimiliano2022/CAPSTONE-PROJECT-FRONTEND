@@ -7,8 +7,8 @@ import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef } from 'react'
 import { getCurrentCryptoData } from '../redux/actions'
+
 import MyMainTablePrice from './MyMainTablePrice';
-import MyMainCryptoCard from './MyMainCryptoCard';
 
 const MyMain = () => {
 
