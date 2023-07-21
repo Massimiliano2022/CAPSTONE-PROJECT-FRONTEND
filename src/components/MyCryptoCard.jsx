@@ -27,9 +27,9 @@ const MyCryptoCard = ({ crypto }) => {
     const variazioneColor = crypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E";
 
     return (
-        <Col md={6}>
+        <Col md={12} lg={6} className='mb-4'>
             <Link to={`/crypto/${cryptoSymbol}`} className="nav-link">
-                <Card className="mb-4" style={{ background: "#2d2d2d" }}>
+                <Card className='' style={{ background: "#2d2d2d" }}>
                     <Card.Body className='px-4 py-3 fs-6'>
                         <img src={cryptoLogos[cryptoSymbol]} alt='Bitcoin Logo' width={50} className="img-fluid object-fit-cover" />
                         <div className='d-flex justify-content-between py-4'>

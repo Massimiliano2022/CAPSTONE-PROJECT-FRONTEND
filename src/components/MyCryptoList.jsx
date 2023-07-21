@@ -59,9 +59,9 @@ const MyCryptoList = () => {
 
   return (
     <>
-      <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
-        <Row className='pt-5'>
-          <Col>
+      <Container fluid className="text-light px-5 py-5" style={{minHeight:"100vh"}}>
+        <Row>
+          <Col className="position-sticky top-0" style={{ zIndex: 999 }}>
             <h2 className="fs-3 p-0 m-0">Panoramica mercati</h2>
             <p className="text-muted m-0">Tutte le informazione dei prezzi sono in USD</p>
           </Col>
@@ -78,15 +78,15 @@ const MyCryptoList = () => {
             </Form>
           </Col>
         </Row>
-        <Row className="pb-5" style={searchResults.length <= 4 ? { minHeight: "50vh" } : {}}>
+        <Row className="">
           {loading ? (
             <>
-              <div className='d-flex justify-content-center align-items-center' style={{ height: "50vh" }}>
+              <div className='d-flex justify-content-center align-items-center'>
                 <Spinner animation="grow" variant="warning" className="me-2" />
               </div>
             </>
           ) : searchResults.length === 0 ? (
-            <div className="" style={{ height: "50vh" }}>
+            <div className="">
               <Alert className="w-100 text-center" variant="danger" role="alert">
                 Nessun risultato trovato.
               </Alert>
