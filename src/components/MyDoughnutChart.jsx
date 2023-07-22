@@ -44,7 +44,7 @@ const MyDoughnutChart = ({ walletCorrente }) => {
     const getChartHeight = () => {
         const width = window.innerWidth;
         if (width <= 767) {
-            return '300px';
+            return '325px';
         } else if (width >= 768 && width <= 991) {
             return '350px';
         } else {
@@ -52,7 +52,19 @@ const MyDoughnutChart = ({ walletCorrente }) => {
         }
     };
 
-    const chartHeight = getChartHeight();
+    const [chartHeight, setChartHeight] = useState(getChartHeight());
+
+    useEffect(() => {
+        const handleResize = () => {
+            setChartHeight(getChartHeight());
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <>

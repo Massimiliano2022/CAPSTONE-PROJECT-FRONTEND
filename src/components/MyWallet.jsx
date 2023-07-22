@@ -47,14 +47,14 @@ const MyWallet = () => {
 
     return (
         <>
-            <Container fluid className="text-light px-5" style={{ background: "#1E1E1E" }}>
+            <Container fluid className="text-light px-5">
                 {!walletCorrente ? (
                     <div className="d-flex justify-content-center align-items-center vh-100">
                         <Spinner animation="grow" variant="warning" />
                     </div>
                 ) : (
                     <>
-                        <Row className="py-5">
+                        <Row className="my-5 vh-50">
                             <h2>Asset</h2>
                             <Col md={6} className="d-flex justify-content-center align-items-center">
                                 <MyDoughnutChart walletCorrente={walletCorrente} />
