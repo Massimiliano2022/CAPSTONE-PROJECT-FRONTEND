@@ -39,10 +39,24 @@ const MyNav = () => {
                     <BiSolidWallet className='fs-3' />
                     Wallet
                 </NavLink>
-                <NavLink to={"/login"} className="nav-link d-flex flex-column align-items-center" activeclassname="active">
-                    <BsFillPersonFill className='fs-3' />
-                    Accedi
-                </NavLink>
+                {utenteCorrente && utenteCorrente.utente ? (
+                    <>
+                        <Button
+                            onClick={handleClick}
+                            className="nav-link d-flex flex-column align-items-center btn btn-link" activeclassname="active"
+                        >
+                            <BsFillPersonFill className='fs-3' />
+                            Logout
+                        </Button>
+                    </>
+                ) : (
+                    <>
+                        <NavLink to={"/login"} className="nav-link d-flex flex-column align-items-center" activeclassname="active">
+                            <BsFillPersonFill className='fs-3' />
+                            Accedi
+                        </NavLink>
+                    </>
+                )}
             </Navbar>
             {/*FINE MOBILE DEVICE NAV */}
 

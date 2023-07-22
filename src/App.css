@@ -2,10 +2,6 @@ body{
   background-color: #1E1E1E;
 }
 
-.navbar-nav,.nav-link.active,a.active,a.active:active,a.active.nav-link:focus,a.active.nav-link:hover{
-  color:#FFCD39;
-}
-
 .login-div {
   height: calc(100vh - 72.84px); /* calcolo height sottraendo l'altezza della barra di navigazione */
 }
@@ -20,6 +16,9 @@ body{
 
 /* Breakpoint per dispositivi con larghezza massima di 575px */
 @media screen and (max-width: 575px) {
+  a.active,a.active:active,.nav-link:focus, .nav-link:hover{
+    color:#FFCD39;
+  }  
   .main-img {
     height: 225px;
   }
@@ -30,6 +29,9 @@ body{
 
 /* Breakpoint per dispositivi con larghezza compresa tra 576px e 655px */
 @media screen and (min-width: 575px) and (max-width: 655px) {
+  a.active,a.active:active,.nav-link:focus, .nav-link:hover{
+    color:#FFCD39;
+  }  
   .main-img {
     height: 250px;
   }
