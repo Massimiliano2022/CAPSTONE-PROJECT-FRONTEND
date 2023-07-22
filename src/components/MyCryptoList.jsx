@@ -61,7 +61,7 @@ const MyCryptoList = () => {
 
   return (
     <>
-      <Container fluid className="text-light px-5 py-5 main-div-mobile">
+      <Container fluid className="text-light px-5 py-5">
         <Row>
           <Col className="position-sticky top-0" style={{ zIndex: 999 }}>
             <h2 className="fs-3 p-0 m-0">Panoramica mercati</h2>
