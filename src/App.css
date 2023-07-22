@@ -16,7 +16,7 @@ body{
 
 /* Breakpoint per dispositivi con larghezza massima di 575px */
 @media screen and (max-width: 575px) {
-  a.active,a.active:active,.nav-link:focus, .nav-link:hover{
+  a.active,a.active:active,.nav-link:focus{
     color:#FFCD39;
   }  
   .main-img {
