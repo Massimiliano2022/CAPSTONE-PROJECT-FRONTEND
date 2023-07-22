@@ -2,6 +2,10 @@ body{
   background-color: #1E1E1E;
 }
 
+.navbar-nav,.nav-link.active,a.active,a.active:active,a.active.nav-link:focus,a.active.nav-link:hover{
+  color:#FFCD39;
+}
+
 .login-div {
   height: calc(100vh - 72.84px); /* calcolo height sottraendo l'altezza della barra di navigazione */
 }
