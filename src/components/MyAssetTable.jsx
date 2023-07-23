@@ -53,7 +53,7 @@ const MyAssetTable = ({ walletCorrente }) => {
                     <Spinner animation="grow" variant="warning" />
                 </div>
             ) : (
-                <Card className="my-4" style={{ background: "#2d2d2d" }}>
+                <Card style={{ background: "#2d2d2d" }}>
                     <Card.Body>
                         <Table className='text-light m-0'>
                             <tbody className="d-flex flex-column">

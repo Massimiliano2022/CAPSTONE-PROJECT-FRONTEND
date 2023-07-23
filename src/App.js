@@ -32,7 +32,7 @@ const App = () => {
         <Route path="/signup" element={<MySignup />} />
         <Route path="/" element={<MyMain />} />
         <Route path="/mercati" element={<MyCryptoList />} />
-        <Route path="/crypto/:simbolo" element={<MyCrypto />} />
+        <Route path="/mercati/crypto/:simbolo" element={<MyCrypto />} />
         <Route path="/wallet" element={<MyWallet />} />
       </Routes>
       {<MyFooter />}

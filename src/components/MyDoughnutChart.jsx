@@ -48,7 +48,7 @@ const MyDoughnutChart = ({ walletCorrente }) => {
         } else if (width >= 768 && width <= 991) {
             return '350px';
         } else {
-            return '400px';
+            return '375px';
         }
     };
 
