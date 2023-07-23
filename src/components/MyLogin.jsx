@@ -82,6 +82,7 @@ const MyLogin = () => {
                                     <Form.Control
                                         type="email"
                                         value={utente.email}
+                                        className="bg-dark text-white"
                                         onChange={(e) => setUtente({ ...utente, email: e.target.value })}
                                     />
                                     {warningEmail && (
@@ -93,6 +94,7 @@ const MyLogin = () => {
                                     <Form.Control
                                         type="password"
                                         value={utente.password}
+                                        className="bg-dark text-white"
                                         onChange={(e) => setUtente({ ...utente, password: e.target.value })}
                                     />
                                     {warningPassword && (
