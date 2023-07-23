@@ -14,6 +14,10 @@ body{
   height:calc(50vh - 36.42px);
 }
 
+.dropdown-item:active{
+  background-color: #ffffff26;
+}
+
 /* Breakpoint per dispositivi con larghezza massima di 575px */
 @media screen and (max-width: 575px) {
   a.active,a.active:active,.nav-link:focus,.nav-link:hover{
@@ -29,8 +33,8 @@ body{
 
 /* Breakpoint per dispositivi con larghezza compresa tra 576px e 655px */
 @media screen and (min-width: 575px) and (max-width: 655px) {
-  a.active,a.active:active,.nav-link:focus, .nav-link:hover{
-    color:#FFCD39;
+  a.active,a.active:active,.nav-link:focus,.nav-link:hover{
+    color:#EBB60B;
   }  
   .main-img {
     height: 250px;
@@ -42,6 +46,9 @@ body{
 
 /* Breakpoint per dispositivi con larghezza compresa tra 656px e 991px */
 @media screen and (min-width: 655px) and (max-width: 991px) {
+  a.active,a.active:active,.nav-link:focus,.nav-link:hover{
+    color:#EBB60B;
+  }  
   .main-img {
     height: 250px;
   }

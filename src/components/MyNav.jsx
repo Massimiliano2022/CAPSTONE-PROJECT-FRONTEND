@@ -1,6 +1,6 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../img/DigitFin.png'
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Dropdown, DropdownButton, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccessReset, removeUtenteCorrente, removeWalletUtenteCorrente } from '../redux/actions';
 import { BiSolidHome, BiSolidWallet } from 'react-icons/bi';
@@ -87,16 +87,22 @@ const MyNav = () => {
                         <Nav className="justify-content-end">
                             {utenteCorrente && utenteCorrente.utente ? (
                                 <>
-                                    <NavLink to={"/wallet"} className="nav-link text-muted">
-                                        Utente:
-                                        <span className="text-light"> {utenteCorrente.utente.nome} {utenteCorrente.utente.cognome}</span>
-                                    </NavLink>
-                                    <Button
-                                        onClick={handleClick}
-                                        className="btn btn-dark nav-link text-light text-center rounded rounded-1 rounded-start-0 p-2"
-                                    >
-                                        Logout
-                                    </Button>
+                                    <DropdownButton id="dropdown-basic-button" variant="warning" menuVariant="dark" title={`${utenteCorrente.utente.nome} ${utenteCorrente.utente.cognome}`}>
+                                        <Dropdown.Item >
+                                            <NavLink to={"/wallet"} className="nav-link">
+                                                Wallet
+                                            </NavLink>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item >
+                                            <Button
+                                                onClick={handleClick}
+                                                activeclassname="active"
+                                                className="nav-link btn btn-link bg-dark text-light text-center rounded rounded-1 rounded-start-0 p-2 w-100"
+                                            >
+                                                Logout
+                                            </Button>
+                                        </Dropdown.Item>
+                                    </DropdownButton>
                                 </>
                             ) : (
                                 <>
