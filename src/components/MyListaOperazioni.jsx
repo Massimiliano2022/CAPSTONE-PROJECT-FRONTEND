@@ -52,13 +52,13 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
                 <Card className="mb-5 d-none d-sm-none d-md-block" style={{ background: "#2d2d2d" }}>
                     <Card.Body>
                         <Card.Title className="mb-3">Storico operazioni</Card.Title>
-                        <Form className='d-flex align-items-center  mb-3'>
+                        <Form className='d-flex align-items-center mb-3'>
                             <Form.Group className="me-3">
                                 <Form.Control
                                     type="date"
                                     value={startDate}
                                     onChange={(e) => setStartDate(e.target.value)}
-                                    className="bg-dark text-white"
+                                    className="bg-dark text-white p-1"
                                 />
                             </Form.Group>
                             <Form.Group className="me-3">
@@ -66,7 +66,7 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
                                     type="date"
                                     value={endDate}
                                     onChange={(e) => setEndDate(e.target.value)}
-                                    className="bg-dark text-white"
+                                    className="bg-dark text-white p-1"
                                 />
                             </Form.Group>
                             <Form.Select
@@ -82,7 +82,7 @@ const MyListaOperazioni = ({ utenteCorrente }) => {
                             <Form.Select
                                 size="sm"
                                 aria-label="crypto"
-                                className='bg-dark text-white me-3'
+                                className='bg-dark text-white'
                                 onChange={(event) => setSelectedCryptoForm(event.target.value)}
                             >
                                 <option value="">Crypto</option>
