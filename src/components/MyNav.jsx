@@ -89,9 +89,9 @@ const MyNav = () => {
                                 <>
                                     <DropdownButton id="dropdown-basic-button" variant="warning" menuVariant="dark" title={`${utenteCorrente.utente.nome} ${utenteCorrente.utente.cognome}`}>
                                         <Dropdown.Item >
-                                            <NavLink to={"/wallet"} className="nav-link">
+                                            <Link to={"/wallet"} className="nav-link">
                                                 Wallet
-                                            </NavLink>
+                                            </Link>
                                         </Dropdown.Item>
                                         <Dropdown.Item >
                                             <Button
