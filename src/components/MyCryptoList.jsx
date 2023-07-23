@@ -44,6 +44,12 @@ const MyCryptoList = () => {
   }, []);
 
   useEffect(() => {
+    if (cryptosPrice.length > 0) {
+      setLoading(false);
+    }
+  }, [cryptosPrice]);
+
+  useEffect(() => {
     if (query === '') {
       setSearchResults(cryptosPrice);
     } else {
