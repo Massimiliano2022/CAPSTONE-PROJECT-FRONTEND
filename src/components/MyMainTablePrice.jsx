@@ -52,14 +52,14 @@ const MyMainTablePrice = ({ cryptosPrice }) => {
                             <td><p className='text-start mb-0' style={{ color: crypto.percententuale_variazione_1h < 0 ? "#E31903" : "#0FC67E" }}>{crypto.percententuale_variazione_1h}</p></td>
                             <td>
                                 <Link
-                                    to={`/crypto/${crypto.simbolo.toLowerCase()}`}
+                                    to={`/mercati/crypto/${crypto.simbolo.toLowerCase()}`}
                                     className="btn btn-success nav-link text-light rounded rounded-1 py-1">
                                     Compra
                                 </Link>
                             </td>
                             <td>
                                 <Link
-                                    to={`/crypto/${crypto.simbolo.toLowerCase()}`}
+                                    to={`/mercati/crypto/${crypto.simbolo.toLowerCase()}`}
                                     className="btn btn-danger nav-link text-light rounded rounded-1 py-1"
                                 >
                                     Vendi

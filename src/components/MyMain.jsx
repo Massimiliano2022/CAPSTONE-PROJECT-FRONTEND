@@ -46,7 +46,7 @@ const MyMain = () => {
     const effettuaOperazione = () => {
         const randomIndex = Math.floor(Math.random() * cryptosPrice.length);
         const selectedCrypto = cryptosPrice[randomIndex];
-        navigator(`/crypto/${selectedCrypto.simbolo.toLowerCase()}`);
+        navigator(`/mercati/crypto/${selectedCrypto.simbolo.toLowerCase()}`);
     }
 
     return (
