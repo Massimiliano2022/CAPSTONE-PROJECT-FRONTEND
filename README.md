@@ -1,9 +1,28 @@
-# CAPSTONE-PROJECT
-# DigitFin Exchange 
+# DigitFin Exchange - Front-End
 Applicazione di scambio di criptovalute che consente agli utenti di acquistare, vendere e monitorare il valore delle criptovalute. L'applicazione offre una varietà di funzionalità avanzate e strumenti per consentire agli utenti di gestire le proprie operazioni in modo efficace.
 
 ![Immagine 2023-07-24 162638](https://github.com/Massimiliano2022/CAPSTONE-PROJECT-FRONTEND/assets/120369719/5fcebfb2-2d1c-449c-906e-ac6f4c228752)
 
+# Descrizione
+Questo è il repository Front-End dell'applicazione DigitFin Exchange. Fornisce un'interfaccia semplice e intuitiva permettendo agli utenti di monitorare i prezzi delle diverse criptovalute ed effettuare operazioni di acquisto e vendita in modo agevole.
+
+# Configurazione 
+
+Segui le indicazioni riportate nel repository dedicato al Back-End : 
+
+[DigitFin Exchange Backend Repository](https://github.com/Massimiliano2022/CAPSTONE-PROJECT-BACKEND)
+
+Clona questa repository :
+
+>git clone https://github.com/Massimiliano2022/CAPSTONE-PROJECT-FRONTEND
+
+Prima di eseguire il progetto, assicurati di installare tutte le dipendenze necessarie attraverso il comando :
+
+> npm i
+
+Ora puoi eseguire il progetto :
+
+>npm start
 
 # Tecnologie utilizzate
 
@@ -15,8 +34,6 @@ Front-end:
 - React-Redux : libreria react che consente l'utilizzo di Redux per la gestione dello stato, fornisce l'accesso ad uno stato condiviso tra tutti i componenti dell'applicazione;
 - Redux-Persist : libreria che si occupa della persistenza dello stato dell'applicazione,ci consente di salvare lo stato dell'applicazione nella memoria locale del browser;
 - React-chartjs-2 : libreria per la creazione di grafici interattivi e dinamici. 
-
-[DigitFin Exchange Backend Repository](https://github.com/Massimiliano2022/CAPSTONE-PROJECT-BACKEND)
 
 # Funzionalità
 L'applicazione offre diverse funzionalità per gli utenti:
