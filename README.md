@@ -1,6 +1,9 @@
 # CAPSTONE-PROJECT
 # DigitFin Exchange 
 Applicazione di scambio di criptovalute che consente agli utenti di acquistare, vendere e monitorare il valore delle criptovalute. L'applicazione offre una varietà di funzionalità avanzate e strumenti per consentire agli utenti di gestire le proprie operazioni in modo efficace.
+
+![Immagine 2023-07-24 162638](https://github.com/Massimiliano2022/CAPSTONE-PROJECT-FRONTEND/assets/120369719/ccac343c-c51c-4b4d-85e4-34a153fcf0fb)
+
 # Tecnologie utilizzate
 
 Front-end:
