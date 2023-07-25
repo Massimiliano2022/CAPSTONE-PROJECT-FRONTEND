@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# DigitFin Exchange - Front-End
+Applicazione di scambio di criptovalute che consente agli utenti di acquistare, vendere e monitorare il valore delle criptovalute. L'applicazione offre una varietà di funzionalità avanzate e strumenti per consentire agli utenti di gestire le proprie operazioni in modo efficace.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Immagine 2023-07-24 162638](https://github.com/Massimiliano2022/CAPSTONE-PROJECT-FRONTEND/assets/120369719/d3295dd9-767d-4cf2-b726-dc17f8fc00d8)
 
-## Available Scripts
+# Descrizione
+Questo è il repository Front-End dell'applicazione DigitFin Exchange. Fornisce un'interfaccia semplice e intuitiva permettendo agli utenti di monitorare i prezzi delle diverse criptovalute ed effettuare operazioni di acquisto e vendita in modo agevole.
 
-In the project directory, you can run:
+# Configurazione 
 
-### `npm start`
+Segui le indicazioni riportate nel repository dedicato al Back-End : 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+[DigitFin Exchange Backend Repository](https://github.com/Massimiliano2022/CAPSTONE-PROJECT-BACKEND)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Clona questa repository :
 
-### `npm test`
+>git clone https://github.com/Massimiliano2022/CAPSTONE-PROJECT-FRONTEND
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Prima di eseguire il progetto, assicurati di installare tutte le dipendenze necessarie attraverso il comando :
 
-### `npm run build`
+> npm i
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ora puoi eseguire il progetto :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+>npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Tecnologie utilizzate
 
-### `npm run eject`
+Front-end:
+- React : libreria per lo sviluppo front-end più utilizzata. Permette di creare app veloci, scalabili e mantenibili nel tempo.
+- React-Bootstrap : libreria react costruita sulla base del framework Css Bootstrap;
+- React-Router-Dom : libreria per SPA (Single Page Application), simula il cambiamento di pagina e gestisce la navigazione nella nostra applicazione react,
+  permette di renderizzare specifici componenti solo quando si è su un path (o URL) specifico.
+- React-Redux : libreria react che consente l'utilizzo di Redux per la gestione dello stato, fornisce l'accesso ad uno stato condiviso tra tutti i componenti dell'applicazione;
+- Redux-Persist : libreria che si occupa della persistenza dello stato dell'applicazione,ci consente di salvare lo stato dell'applicazione nella memoria locale del browser;
+- React-chartjs-2 : libreria per la creazione di grafici interattivi e dinamici. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Funzionalità
+L'applicazione offre diverse funzionalità per gli utenti:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Visualizzazione dei prezzi delle criptovalute:
+L'applicazione utilizza le API di terze parti (CoinMarketCap) per ottenere i prezzi aggiornati delle criptovalute. Attraverso la libreria react-chartjs-2 mostra il grafico lineare nel timeframe mensile, consentendo agli utenti di monitorare l'andamento dei prezzi. Nella pagina dei mercati (/mercati), si possono effettuare ricerche per nome o simbolo della criptovaluta per trovare rapidamente le informazioni di cui si ha bisogno. Questa funzionalità è disponibile sia per gli utenti registrati che per quelli non registrati.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Registrazione degli utenti:
+Gli utenti possono registrarsi e accedere alle funzionalità complete dell'exchange. Durante il processo di registrazione, vengono richieste informazioni come nome,cognome, indirizzo email e password. La registrazione consente di effettuare delle operazioni. Spring Security Web e JSON Web Token (JWT) vengono utilizzati per garantire la sicurezza delle informazioni degli utenti durante il processo di registrazione e accesso.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Acquisto e vendita di criptovalute:
+Una volta registrati e autenticati, gli utenti hanno la possibilità di effettuare transazioni di acquisto o vendita di criptovalute. L'applicazione consente loro di selezionare la criptovaluta desiderata, specificare la quantità e scegliere l'azione da compiere (acquisto o vendita).
 
-## Learn More
+- Visualizzazione del wallet:
+L'applicazione offre agli utenti la possibilità di visualizzare il saldo totale delle loro posizioni in valuta fiat e il dettaglio del portafoglio crypto. Nel wallet, gli utenti possono vedere tutte le criptovalute che possiedono, insieme alla quantità di ciascuna. Per facilitare la comprensione, l'applicazione mostra anche il controvalore in valuta fiat per ciascuna criptovaluta posseduta. Inoltre, attraverso la libreria react-chartjs-2, viene mostrato un grafico in cui è possibile monitorare le percentuali di ciascun asset detenuto nel portafoglio dell'utente.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Visualizzazione lista operazioni:
+Gli utenti possono accedere a un elenco dettagliato delle operazioni svolte (acquisti e vendite). Questa sezione fornisce agli utenti una panoramica completa delle loro attività e consente loro di generare report utili ai fini fiscali o per tenere traccia delle proprie posizioni nel tempo. E' possibile filtrare le operazioni per:
+  - range di date;
+  - tipo operazione (BUY/SELL);
+  - crypto.
