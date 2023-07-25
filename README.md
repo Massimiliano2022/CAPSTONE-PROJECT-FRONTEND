@@ -1,7 +1,7 @@
 # DigitFin Exchange - Front-End
 Applicazione di scambio di criptovalute che consente agli utenti di acquistare, vendere e monitorare il valore delle criptovalute. L'applicazione offre una varietà di funzionalità avanzate e strumenti per consentire agli utenti di gestire le proprie operazioni in modo efficace.
 
-![Immagine 2023-07-24 162638](https://github.com/Massimiliano2022/CAPSTONE-PROJECT-FRONTEND/assets/120369719/5fcebfb2-2d1c-449c-906e-ac6f4c228752)
+![Immagine 2023-07-24 162638](https://github.com/Massimiliano2022/CAPSTONE-PROJECT-FRONTEND/assets/120369719/d3295dd9-767d-4cf2-b726-dc17f8fc00d8)
 
 # Descrizione
 Questo è il repository Front-End dell'applicazione DigitFin Exchange. Fornisce un'interfaccia semplice e intuitiva permettendo agli utenti di monitorare i prezzi delle diverse criptovalute ed effettuare operazioni di acquisto e vendita in modo agevole.
