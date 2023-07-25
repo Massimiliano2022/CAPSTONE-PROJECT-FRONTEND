@@ -222,25 +222,27 @@ const MyMain = () => {
                 <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
                     <Col md={6} className='d-flex flex-column justify-content-between'>
                         <h1>Compra e scambia Crypto su DigitFin</h1>
-                        <Button
-                            onClick={effettuaOperazione}
-                            style={{ color: "black" }}
-                            className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
-                        >
-                            <span className='fs-4 pe-2'>
-                                <BsCurrencyExchange />
-                            </span>
-                            Compra
-                        </Button>
-                        <Link
-                            to={"/wallet"}
-                            className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50 mt-4"
-                        >
-                            <span className='fs-4 pe-2'>
-                                <BsWallet2 />
-                            </span>
-                            Wallet
-                        </Link>
+                        <div>
+                            <Button
+                                onClick={effettuaOperazione}
+                                style={{ color: "black" }}
+                                className="btn btn-warning nav-link text-center rounded rounded-1 p-2 w-50 my-3"
+                            >
+                                <span className='fs-4 pe-2'>
+                                    <BsCurrencyExchange />
+                                </span>
+                                Compra
+                            </Button>
+                            <Link
+                                to={"/wallet"}
+                                className="btn btn-dark nav-link text-center rounded rounded-1 p-2 w-50"
+                            >
+                                <span className='fs-4 pe-2'>
+                                    <BsWallet2 />
+                                </span>
+                                Wallet
+                            </Link>
+                        </div>
                     </Col>
                     <Col md={6} className='d-flex justify-content-end'>
                         <img className="object-fit-cover img-fluid main-img" src={mainImg} alt='exchange' />
