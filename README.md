@@ -26,7 +26,6 @@ Ora puoi eseguire il progetto :
 
 # Tecnologie utilizzate
 
-Front-end:
 - React : libreria per lo sviluppo front-end più utilizzata. Permette di creare app veloci, scalabili e mantenibili nel tempo;
 - React-Bootstrap : libreria react costruita sulla base del framework Css Bootstrap;
 - React-Router-Dom : libreria per SPA (Single Page Application), simula il cambiamento di pagina e gestisce la navigazione nella nostra applicazione react,
