@@ -221,7 +221,7 @@ const MyMain = () => {
                 </Row>
                 <Row className={`w-100 ${utenteCorrente && utenteCorrente.jwtToken ? '' : 'd-none'}`}>
                     <Col md={6} className='d-flex flex-column justify-content-between'>
-                        <h1>Compra e scambia Crypto su DigitFin</h1>
+                        <h1 className='w-75'>Compra e scambia Crypto su DigitFin</h1>
                         <div>
                             <Button
                                 onClick={effettuaOperazione}
